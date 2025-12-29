@@ -1,11 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  MessageSquare, 
-  FileText, 
-  Cpu, 
-  ShieldCheck, 
+import {
+  ShieldCheck,
   ArrowRight,
   Slack,
   Github,
@@ -16,6 +13,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/Button';
 import { FeatureItem } from '../types';
+import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
 
 const features: FeatureItem[] = [
   {
@@ -78,7 +76,7 @@ const HomePage: React.FC = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                 </span>
-                <span>Nexloom v1.0.0 リリース</span>
+                <span>Web版公開 + デスクトップ版リリース</span>
               </div>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight mb-8 leading-[1.1]">
                 チームのすべてを、<br/>
@@ -88,16 +86,21 @@ const HomePage: React.FC = () => {
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed">
                 Nexloomは、チャット、ドキュメント、AI議事録を統合した、<br className="hidden md:block" />
-                チームのための最も洗練されたワークスペースです。
+                チームのための最も洗練されたワークスペースです。まずはWeb版で体験できます。
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <Link to="/download">
+                <a href={WEB_APP_URL} className="w-full sm:w-auto" aria-label="Nexloom Webアプリを開く">
                   <Button size="lg" className="w-full sm:w-auto px-10 h-16 text-lg rounded-2xl shadow-xl shadow-indigo-200 hover:shadow-indigo-300 transition-all">
-                    無料でダウンロード
+                    Webアプリを開く
+                  </Button>
+                </a>
+                <Link to="/download" className="w-full sm:w-auto">
+                  <Button variant="secondary" size="lg" className="w-full sm:w-auto px-10 h-16 text-lg rounded-2xl border-2 border-slate-200 hover:border-slate-300 transition-all bg-white/50 backdrop-blur-sm">
+                    デスクトップ版をダウンロード
                   </Button>
                 </Link>
-                <Link to="/docs">
-                  <Button variant="secondary" size="lg" className="w-full sm:w-auto px-10 h-16 text-lg rounded-2xl border-2 border-slate-200 hover:border-slate-300 transition-all bg-white/50 backdrop-blur-sm" icon={<FileText size={20} />}>
+                <Link to="/docs" className="w-full sm:w-auto">
+                  <Button variant="ghost" size="lg" className="w-full sm:w-auto px-8 h-16 text-lg rounded-2xl">
                     ドキュメント
                   </Button>
                 </Link>
@@ -261,16 +264,26 @@ const HomePage: React.FC = () => {
             <div className="bg-indigo-600 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-indigo-200">
                <div className="relative z-10">
                   <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight">
-                     チームのポテンシャルを<br/>解き放ちましょう。
+                     いますぐWebで、<br/>チームのポテンシャルを解放。
                   </h2>
                   <p className="text-xl text-indigo-100 mb-12 max-w-2xl mx-auto leading-relaxed">
-                     Nexloom v1.0.0 は現在すべてのプラットフォームで無料で利用可能です。
+                     インストール不要。ブラウザからすぐに始められます。デスクトップ版も用意しています。
                   </p>
-                  <Link to="/download">
-                     <Button variant="secondary" size="lg" className="h-16 px-12 text-lg rounded-2xl bg-white text-indigo-600 hover:bg-indigo-50 border-none">
-                        Nexloomを今すぐ始める
-                     </Button>
-                  </Link>
+                  <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href={WEB_APP_URL} className="w-full sm:w-auto" aria-label="Nexloom Webアプリを開く">
+                      <Button variant="secondary" size="lg" className="w-full sm:w-auto h-16 px-12 text-lg rounded-2xl bg-white text-indigo-600 hover:bg-indigo-50 border-none">
+                        Webアプリを開く
+                      </Button>
+                    </a>
+                    <Link to="/download" className="w-full sm:w-auto">
+                      <Button variant="ghost" size="lg" className="w-full sm:w-auto h-16 px-10 text-lg rounded-2xl text-white border border-white/40 hover:bg-white/10">
+                        デスクトップ版を見る
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="mt-6 text-sm text-indigo-100/80">
+                    デスクトップ版リリース: <a href={DESKTOP_RELEASE_URL} className="font-semibold underline underline-offset-4 hover:text-white">v0.1.0</a>
+                  </div>
                </div>
                {/* Decorative blobs */}
                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl" />

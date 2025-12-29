@@ -2,6 +2,7 @@ import React from 'react';
 import { Check, X } from 'lucide-react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
+import { WEB_APP_URL } from '../constants/links';
 
 const PricingPage: React.FC = () => {
   const plans = [
@@ -22,7 +23,7 @@ const PricingPage: React.FC = () => {
         '高度なAIアシスタント',
       ],
       cta: '無料で始める',
-      ctaLink: '/download',
+      ctaLink: WEB_APP_URL,
       recommended: false,
     },
     {
@@ -42,7 +43,7 @@ const PricingPage: React.FC = () => {
         '監査ログ',
       ],
       cta: 'Proを試す (14日間無料)',
-      ctaLink: '/download',
+      ctaLink: WEB_APP_URL,
       recommended: true,
     },
     {
@@ -121,14 +122,25 @@ const PricingPage: React.FC = () => {
                 </ul>
               </div>
 
-              <Link to={plan.ctaLink} className="w-full">
-                <Button
-                  variant={plan.recommended ? 'primary' : 'outline'}
-                  className="w-full justify-center"
-                >
-                  {plan.cta}
-                </Button>
-              </Link>
+              {plan.ctaLink.startsWith('http') ? (
+                <a href={plan.ctaLink} className="w-full" aria-label={`${plan.name}のWeb版を開く`}>
+                  <Button
+                    variant={plan.recommended ? 'primary' : 'outline'}
+                    className="w-full justify-center"
+                  >
+                    {plan.cta}
+                  </Button>
+                </a>
+              ) : (
+                <Link to={plan.ctaLink} className="w-full">
+                  <Button
+                    variant={plan.recommended ? 'primary' : 'outline'}
+                    className="w-full justify-center"
+                  >
+                    {plan.cta}
+                  </Button>
+                </Link>
+              )}
             </div>
           ))}
         </div>

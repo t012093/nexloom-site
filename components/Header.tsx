@@ -3,11 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Layers } from 'lucide-react';
 import { NavItem } from '../types';
 import Button from './Button';
+import { WEB_APP_URL } from '../constants/links';
 
 const navItems: NavItem[] = [
   { label: 'ホーム', href: '/' },
   { label: '機能', href: '/#features' },
   { label: '料金プラン', href: '/pricing' },
+  { label: 'デスクトップ', href: '/download' },
   { label: 'ドキュメント', href: '/docs' },
   { label: 'ブログ', href: '/blog' },
 ];
@@ -63,10 +65,13 @@ const Header: React.FC = () => {
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center space-x-4">
-            <Link to="/download" className="hidden md:block">
+            <a href={WEB_APP_URL} className="hidden md:block" aria-label="Nexloom Webアプリを開く">
               <Button variant="primary" size="sm">
-                ダウンロード
+                Webアプリを開く
               </Button>
+            </a>
+            <Link to="/download" className="hidden md:block text-sm font-semibold text-slate-600 hover:text-primary-600 transition-colors">
+              デスクトップ版
             </Link>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -92,8 +97,11 @@ const Header: React.FC = () => {
               </Link>
             ))}
             <div className="pt-4">
-              <Link to="/download" className="block w-full">
-                <Button className="w-full justify-center">ダウンロード</Button>
+              <a href={WEB_APP_URL} className="block w-full" aria-label="Nexloom Webアプリを開く">
+                <Button className="w-full justify-center">Webアプリを開く</Button>
+              </a>
+              <Link to="/download" className="block w-full mt-3">
+                <Button variant="outline" className="w-full justify-center">デスクトップ版</Button>
               </Link>
             </div>
           </div>

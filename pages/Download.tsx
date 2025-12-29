@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Download, Apple, Monitor, Laptop, ArrowRight, ShieldCheck, Zap, Globe } from 'lucide-react';
 import Button from '../components/Button';
 import { OSType } from '../types';
+import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
 
 const DownloadPage: React.FC = () => {
   const [os, setOs] = useState<OSType>(OSType.UNKNOWN);
@@ -25,6 +26,7 @@ const DownloadPage: React.FC = () => {
       sublabel: 'Apple Silicon (M1/M2/M3)',
       icon: Apple,
       file: 'Nexloom-1.0.0-arm64.dmg',
+      url: DESKTOP_RELEASE_URL,
       recommended: os === OSType.MAC_SILICON
     },
     {
@@ -33,6 +35,7 @@ const DownloadPage: React.FC = () => {
       sublabel: '10 / 11 (64-bit)',
       icon: Monitor,
       file: 'Nexloom-Setup-1.0.0.exe',
+      url: DESKTOP_RELEASE_URL,
       recommended: os === OSType.WINDOWS
     },
     {
@@ -41,6 +44,7 @@ const DownloadPage: React.FC = () => {
       sublabel: 'Intel Processor',
       icon: Laptop,
       file: 'Nexloom-1.0.0-x64.dmg',
+      url: DESKTOP_RELEASE_URL,
       recommended: false
     }
   ];
@@ -57,11 +61,48 @@ const DownloadPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">Nexloomをダウンロード</h1>
+          <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">デスクトップ版をダウンロード</h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            次世代のワークスペースを、あなたのデスクトップに。<br/>
-            高速・安全・AI搭載。チームのコミュニケーションを再定義します。
+            NexloomはWeb版が基本です。<br/>
+            デスクトップ版は、ローカル通知や専用ショートカットが必要な方におすすめです。
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-white rounded-[2.5rem] border border-indigo-100 shadow-[0_30px_60px_-12px_rgba(79,70,229,0.2)] p-8 md:p-10 mb-12"
+        >
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div className="flex items-start space-x-4">
+              <div className="p-4 bg-indigo-600 text-white rounded-2xl shadow-xl shadow-indigo-200">
+                <Globe size={32} />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-indigo-600 uppercase tracking-widest">Recommended</p>
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-2">まずはWeb版で始める</h2>
+                <p className="text-slate-600 leading-relaxed">
+                  インストール不要・いつでも最新版。チーム招待もすぐに完了します。
+                </p>
+                <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold text-slate-500">
+                  <span className="px-3 py-1 rounded-full bg-slate-100">ブラウザですぐ開始</span>
+                  <span className="px-3 py-1 rounded-full bg-slate-100">OSを問わず利用可能</span>
+                  <span className="px-3 py-1 rounded-full bg-slate-100">アップデート不要</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <a href={WEB_APP_URL} className="w-full sm:w-auto" aria-label="Nexloom Webアプリを開く">
+                <Button size="lg" className="w-full sm:w-auto h-14 px-8 text-base rounded-2xl shadow-lg shadow-indigo-200">
+                  Webアプリを開く
+                </Button>
+              </a>
+              <a href={DESKTOP_RELEASE_URL} className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
+                デスクトップ版のリリースへ <ArrowRight size={14} className="ml-1" />
+              </a>
+            </div>
+          </div>
         </motion.div>
 
         {/* Primary Download Area */}
@@ -86,21 +127,23 @@ const DownloadPage: React.FC = () => {
                           <option.icon size={40} />
                        </div>
                        <div>
-                          <p className="text-sm font-bold text-indigo-600 uppercase tracking-widest">Recommended for you</p>
+                          <p className="text-sm font-bold text-indigo-600 uppercase tracking-widest">Desktop Installer</p>
                           <h2 className="text-3xl font-black text-slate-900">{option.label}</h2>
                        </div>
                     </div>
                     
                     <h3 className="text-xl font-bold text-slate-800 mb-4">{option.sublabel}</h3>
                     <p className="text-slate-500 mb-10 leading-relaxed">
-                       お使いのシステムに最適化されたインストーラーが検出されました。ダウンロードして、数分でセットアップを完了できます。
+                       お使いのシステムに最適化されたインストーラーです。ダウンロードして、数分でセットアップを完了できます。
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center gap-4">
-                       <Button size="lg" className="w-full sm:w-auto h-16 px-10 text-lg rounded-2xl shadow-2xl shadow-indigo-200" icon={<Download />}>
-                          ダウンロード開始
-                       </Button>
-                       <span className="text-sm font-medium text-slate-400">Version 1.0.0 (Latest)</span>
+                      <a href={option.url} className="w-full sm:w-auto" aria-label={`${option.label}版のダウンロードページを開く`}>
+                        <Button size="lg" className="w-full sm:w-auto h-16 px-10 text-lg rounded-2xl shadow-2xl shadow-indigo-200" icon={<Download />}>
+                          GitHubでダウンロード
+                        </Button>
+                      </a>
+                      <span className="text-sm font-medium text-slate-400">Version 0.1.0</span>
                     </div>
                   </div>
                 );
@@ -111,7 +154,7 @@ const DownloadPage: React.FC = () => {
                   <ShieldCheck size={18} className="text-emerald-500" />
                   <span>Verified & Secure Installer</span>
                </div>
-               <a href="#" className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
+               <a href={DESKTOP_RELEASE_URL} className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
                   リリースノート <ArrowRight size={14} className="ml-1" />
                </a>
             </div>
@@ -164,21 +207,21 @@ const DownloadPage: React.FC = () => {
                 <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">その他のプラットフォーム</h4>
                 <div className="space-y-3">
                    {downloadOptions.map(opt => (
-                      <button key={opt.os} className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
+                      <a key={opt.os} href={opt.url} className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
                          <div className="flex items-center space-x-3">
                             <opt.icon size={20} className="text-slate-600" />
                             <span className="font-bold text-slate-700 text-sm">{opt.label} ({opt.sublabel})</span>
                          </div>
                          <Download size={16} className="text-slate-300 group-hover:text-indigo-600 transition-colors" />
-                      </button>
+                      </a>
                    ))}
-                   <button className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
+                   <a href={DESKTOP_RELEASE_URL} className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
                       <div className="flex items-center space-x-3">
                          <Globe size={20} className="text-slate-600" />
                          <span className="font-bold text-slate-700 text-sm">Linux (.AppImage / .deb)</span>
                       </div>
                       <Download size={16} className="text-slate-300 group-hover:text-indigo-600 transition-colors" />
-                   </button>
+                   </a>
                 </div>
              </div>
           </motion.div>
