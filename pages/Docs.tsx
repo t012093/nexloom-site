@@ -246,6 +246,16 @@ const DocsPage: React.FC = () => {
       ]
     },
     {
+      title: '開発者と運用',
+      items: [
+        { id: 'dev_portal', label: '開発者ドキュメント入口', icon: Terminal },
+        { id: 'api_reference', label: 'APIリファレンス', icon: Database },
+        { id: 'mcp_developer', label: 'MCPとAI連携', icon: Link },
+        { id: 'access_control', label: '権限と監査', icon: Shield },
+        { id: 'release_runbook', label: 'リリース運用', icon: Settings },
+      ]
+    },
+    {
       title: 'サポート',
       items: [
         { id: 'faq', label: 'よくある質問', icon: HelpCircle },
@@ -257,381 +267,325 @@ const DocsPage: React.FC = () => {
   const docsContent: Record<string, string> = {
     intro: `# Nexloomへようこそ
 
-Nexloom（ネクスルーム）は、チームのコラボレーション、ドキュメント作成、プロジェクト管理を一つの場所に集約した統合プラットフォームです。
+## 目的 / 結論 / 次アクション
 
-## 🚀 私たちのビジョン
+- 目的: Nexloomの全体像を短時間で把握し、正本ドキュメントへ移動できるようにする。
+- 結論: このページは「入口」であり、実装依存の仕様は ai-note-meet/docs を正本として扱う。
+- 次アクション: 利用目的に合わせて下記のカテゴリから一次情報へ進む。
 
-現代のチーム開発において、情報は常に「分断」されています。
-チャットアプリでの決定事項は流れ去り、ドキュメントツールは更新が滞り、プロジェクト管理ツールは実態と乖離していきます。
+## Nexloomの対象領域
 
-Nexloomはその壁を取り払い、**「会話からナレッジを即座に生成し、共有する」**ことを可能にします。
+- チームコミュニケーション（チャンネル/通知）
+- 会議と議事録（録画・要約・アクション化）
+- プロジェクトとタスク運用
+- ページ/ナレッジ管理
+- MCP/API連携と運用
 
-> **Note**: Nexloomは現在パブリックベータ版です。フィードバックを積極的に募集しています。
+## 主要導線（正本）
 
-### Nexloomの3つの柱
+| 目的 | ドキュメント |
+| --- | --- |
+| 全体インデックス | [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/README.md) |
+| API全体像 | [docs/API_OVERVIEW.md](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) |
+| 本番構成 | [docs/PRODUCTION_ARCHITECTURE.md](https://github.com/t012093/ai-note-meet/blob/main/docs/PRODUCTION_ARCHITECTURE.md) |
+| リリース運用 | [docs/ops/runbooks/](https://github.com/t012093/ai-note-meet/tree/main/docs/ops/runbooks) |
+| MCP連携 | [docs/MCP_REFERENCE.md](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md) |
 
-1. **Unification (統合)**
-   すべての仕事道具を1つのウィンドウに。アプリの切り替えによるコンテキストスイッチを最小限に抑えます。
+## 注意
 
-2. **AI-Native (AIネイティブ)**
-   Google Gemini APIを中核に据え、議事録作成や要約、ナレッジの抽出をAIが自動化します。
-
-3. **Privacy-First (プライバシー重視)**
-   データはローカルと、あなたが管理する暗号化されたクラウドに。プライバシーを最優先に設計されています。`,
+- 最新仕様の確認時は、必ずリンク先の更新日と対象ブランチを確認してください。`,
 
     concept: `# コンセプトと仕組み
 
-Nexloomのアーキテクチャとデータの流れについて解説します。
+## 目的 / 結論 / 次アクション
 
-## アーキテクチャ概要
+- 目的: アーキテクチャ説明の参照先を固定し、古い図や断定文の残存を防ぐ。
+- 結論: 構成図とデータフローは architecture/spec を正本とし、このページでは入口だけを示す。
+- 次アクション: 変更対象（通知・会議・AI・組織境界）に応じて該当資料を選択する。
 
-Nexloomは「ローカルファースト」かつ「AIネイティブ」な設計を採用しています。
+## 概要
 
-\`\`\`mermaid
-graph TD
-    User[ユーザー] --> Client[Nexloom Client]
-    Client --> Backend[Backend Server]
-    
-    subgraph "Data Layer"
-        Backend --> DB[Supabase DB]
-        Backend --> Vector[Vector DB]
-    end
-    
-    subgraph "AI Core"
-        Backend --> Gemini[Google Gemini 2.0]
-        Backend --> Agents[AI Agents]
-    end
-    
-    subgraph "Realtime & Media"
-        Client --> LiveKit[LiveKit Server]
-        LiveKit --> Backend
-    end
-\`\`\`
+- Nexloomは、Webフロントエンド、APIバックエンド、データ基盤、リアルタイム/会議基盤、AI実行系で構成されます。
+- 境界設計（認可・組織分離・通知配信）は運用ドキュメントと合わせて確認します。
 
-### 主なコンポーネント
+## 正本ドキュメント
 
-- **Client**: React + Viteで構築されたモダンなフロントエンド。デスクトップアプリとして動作します。
-- **Backend**: FastAPIによるPythonバックエンド。ビジネスロジックとAI処理を担当します。
-- **Supabase**: データベース、認証、ストレージを提供するBaaS基盤。
-- **LiveKit**: 低遅延のビデオ会議とリアルタイム音声処理を実現するインフラ。
+- [Production Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/PRODUCTION_ARCHITECTURE.md)
+- [EC2 Unified OpenClaw Production Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/architecture/EC2_UNIFIED_OPENCLAW_PRODUCTION_ARCHITECTURE.md)
+- [Notifications Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md)
+- [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md)
 
-## データの流れ
+## 運用で見る資料
 
-1. **チャット/ドキュメント**: WebSocketを通じてリアルタイムに同期されます。
-2. **AI処理**: 会議の録音データやタスクの指令はバックエンドに送られ、Geminiモデルによって処理された後、結果がデータベースに保存されます。`,
+- [Operations Docs Index](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/README.md)
+- [Runbooks](https://github.com/t012093/ai-note-meet/tree/main/docs/ops/runbooks)`,
 
     start: `# クイックスタート
 
-Nexloomを使い始めるためのステップを解説します。
+## 目的 / 結論 / 次アクション
 
-## 1. アカウントのセットアップ
-アプリを起動すると、ログイン画面が表示されます。
-初回起動時は「Sign Up」を選択し、メールアドレスとパスワードでアカウントを作成してください。
+- 目的: 初期利用時に必要な導線を短く示し、実装同期した手順へ接続する。
+- 結論: 起動手順は README、運用前提は組織/権限仕様を正本にする。
+- 次アクション: 環境準備 -> 組織コンテキスト確認 -> 最初のプロジェクト作成の順で進める。
 
-![新規登録画面](/screenshots/signup.png)
+## 実行ステップ
 
-その後、オンボーディング画面で以下の設定を行います：
-- **表示名**: チームメンバーに表示される名前
-- **ロール**: エンジニア、デザイナーなどの役割
+1. 利用環境を決める（Web / Desktop / Mobile）。
+2. 起動手順を [README](https://github.com/t012093/ai-note-meet/blob/main/README.md) または [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) で確認する。
+3. 初回ログイン後、組織とロールの前提を [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md) と [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md) で確認する。
+4. 最初の運用単位としてプロジェクトを作成し、タスク運用は [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md) を参照する。
 
-![基本情報の設定](/screenshots/onboarding_basic.png)
+## 参照先
 
-- **MBTI/性格**: AIエージェントがあなたとのコミュニケーションを最適化するために使用します
-
-![働き方の設定](/screenshots/onboarding_style.png)
-
-## 2. 次のステップ
-アカウントの準備ができたら、まずはプロジェクトを作成しましょう。
-詳しくは [プロジェクトの作成](#projects) をご覧ください。`,
+- [Docs Index](https://github.com/t012093/ai-note-meet/blob/main/docs/README.md)
+- [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Mobile Release Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md)`,
 
     install: `# 利用方法とインストール
 
-Nexloomは、Webブラウザでそのまま利用するか、専用のデスクトップアプリをインストールして利用できます。
+## 目的 / 結論 / 次アクション
 
-## 🌐 Web版 (推奨)
-インストール不要で、最新の機能をすぐに利用できます。
-[Webアプリを起動](/app)
+- 目的: 利用開始の導線を最短で示す。
+- 結論: 最新配布物と起動手順は GitHub Releases と本体 README を正本として参照する。
+- 次アクション: 利用環境（Web / Desktop / Mobile）に合わせて以下リンクから手順を選ぶ。
 
-## 🖥 デスクトップアプリ版
-OSネイティブの通知や、より高度なショートカット機能を利用したい場合は、デスクトップ版のインストールを推奨します。
+## Web版
 
-### macOS
+- すぐに試す: [Webアプリを開く](https://ai-note-meet.vercel.app/)
 
-> **⚠️ 重要: 初回起動時の注意**
-> 現在、デスクトップアプリ版はAppleの公証（Notarization）プロセス中のため、通常のダブルクリックでは「開発元を検証できないため開けません」というセキュリティ警告が表示されます。
-> 以下の手順で起動してください。
+## Desktop版
 
-1. [ダウンロードページ](/download)から \`.dmg\` ファイルをダウンロードし、インストール（アプリケーションフォルダへドラッグ）します。
-2. アプリケーションフォルダ内のNexloomアイコンを **右クリック（または Controlキー + クリック）** します。
-3. 表示されるメニューから **「開く」** を選択します。
-4. 警告ダイアログが表示されますが、そのまま **「開く」** をクリックしてください。
+- 配布物: [GitHub Releases](https://github.com/t012093/ai-note-meet/releases)
+- 起動と開発者向けセットアップ: [README](https://github.com/t012093/ai-note-meet/blob/main/README.md)
 
-※ 一度この手順で許可すると、次回以降は通常通り起動できるようになります。
+## Mobile版（iOS/Android）
 
-### Windows
-1. [ダウンロードページ](/download)から \`.exe\` インストーラーをダウンロードします。
-2. インストーラーを実行し、画面の指示に従ってください。
-   - *Windows SmartScreenの警告が表示される場合は、「詳細情報」をクリックし、「実行」を選択してください。*
+- 概要とセットアップ: [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md)
+- 運用Runbook: [MOBILE_RELEASE_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md)
 
-### Linux
-Linux版は \`.AppImage\` 形式で提供されています。
-\`\`\`bash
-chmod +x Nexloom-x.x.x.AppImage
-./Nexloom-x.x.x.AppImage
-\`\`\`
+## 注意
+
+- このページは入口です。配布形式や審査要件の最新状態は、上記の正本ドキュメントを参照してください。
 `,
 
     ui_tour: `# 画面の見方
 
-Nexloomのインターフェースは、情報のアクセスしやすさを重視して設計されています。
+## 目的 / 結論 / 次アクション
 
-## サイドバー (左側)
-アプリケーションの主要なナビゲーションエリアです。
+- 目的: 画面構成を迷わず理解し、詳細仕様の正本へ移動できるようにする。
+- 結論: UIは継続的に改善されるため、機能仕様は API/spec/runbook を正本にする。
+- 次アクション: 操作で迷う場合は画面名ではなく機能カテゴリ（チャット/会議/タスク/ページ）で参照先を選ぶ。
 
-![ナビゲーション](/screenshots/tour_nav.png)
+## 主要エリア
 
-- **Global Navigation**: ホーム、チャット、タスク、カレンダーなどのビュー切り替え。
-- **Projects**: 参加しているプロジェクトの一覧。
+- 左サイドバー: ワークスペース、プロジェクト、チャンネル、ページへの移動。
+- ヘッダー: 検索、通知、現在のコンテキスト確認。
+- 右アクティビティ領域: メンバー、スレッド、補助パネル。
 
-![プロジェクト一覧](/screenshots/ui_projects_list.png)
+## 機能別の参照先
 
-- **Channels**: 現在のコンテキスト（プロジェクト等）に関連するチャットチャンネル。
-
-![チャンネル一覧](/screenshots/ui_channels_list.png)
-
-- **Pages**: ドキュメントの階層ツリー。
-
-## ヘッダー / その他
-- **Search**: ワークスペース全体から情報を検索します。
-
-![検索機能](/screenshots/tour_search.png)
-
-- **Notifications**: 自分へのメンションや返信を確認できます。
-
-![通知機能](/screenshots/tour_notify.png)
-
-## アクティビティバー (右側)
-補助的な情報やツールを表示します（設定でトグル可能）。
-- **Members**: オンラインメンバーの一覧。
-- **Thread**: チャットのスレッド表示。
-- **AI Chat**: AIアシスタントとの対話画面。`,
+| 機能カテゴリ | 参照先 |
+| --- | --- |
+| チャット/通知 | [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md), [Notifications Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md) |
+| 会議/議事録 | [LIVEKIT_ARCHITECTURE.md](https://github.com/t012093/ai-note-meet/blob/main/docs/LIVEKIT_ARCHITECTURE.md), [Meeting AI Unified Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MEETING_AI_AGENDA_ASSISTANT_MINUTES_UNIFIED_SPEC.md) |
+| タスク/運用 | [PROJECT_OPS_BOARD_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md), [AI_TASK_SUGGESTION_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/AI_TASK_SUGGESTION_SPEC.md) |
+| 権限/組織 | [ROLE_MANAGEMENT_API_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md), [MULTI_TENANT_ORGANIZATION_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md) |`,
 
     profiles: `# プロフィール設定
 
-チームメンバーに自分の状態を知らせるためのプロフィール設定について。
+## 目的 / 結論 / 次アクション
 
-## ステータスの変更
-サイドバー下部の自分のアイコンをクリックすると、ステータスを変更できます。
+- 目的: プロフィールロールと組織/プロジェクトロールの境界を明確にする。
+- 結論: プロフィール表示項目と権限判定ロールは分けて管理する。
+- 次アクション: 変更時は UI 操作と API 制約の両方を確認する。
 
-![ステータスとプロフィール](/screenshots/tour_profile.png)
+## 運用ポイント
 
-- **🟢 Online**: オンライン・作業中
-- **🔴 Busy**: 取り込み中（通知がミュートされます）
-- **🟡 Away**: 離席中
-- **⚪ Offline**: オフライン
+- プロフィールロール（Member/Operator/Manager/Admin/Guest）は表示・運用上の役割分類。
+- 組織ロール（owner/admin/member）とプロジェクトロールは、アクセス制御に直結する。
+- 最後のowner制約など、変更不可条件は API spec 側のルールを優先する。
 
-## プロフィール編集
-「Settings」>「Profile」から以下の情報を編集できます。
-- **アバター画像**: 画像のアップロード
-- **表示名**: 名前
-- **役職/ロール**: チーム内での役割
-- **性格特性**: AIとの対話調整用パラメータ`,
+## 正本ドキュメント
+
+- [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md)
+- [Role Management API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md)
+- [Membership Management API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MEMBERSHIP_MANAGEMENT_API_SPEC.md)`,
 
     channels: `# チャンネルとチャット
 
-リアルタイムなコミュニケーション機能について解説します。
+## 目的 / 結論 / 次アクション
 
-## チャンネルの種類
-- **# General**: プロジェクト作成時に自動生成される全体チャンネル。
-- **🔒 Private**: 招待されたメンバーのみが閲覧できるチャンネル。
-- **📢 Announcements**: 管理者のみが投稿できる周知用チャンネル。
+- 目的: チャンネルとチャットの仕様参照先を明確にする。
+- 結論: 実際の挙動は API 仕様と通知アーキテクチャを正本として確認する。
+- 次アクション: チャット関連の変更時は、API仕様と通知テスト手順を同時更新する。
 
-![チャンネル一覧](/screenshots/ui_channels_list.png)
+## 概要
 
-## メッセージ機能
-### スレッド (Thread)
-メッセージに対して「返信」アイコンをクリックすると、スレッドが開始されます。メインのタイムラインを汚さずに詳細な議論を行えます。
+- チャンネル、メッセージ、未読管理、通知は組織コンテキストで運用されます。
+- UIの表示名や導線は改善されることがあるため、実装依存の細部は正本資料を参照してください。
 
-### メンション
-- \`@username\`: 特定のユーザーに通知を送ります。
-- \`@channel\`: チャンネル参加者全員に通知を送ります。
+## 正本ドキュメント
 
-### リアクション
-メッセージにカーソルを合わせ、絵文字アイコンをクリックすることで、リアクションを追加できます。`,
+- [API Overview (Channels / Messages / Notifications)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Notifications Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md)
+- [Notifications Test Procedure](https://github.com/t012093/ai-note-meet/blob/main/docs/tests/TEST_PROCEDURE_NOTIFICATIONS.md)`,
 
     meetings: `# 会議とAI議事録
 
-Nexloomの最も強力な機能の一つである、統合された会議システムについて解説します。
+## 目的 / 結論 / 次アクション
 
-## 会議のフロー
+- 目的: 会議機能とAI議事録の実装参照先を統一する。
+- 結論: 会議基盤は LiveKit 系アーキテクチャ、議事録処理は Meeting AI の仕様を正本とする。
+- 次アクション: 会議体験や要約ロジック変更時は、関連specとrunbookの更新をセットで行う。
 
-\`\`\`mermaid
-sequenceDiagram
-    participant User
-    participant LiveKit
-    participant Backend
-    participant Gemini
-    
-    User->>LiveKit: 会議開始
-    User->>LiveKit: 録画開始
-    LiveKit-->>Backend: ストリーム送信
-    User->>LiveKit: 会議終了
-    LiveKit->>Backend: 録画ファイル転送
-    Backend->>Gemini: 音声データを送信
-    Gemini-->>Backend: 文字起こし & 要約生成
-    Backend->>User: 議事録ページを作成・通知
-\`\`\`
+## 概要
 
-## 手順
-1. **会議を開始**: チャンネル右上のビデオアイコン、または \`/meet start\` コマンドで開始します。
-2. **画面共有**: 必要に応じて画面を共有します。
-3. **AI記録**: 画面上の「Start Recording」ボタンを押すと、AIによる記録が始まります。
-4. **自動生成**: 会議終了後、数分以内に「議事録」フォルダに新しいページが生成されます。これには以下が含まれます：
-    - 全文の文字起こし
-    - 議論の要約
-    - 決定事項リスト
-    - ネクストアクション`,
+- 会議、録画、要約生成は複数コンポーネントで連携するため、UI説明だけでは仕様を固定できません。
+- 運用判断や障害対応は、下記の正本ドキュメントを優先してください。
+
+## 正本ドキュメント
+
+- [LiveKit Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/LIVEKIT_ARCHITECTURE.md)
+- [Meeting AI Unified Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MEETING_AI_AGENDA_ASSISTANT_MINUTES_UNIFIED_SPEC.md)
+- [OpenClaw Mobile Gateway Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/OPENCLAW_MOBILE_GATEWAY_RUNBOOK.md)`,
 
     projects: `# プロジェクトの作成
 
-ワークスペース内での活動単位である「プロジェクト」について。
+## 目的 / 結論 / 次アクション
 
-## プロジェクトとは
-Nexloomにおけるプロジェクトは、特定の目的（例：製品開発、マーケティングキャンペーン）のために集まったメンバー、タスク、ドキュメント、チャットの集合体です。
+- 目的: プロジェクト運用の基本単位と仕様参照先を明確にする。
+- 結論: プロジェクト作成/権限/運用ルールは API + spec を正本として確認する。
+- 次アクション: 作成前に対象組織、メンバー権限、関連タスク運用の責任者を決める。
 
-![プロジェクト管理](/screenshots/tour_projects.png)
+## 概要
 
-## 作成手順
-1. サイドバーの **Projects +** をクリック。
-2. 基本情報を入力し、初期メンバーを招待します。
-3. プロジェクトが作成されると、専用のダッシュボードが表示されます。
+- プロジェクトは、メンバー、チャンネル、ページ、タスクを束ねる運用単位です。
+- 詳細なUI手順や項目名は変更される可能性があるため、固定文ではなく一次資料を優先します。
 
-## プロジェクト設定
-プロジェクト名の横の「...」メニューから設定にアクセスできます。
-- **メンバー管理**: メンバーの追加・削除、権限変更。
-- **アーカイブ**: プロジェクトを読み取り専用にして保存します。`,
+## 実行プロセス
+
+1. API上の動作を [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) で確認する。
+2. ボード運用方針を [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md) で確認する。
+3. 組織境界と権限は [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md) を参照する。
+4. 役割運用は [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md) を参照する。`,
 
     tasks: `# タスクとボード
 
-プロジェクトの進捗を管理するためのカンバンボード機能です。
+## 目的 / 結論 / 次アクション
 
-## ステータス定義
-Nexloomのタスクボードは、以下の厳密なステータスフローに基づいています。
+- 目的: タスク管理仕様とAI補助仕様の参照先を明確にする。
+- 結論: ステータス遷移・ボード運用・AI提案は spec を正本として扱う。
+- 次アクション: タスク運用ルール変更時は API + spec + UI文言の3点を同時更新する。
 
-\`\`\`mermaid
-stateDiagram-v2
-    [*] --> Idea
-    Idea --> Planning
-    Planning --> InProgress
-    InProgress --> Review
-    Review --> Done
-    Done --> [*]
-\`\`\`
+## 概要
 
-- **Idea**: アイディア段階。まだ着手は未定。
-- **Planning**: 計画中。仕様詰めやアサイン待ち。
-- **InProgress**: 実行中。
-- **Review**: レビュー待ち。
-- **Done**: 完了。
+- タスクはプロジェクト運用の中心で、ステータス遷移・担当割当・AI提案が連携します。
+- 表示名や補助機能は改善されるため、固定文よりも正本参照を優先してください。
 
-## タスクの操作
-- **作成**: カラム下部の「+」またはショートカット \`c\`。
-- **移動**: ドラッグ＆ドロップでステータスを変更。
-- **詳細**: カードをクリックして詳細ビューを開き、チェックリストや期限を設定。`,
+## 正本ドキュメント
+
+- [API Overview (Tasks)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md)
+- [AI Task Suggestion Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/AI_TASK_SUGGESTION_SPEC.md)`,
 
     task_agents: `# AIエージェント
 
-タスクを自律的に実行するAIエージェント機能です。
+## 目的 / 結論 / 次アクション
 
-## エージェントの種類
-- **Researcher**: 情報収集や調査タスクが得意。
-- **Coder**: コードスニペットの生成やレビュー（現状はテキストベース）。
-- **Writer**: ドキュメントの下書きや推敲。
+- 目的: タスク実行系AIの仕様参照先を統一する。
+- 結論: 実行フロー、状態遷移、API契約は task/automation spec を正本にする。
+- 次アクション: エージェント挙動変更時は API spec と実行アーキテクチャを同時更新する。
 
-## 依頼方法
-1. タスクを作成し、詳細画面を開きます。
-2. 「Assignee」フィールドで、人間のメンバーではなく「AI Agent」を選択します。
-3. コメント欄で具体的な指示（プロンプト）を入力します。
-4. エージェントが作業を開始し、進捗や成果物をコメントとして投稿します。`,
+## 概要
+
+- タスクエージェントは、タスク詳細からの実行、AIログ記録、状態遷移を組み合わせて運用される。
+- 自動化実行は backend runtime と認証プロファイル運用の影響を受ける。
+
+## 正本ドキュメント
+
+- [Task Agent Execution Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/TASK_AGENT_EXECUTION_ARCHITECTURE.md)
+- [Automation API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/AUTOMATION_API_SPEC.md)
+- [Automation Scheduler User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/AUTOMATION_SCHEDULER_USER_GUIDE.md)
+- [Automation Scheduler Developer Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/AUTOMATION_SCHEDULER_DEVELOPER_GUIDE.md)`,
 
     pages: `# ページと階層構造
 
-Notionライクなドキュメント管理機能です。
+## 目的 / 結論 / 次アクション
 
-## 構造
-ページは無限にネスト（入れ子）させることができます。
-- **親ページ**: プロジェクトのルートやフォルダ。
-- **子ページ**: 特定のトピックに関する詳細ドキュメント。
+- 目的: ページ運用（読取/検索/公開）の参照先を明確にする。
+- 結論: ページ運用は project-document 系specと API を正本にする。
+- 次アクション: 公開運用や検索精度の変更時は page spec と runbook を同時に確認する。
 
-## アイコンとカバー
-各ページにはアイコン（絵文字）を設定でき、サイドバーでの視認性を高めます。
+## 概要
 
-## 共有設定
-デフォルトではプロジェクトメンバー全員が閲覧可能です。
-右上の「Share」ボタンから、以下の設定が可能です。
-- **Public Share**: 外部公開用のURLを発行します（読み取り専用）。
-- **Private**: 特定のメンバーのみにアクセスを制限します。`,
+- ページはプロジェクトとの関連、公開URL、権限制御、RAG索引の影響を受ける。
+- 表示項目やエディタ操作は変わり得るため、挙動確認は一次仕様を優先する。
+
+## 正本ドキュメント
+
+- [API Overview (Pages)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md)
+- [Page Body RAG Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PAGE_BODY_RAG_PHASE2_SPEC.md)
+- [MCP Docs Operation Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MCP_DOCS_OPERATION_SPEC.md)`,
 
     editor: `# ブロックエディタ
 
-直感的なブロックベースのエディタの使い方。
+## 目的 / 結論 / 次アクション
 
-## 基本操作
-- **テキスト入力**: そのままタイプしてテキストを入力。
-- **ブロックメニュー**: 行頭で \`/\` を入力するとメニューが開きます。
+- 目的: エディタ操作とデータ保存仕様の参照先を統一する。
+- 結論: ブロック編集、添付ファイル、抽出処理は API/spec 側を正本にする。
+- 次アクション: 仕様変更時は保存形式・抽出ジョブ・検索経路への影響を確認する。
 
-## 利用可能なブロック
-### Basic
-- 見出し (H1, H2, H3)
-- リスト (箇条書き, 番号付き)
-- チェックリスト
-- 引用
+## 概要
 
-### Media & Advanced
-- **Code Block**: シンタックスハイライト対応。言語を選択可能。
-- **Mermaid**: フローチャートやシーケンス図を描画。
-- **Image**: 画像のアップロードまたは貼り付け。
-- **File**: ファイルの添付。
+- エディタはページ本文管理とアセット連携（画像/ファイル）を含む。
+- 本文は検索・要約機能とも接続されるため、保存仕様の変更は横断影響がある。
 
-### AI Meeting Block
-会議の録画と連携する特殊ブロックです。
-- **Upload**: 音声ファイルを手動アップロードして解析。
-- **Summary**: AIが生成した要約を表示エリア。`,
+## 正本ドキュメント
+
+- [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md)
+- [Asset Storage and Extraction Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ASSET_STORAGE_AND_EXTRACTION_SPEC.md)
+- [Page Body RAG Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PAGE_BODY_RAG_PHASE2_SPEC.md)`,
 
     databases: `# データベース
 
-ページ内に構造化されたデータを埋め込む機能です。
-（※現在ベータ版機能として提供中）
+## 目的 / 結論 / 次アクション
 
-## テーブルビュー
-タスクや顧客リストなどを表形式で管理できます。
-列のプロパティとして以下をサポートしています：
-- テキスト
-- 数値
-- セレクト（タグ）
-- 日付
-- ユーザー`,
+- 目的: 構造化データ運用の参照先を明確にし、実装との差分を減らす。
+- 結論: データモデル・RLS・抽出/検索の仕様は SQL/spec 文書を正本とする。
+- 次アクション: スキーマ変更時は SQL docs と API/spec の整合性を先に確認する。
+
+## 概要
+
+- 構造化データは API、SQL、RLS、検索基盤が連動して成立する。
+- UI上の見え方は変わるため、データ定義や制約は一次資料で確認する。
+
+## 正本ドキュメント
+
+- [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [SQL Docs Index](https://github.com/t012093/ai-note-meet/blob/main/docs/sql/README.md)
+- [Asset Storage and Extraction Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ASSET_STORAGE_AND_EXTRACTION_SPEC.md)
+- [RAG Project Intelligence Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/RAG_PROJECT_INTELLIGENCE_SPEC.md)`,
 
     ai_assistant: `# AIコンパニオン
 
-常駐型のAIアシスタント機能について。
+## 目的 / 結論 / 次アクション
 
-## APIキーの設定
-NexloomのAI機能を利用するには、Google Gemini APIキーが必要です。
-「Settings」>「連携設定」からAPIキーを入力し、保存してください。
+- 目的: AIチャット/自動化機能の参照先を統一し、運用時の切り分けを容易にする。
+- 結論: AIコンパニオンの挙動は automation API と runtime architecture を正本にする。
+- 次アクション: 反応遅延や失敗時は API と runtime runbook をセットで確認する。
 
-![Gemini API設定](/screenshots/settings_gemini.png)
+## 概要
 
-## サイドバーチャット
-画面右側のアクティビティバーから、いつでもAIと会話できます。
-現在のページの内容をコンテキストとして認識しているため、「このページを要約して」や「ここにあるコードのバグを見つけて」といった指示が可能です。
+- AIコンパニオンは会話系API、文脈組み立て、実行ランタイムの連携で成立する。
+- 提供モデルやfallback経路は運用環境で変わるため、固定文で断定しない。
 
-## インラインAI
-エディタ上でテキストを選択し、「Ask AI」をクリックすると、その部分に対して以下の操作を行えます。
-- **Improve writing**: 文章の推敲
-- **Fix grammar**: 文法修正
-- **Translate**: 翻訳
-- **Summarize**: 要約`,
+## 正本ドキュメント
+
+- [Automation API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/AUTOMATION_API_SPEC.md)
+- [LLM Automation Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/architecture/LLM_AUTOMATION_ARCHITECTURE.md)
+- [OpenClaw AI Chat and Meeting Chat Brushup Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/OPENCLAW_AI_CHAT_AND_MEETING_CHAT_BRUSHUP_SPEC.md)
+- [Auth Runtime Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/AUTH_RUNTIME_RUNBOOK.md)`,
 
     mcp: `# MCP連携
 
@@ -652,79 +606,247 @@ Nexloom MCP Serverは以下のツールを公開しています：
 
 ## 設定方法
 \`claude_desktop_config.json\` 等にNexloomのMCPエンドポイントを設定することで、Claudeデスクトップアプリ等からNexloomを操作できるようになります。
-詳細な設定手順は [GitHubリポジトリ](https://github.com/t012093/nexusworkspace) を参照してください。`,
+詳細な設定手順は [MCP Reference（ai-note-meet）](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md) を参照してください。`,
 
     lineworks: `# LINE WORKS連携
 
-LINE WORKSとの連携により、企業間のコミュニケーションをスムーズにします。
+## 目的 / 結論 / 次アクション
 
-## 機能
-- **メッセージ同期**: LINE WORKSのトークルームとNexloomのチャンネルを双方向に同期します。
-- **通知転送**: メンションやタスクの割り当てをLINE WORKSに通知します。
+- 目的: LINE WORKS連携の設定/運用の正本導線を明確にする。
+- 結論: 連携仕様は integration guide・API overview・SQL定義を正本にする。
+- 次アクション: 有効化前に webhook URL、リンク対象、DBテーブル適用状況を確認する。
 
-## 設定手順
-1. Nexloomの「Settings」>「Integrations」を開きます。
-2. LINE WORKSのAPI情報を入力します（Client ID, Client Secret, Service Accountなど）。
-3. 「Link User」ボタンから、NexloomユーザーとLINE WORKSアカウントを紐付けます。`,
+## 概要
+
+- LINE WORKS連携は webhook受信、チャンネル/プロジェクト/ユーザーリンク、送信ログ管理で構成される。
+- 環境ごとに設定値（URL/認証情報）が異なるため、必ず環境別に手順を確認する。
+
+## 正本ドキュメント
+
+- [LINE WORKS Integration](https://github.com/t012093/ai-note-meet/blob/main/docs/LINEWORKS_INTEGRATION.md)
+- [API Overview (LINE WORKS)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [LINE WORKS SQL Integration](https://github.com/t012093/ai-note-meet/blob/main/docs/sql/integrations/lineworks_integration.sql)
+- [README (LINE WORKS section)](https://github.com/t012093/ai-note-meet/blob/main/README.md)`,
 
     admin_console: `# 管理コンソール
 
-組織の管理者が利用できる機能です。
+## 目的 / 結論 / 次アクション
 
-## ユーザー管理
-- **ユーザー一覧**: 登録済みユーザーの確認、検索。
-- **ロール変更**: MemberからAdminへの昇格、またはその逆。
-- **アカウント停止**: 退職者などのアカウントを無効化。
+- 目的: 管理権限の操作手順と制約条件を、運用時に迷わず参照できるようにする。
+- 結論: 権限仕様は API spec を正本にし、UI操作はユーザーガイドを正本にする。
+- 次アクション: 権限変更前に「対象ロール」「実行者ロール」「監査対象操作」をセットで確認する。
 
-## 統計情報 (Stats)
-システム全体の利用状況を可視化します。
-- アクティブユーザー数
-- 作成されたページ数
-- 蓄積されたメッセージ数
-- AIトークン使用量`,
+## 相手の課題
+
+- 管理画面で変更できる範囲と禁止条件（例: 最後のownerの降格/削除不可）が混同されやすい。
+
+## 提供価値
+
+- API契約、画面操作、組織境界の根拠を分離して参照できるため、誤操作と権限事故を減らせる。
+
+## 実行プロセス
+
+1. API仕様を [Role Management API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md) で確認する。
+2. 画面操作は [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md) を確認する。
+3. 組織/プロジェクトの境界要件を [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md) で確認する。
+4. リリース前に [Tenant Isolation Test Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/TENANT_ISOLATION_TEST_RUNBOOK.md) を実施する。
+
+## 実績/根拠
+
+- 役割管理API: [docs/spec/ROLE_MANAGEMENT_API_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md)
+- 利用者向け運用手順: [docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md)
+- 境界検証Runbook: [docs/ops/runbooks/TENANT_ISOLATION_TEST_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/TENANT_ISOLATION_TEST_RUNBOOK.md)`,
 
     security: `# セキュリティ
 
-Nexloomのセキュリティアーキテクチャについて。
+## 目的 / 結論 / 次アクション
 
-## RLS (Row Level Security)
-データベース層（PostgreSQL）でRow Level Securityを徹底しています。
-APIサーバーが侵害された場合でも、データベースレベルで「自分が所属していないプロジェクトのデータ」にはアクセスできない仕組みになっています。
+- 目的: セキュリティ設計と検証手順を、実装追従可能な一次ドキュメントへ接続する。
+- 結論: RLS・テナント分離・通知/WS境界は設計文書とrunbookを組み合わせて確認する。
+- 次アクション: 変更時は SQL/RLS・API境界・テストrunbook の3点を同時更新する。
 
-## 通信の暗号化
-- 全てのHTTP通信はTLS 1.2/1.3で暗号化されています。
-- WebSocket通信もWSS (WebSocket Secure) を使用しています。
-- LiveKitのメディアストリームはDTLS/SRTPでエンドツーエンド暗号化されます。`,
+## 相手の課題
+
+- サイト概要だけでは「現在の保証範囲」と「検証方法」が判断しづらい。
+
+## 提供価値
+
+- セキュリティ主張を仕様と検証手順に分離し、レビュー可能な根拠へ接続する。
+
+## 実行プロセス
+
+1. RLS定義を [docs/sql/rls/supabase_rls.sql](https://github.com/t012093/ai-note-meet/blob/main/docs/sql/rls/supabase_rls.sql) と [docs/sql/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/sql/README.md) で確認する。
+2. テナント境界の試験手順を [Tenant Isolation Test Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/TENANT_ISOLATION_TEST_RUNBOOK.md) で確認する。
+3. 認可・依存関係・SAST/DASTの運用基準を [Security Test Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/SECURITY_TEST_RUNBOOK.md) で確認する。
+4. 通知・WebSocket境界は [Notification Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md) を参照する。
+
+## 実績/根拠
+
+- セキュリティ検証運用: [docs/ops/runbooks/SECURITY_TEST_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/SECURITY_TEST_RUNBOOK.md)
+- テナント分離検証: [docs/ops/runbooks/TENANT_ISOLATION_TEST_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/TENANT_ISOLATION_TEST_RUNBOOK.md)
+- RLS SQL群: [docs/sql/rls/](https://github.com/t012093/ai-note-meet/tree/main/docs/sql/rls)`,
+
+    dev_portal: `# 開発者ドキュメント入口
+
+## 目的 / 結論 / 次アクション
+
+- 目的: 実装と同期される一次ドキュメントへ最短で到達する。
+- 結論: ai-note-meet/docs を正本とし、サイトDocsは「入口」に役割を絞るのが保守性が高い。
+- 次アクション: 以下のカテゴリから担当領域を選び、更新日と対象ブランチを確認して読む。
+
+## 相手の課題
+
+- サイト説明と実装仕様が乖離しやすく、運用時に迷いやすい。
+
+## 提供価値
+
+- 「何を見ればよいか」をカテゴリ別に固定し、更新漏れを減らす。
+
+## 開発者向けの主要導線（正本）
+
+| カテゴリ | ドキュメント |
+| --- | --- |
+| 全体インデックス | [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/README.md) |
+| API概要 | [docs/API_OVERVIEW.md](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) |
+| MCPリファレンス | [docs/MCP_REFERENCE.md](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md) |
+| 役割管理API | [docs/spec/ROLE_MANAGEMENT_API_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md) |
+| 運用Runbook | [docs/ops/runbooks/](https://github.com/t012093/ai-note-meet/tree/main/docs/ops/runbooks) |
+| リリーステンプレ | [docs/ops/templates/](https://github.com/t012093/ai-note-meet/tree/main/docs/ops/templates) |`,
+
+    api_reference: `# APIリファレンス
+
+## 目的 / 結論 / 次アクション
+
+- 目的: API仕様の参照先を一本化する。
+- 結論: 実装追従は docs/API_OVERVIEW.md と docs/spec 配下を正本にする。
+- 次アクション: 新規APIは実装PRと同時に対応するspec/runbookリンクを更新する。
+
+## 実行プロセス
+
+1. 全体像を [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) で確認する。
+2. 詳細仕様を docs/spec で確認する。
+3. 変更時は docs/ops/runbooks/PRODUCTION_API_SYNC_RUNBOOK.md で反映手順を確認する。
+
+## 実績/根拠
+
+- API概要: [docs/API_OVERVIEW.md](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- メンバーシップAPI: [docs/spec/MEMBERSHIP_MANAGEMENT_API_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MEMBERSHIP_MANAGEMENT_API_SPEC.md)
+- 役割API: [docs/spec/ROLE_MANAGEMENT_API_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md)
+- 自動化API: [docs/spec/AUTOMATION_API_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/AUTOMATION_API_SPEC.md)`,
+
+    mcp_developer: `# MCPとAI連携
+
+## 目的 / 結論 / 次アクション
+
+- 目的: MCP実装と運用仕様の参照先を明確にする。
+- 結論: /mcp（Streamable HTTP）とOAuth要件は docs/MCP_REFERENCE.md を正本とする。
+- 次アクション: MCPツール追加時は契約ドキュメントを同時更新する。
+
+## 実行プロセス
+
+1. [MCP Reference](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md) を確認する。
+2. ツール契約は [MCP Tools Contract](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MCP_TOOLS_CONTRACT.md) を確認する。
+3. Docs操作系MCPは [MCP Docs Operation Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MCP_DOCS_OPERATION_SPEC.md) を確認する。
+
+## 実績/根拠
+
+- MCPガイド: [docs/GUIDE_MCP_AND_TASKS.md](https://github.com/t012093/ai-note-meet/blob/main/docs/GUIDE_MCP_AND_TASKS.md)
+- MCP実装仕様: [docs/spec/MCP_OPERATION_EXPANSION_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MCP_OPERATION_EXPANSION_SPEC.md)`,
+
+    access_control: `# 権限と監査
+
+## 目的 / 結論 / 次アクション
+
+- 目的: 管理権限まわりの仕様と運用判断を一本化する。
+- 結論: 組織ロール（owner/admin/member）とプロフィールロールは分けて扱う。
+- 次アクション: 管理系変更は監査ログ・権限マトリクス・UI表示をセットで更新する。
+
+## 実行プロセス
+
+1. API仕様を [Role Management API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md) で確認する。
+2. ユーザー運用は [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md) を参照する。
+3. 組織設計は [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md) を参照する。
+
+## 実績/根拠
+
+- 監査/運用系Runbook: [docs/ops/runbooks/](https://github.com/t012093/ai-note-meet/tree/main/docs/ops/runbooks)
+- RLS SQL: [docs/sql/rls/supabase_rls.sql](https://github.com/t012093/ai-note-meet/blob/main/docs/sql/rls/supabase_rls.sql)`,
+
+    release_runbook: `# リリース運用
+
+## 目的 / 結論 / 次アクション
+
+- 目的: Web/Backend/Mobileのリリース運用を手順化し、属人化を減らす。
+- 結論: 実配布はRunbookとChecklistを必ずセットで運用する。
+- 次アクション: 次回リリース前にテンプレをコピーし、Gate判定を記録する。
+
+## 実行プロセス
+
+1. 全体構成: [Production Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/PRODUCTION_ARCHITECTURE.md)
+2. API反映: [Production API Sync Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/PRODUCTION_API_SYNC_RUNBOOK.md)
+3. Mobile: [Mobile Release Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md)
+4. 判定テンプレ: [Release Checklist](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/templates/RELEASE_CHECKLIST.md)
+
+## 実績/根拠
+
+- Mobileチェックリスト雛形: [MOBILE_RELEASE_CHECKLIST_TEMPLATE.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/templates/MOBILE_RELEASE_CHECKLIST_TEMPLATE.md)
+- ロールバック雛形: [ROLLBACK_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/templates/ROLLBACK_RUNBOOK.md)`,
 
     faq: `# よくある質問 (FAQ)
 
-## 全般
-### Q: Nexloomは無料で使えますか？
-A: はい、現在はβ版として基本機能を無料で提供しています。AI機能の一部には制限がかかる場合があります。
+## 目的 / 結論 / 次アクション
 
-### Q: オフラインでも使えますか？
-A: はい。閲覧と編集はオフラインでも可能です。再接続時に変更が同期されます。
+- 目的: 変更されやすい質問を正本ドキュメントへ誘導し、誤情報を減らす。
+- 結論: 料金・権限・配布方式など運用依存の項目は固定文で断定しない。
+- 次アクション: 以下のFAQ導線から最新の一次情報を確認する。
 
-## AI・機能
-### Q: AIの要約が生成されません。
-A: 会議時間が短すぎる（1分未満）場合や、音声品質が著しく低い場合はスキップされることがあります。
+## よくある確認先
 
-### Q: 外部の方をゲストとして招待できますか？
-A: はい。プロジェクト単位で「Guest」ロールとして招待することで、そのプロジェクトのみ閲覧可能な状態で参加してもらえます。`,
+### Q: API仕様やエンドポイント一覧はどこですか？
+A: [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) を参照してください。
+
+### Q: MCP連携の仕様はどこですか？
+A: [MCP Reference](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md) を参照してください。
+
+### Q: 権限管理（owner/admin/memberやロール変更）の仕様はどこですか？
+A: [Role Management API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md) と [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md) を参照してください。
+
+### Q: モバイル配布やリリース運用はどこですか？
+A: [MOBILE_RELEASE_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md) を参照してください。
+
+### Q: 現在の文書体系全体はどこで確認できますか？
+A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/README.md) を参照してください。`,
 
     troubleshooting: `# トラブルシューティング
 
-## 接続エラーが発生する場合
-「Connecting...」のまま進まない場合：
-1. インターネット接続を確認してください。
-2. 社内ネットワーク等のファイアウォールで、WebSocket (Port 443) がブロックされていないか確認してください。
+## 目的 / 結論 / 次アクション
 
-## 音声・ビデオの問題
-1. ブラウザまたはOSの設定で、Nexloomに対するマイク・カメラの使用許可がオンになっているか確認してください。
-2. 「Settings」>「Audio & Video」で正しいデバイスが選択されているかテストしてください。
+- 目的: 障害の初動切り分けを、症状別runbookに最短で接続する。
+- 結論: 接続障害・組織コンテキスト障害・自動化/認証障害は別runbookで扱う。
+- 次アクション: まず症状を分類し、該当runbookの手順を先頭から実施する。
 
-## ログの取得
-問題が解決しない場合、開発者ツール（\`Ctrl+Shift+I\` / \`Cmd+Option+I\`）を開き、Consoleタブのログをサポートチームに送信してください。`
+## 症状別の確認先
+
+| 症状 | 一次確認ドキュメント |
+| --- | --- |
+| 画面起動が遅い / \`403\`が連続する | [ORG_CONTEXT_403_RECOVERY_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/ORG_CONTEXT_403_RECOVERY_RUNBOOK.md) |
+| \`ERR_CONNECTION_TIMED_OUT\` / Backend到達不可 | [PRODUCTION_API_SYNC_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/PRODUCTION_API_SYNC_RUNBOOK.md) |
+| AI/自動化の応答失敗 | [AUTH_RUNTIME_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/AUTH_RUNTIME_RUNBOOK.md) |
+| モバイル接続/ゲートウェイ経路の問題 | [OPENCLAW_MOBILE_GATEWAY_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/OPENCLAW_MOBILE_GATEWAY_RUNBOOK.md) |
+
+## 初動チェック（共通）
+
+1. Frontendが参照しているAPIベースURLを確認する（ローカル/本番の混在を避ける）。
+2. Networkタブで失敗したAPIのHTTPステータスとURLを控える。
+3. \`Console\` ログの先頭エラーと発生時刻を記録する。
+4. 再現条件（ユーザー、組織、画面、操作順）をまとめる。
+
+## 問い合わせ時に添える情報
+
+- 失敗したURLとHTTPステータス
+- 発生時刻（タイムゾーン付き）
+- 画面パス（例: \`/o/<slug>/chat\`）
+- 再現手順と影響範囲`
   };
 
   const currentContent = docsContent[activeId] || "# Under Construction\n\nこのセクションのドキュメントは現在準備中です。";
