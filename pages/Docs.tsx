@@ -330,13 +330,13 @@ const DocsPage: React.FC = () => {
 
 ## どの手順を見ればよいか
 
-| あなたの環境 | 見る手順 |
+| あなたの環境 | 対応する手順 |
 | --- | --- |
-| ブラウザで使う | Web の人 |
-| iPhone / iPad で使う | iOS の人 |
-| Android で使う | Android の人 |
+| ブラウザで使う | Webを利用する場合 |
+| iPhone / iPad で使う | iOSを利用する場合 |
+| Android で使う | Androidを利用する場合 |
 
-## Web の人
+## Webを利用する場合
 
 1. [Webアプリ](https://ai-note-meet.vercel.app/) を開く。
 2. サインインする。
@@ -344,7 +344,7 @@ const DocsPage: React.FC = () => {
 4. 最初のプロジェクトを1つ作成する。
 5. チャンネルで1件投稿し、タスクを1件作成して動作確認する。
 
-## iOS の人
+## iOSを利用する場合
 
 1. チームから案内された配布方法（TestFlight または内部配布）でアプリをインストールする。
 2. アプリを起動してサインインする。
@@ -352,7 +352,7 @@ const DocsPage: React.FC = () => {
 4. 組織を選び、最初のプロジェクトを1つ作成する。
 5. 動作で詰まったら [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) の Troubleshooting を確認する。
 
-## Android の人
+## Androidを利用する場合
 
 1. チームから配布されたAndroidビルド（例: internal APK）を取得する。
 2. 端末設定で必要な場合は「不明なアプリのインストール」を一時的に許可する。
