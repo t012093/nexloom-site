@@ -324,16 +324,41 @@ const DocsPage: React.FC = () => {
 
 ## 目的 / 結論 / 次アクション
 
-- 目的: 初期利用時に必要な導線を短く示し、実装同期した手順へ接続する。
-- 結論: 起動手順は README、運用前提は組織/権限仕様を正本にする。
-- 次アクション: 環境準備 -> 組織コンテキスト確認 -> 最初のプロジェクト作成の順で進める。
+- 目的: Web / iOS / Android の利用者が迷わず初回セットアップを完了できるようにする。
+- 結論: 最初に端末別手順を実行し、その後に組織と権限の前提を確認すると迷いが少ない。
+- 次アクション: あなたの利用端末に対応する手順をそのまま上から実行する。
 
-## 実行ステップ
+## どの手順を見ればよいか
 
-1. 利用環境を決める（Web / Desktop / Mobile）。
-2. 起動手順を [README](https://github.com/t012093/ai-note-meet/blob/main/README.md) または [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) で確認する。
-3. 初回ログイン後、組織とロールの前提を [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md) と [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md) で確認する。
-4. 最初の運用単位としてプロジェクトを作成し、タスク運用は [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md) を参照する。
+| あなたの環境 | 見る手順 |
+| --- | --- |
+| ブラウザで使う | Web の人 |
+| iPhone / iPad で使う | iOS の人 |
+| Android で使う | Android の人 |
+
+## Web の人
+
+1. [Webアプリ](https://ai-note-meet.vercel.app/) を開く。
+2. サインインする。
+3. 組織（Organization）を選ぶ。
+4. 最初のプロジェクトを1つ作成する。
+5. チャンネルで1件投稿し、タスクを1件作成して動作確認する。
+
+## iOS の人
+
+1. チームから案内された配布方法（TestFlight または内部配布）でアプリをインストールする。
+2. アプリを起動してサインインする。
+3. 通知を使う場合は、初回起動時に通知許可を有効にする。
+4. 組織を選び、最初のプロジェクトを1つ作成する。
+5. 動作で詰まったら [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) の Troubleshooting を確認する。
+
+## Android の人
+
+1. チームから配布されたAndroidビルド（例: internal APK）を取得する。
+2. 端末設定で必要な場合は「不明なアプリのインストール」を一時的に許可する。
+3. アプリをインストールしてサインインする。
+4. 通知を使う場合は通知許可を有効にする。
+5. 互換性確認が必要な場合は [android-compatibility-spec.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/docs/android-compatibility-spec.md) を確認する。
 
 ## 参照先
 
@@ -345,27 +370,37 @@ const DocsPage: React.FC = () => {
 
 ## 目的 / 結論 / 次アクション
 
-- 目的: 利用開始の導線を最短で示す。
-- 結論: 最新配布物と起動手順は GitHub Releases と本体 README を正本として参照する。
-- 次アクション: 利用環境（Web / Desktop / Mobile）に合わせて以下リンクから手順を選ぶ。
+- 目的: 端末別に必要なインストール手順を明確にする。
+- 結論: Webはインストール不要、iOS/Androidはチーム配布経路でインストールする。
+- 次アクション: 端末に対応する手順を実行し、最後にログイン確認まで行う。
 
-## Web版
+## Web版（インストール不要）
 
-- すぐに試す: [Webアプリを開く](https://ai-note-meet.vercel.app/)
+1. [Webアプリ](https://ai-note-meet.vercel.app/) を開く。
+2. サインインして利用開始する。
+
+## iOS版
+
+1. チーム指定の配布方法（TestFlight または内部配布）でアプリを入れる。
+2. 初回起動でログインする。
+3. 必要に応じて通知を有効にする。
+4. 詳細は [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) を確認する。
+
+## Android版
+
+1. チーム配布の Android ビルド（internal APK など）を取得する。
+2. 端末設定で必要な場合のみ「不明なアプリのインストール」を許可する。
+3. インストール後にログインする。
+4. 端末差分の確認は [android-compatibility-spec.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/docs/android-compatibility-spec.md) を参照する。
 
 ## Desktop版
 
-- 配布物: [GitHub Releases](https://github.com/t012093/ai-note-meet/releases)
-- 起動と開発者向けセットアップ: [README](https://github.com/t012093/ai-note-meet/blob/main/README.md)
-
-## Mobile版（iOS/Android）
-
-- 概要とセットアップ: [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md)
-- 運用Runbook: [MOBILE_RELEASE_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md)
+1. [GitHub Releases](https://github.com/t012093/ai-note-meet/releases) から配布物を取得する。
+2. [README](https://github.com/t012093/ai-note-meet/blob/main/README.md) の手順で起動する。
 
 ## 注意
 
-- このページは入口です。配布形式や審査要件の最新状態は、上記の正本ドキュメントを参照してください。
+- 配布形式や審査要件は更新されるため、最終判断は README / Runbook の最新版に従う。
 `,
 
     ui_tour: `# 画面の見方
@@ -393,19 +428,30 @@ const DocsPage: React.FC = () => {
 
     profiles: `# プロフィール設定
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: プロフィールロールと組織/プロジェクトロールの境界を明確にする。
-- 結論: プロフィール表示項目と権限判定ロールは分けて管理する。
-- 次アクション: 変更時は UI 操作と API 制約の両方を確認する。
+- 自分の表示名や状態をどこで更新するか
+- ロール表示と実際の権限の違い
+- 管理者に依頼すべき変更
 
-## 運用ポイント
+## 3分手順（一般ユーザー）
 
-- プロフィールロール（Member/Operator/Manager/Admin/Guest）は表示・運用上の役割分類。
-- 組織ロール（owner/admin/member）とプロジェクトロールは、アクセス制御に直結する。
-- 最後のowner制約など、変更不可条件は API spec 側のルールを優先する。
+1. プロフィール設定画面を開く。
+2. 表示名、アイコン、状態を更新する。
+3. 保存後、チャンネル上の表示が更新されたことを確認する。
 
-## 正本ドキュメント
+## 管理者へ依頼する変更
+
+- 組織ロール（owner / admin / member）
+- プロジェクトロール
+- 他ユーザーのロール変更
+
+## 補足（混同しやすい点）
+
+- プロフィール上の役割表示は「自己紹介・運用上の分類」。
+- 実際のアクセス制御は組織/プロジェクトのロールで判定される。
+
+## 詳細仕様
 
 - [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md)
 - [Role Management API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md)
@@ -413,18 +459,27 @@ const DocsPage: React.FC = () => {
 
     channels: `# チャンネルとチャット
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: チャンネルとチャットの仕様参照先を明確にする。
-- 結論: 実際の挙動は API 仕様と通知アーキテクチャを正本として確認する。
-- 次アクション: チャット関連の変更時は、API仕様と通知テスト手順を同時更新する。
+- 最初のチャンネル投稿の流れ
+- 返信・メンション・通知の基本
+- つまずきやすい確認ポイント
 
-## 概要
+## 5分手順
 
-- チャンネル、メッセージ、未読管理、通知は組織コンテキストで運用されます。
-- UIの表示名や導線は改善されることがあるため、実装依存の細部は正本資料を参照してください。
+1. 左サイドバーでチャンネルを選ぶ。
+2. メッセージを1件投稿する。
+3. 既存メッセージへ返信してスレッドを作る。
+4. 必要ならメンションして相手に通知する。
+5. 自分宛の通知一覧に反映されることを確認する。
 
-## 正本ドキュメント
+## よくあるつまずき
+
+- 投稿できない: そのチャンネルの閲覧/投稿権限を確認する。
+- 通知が来ない: 通知設定とメンション対象を確認する。
+- チャンネルが見つからない: 組織/プロジェクトの選択コンテキストを確認する。
+
+## 詳細仕様
 
 - [API Overview (Channels / Messages / Notifications)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
 - [Notifications Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md)
@@ -432,18 +487,27 @@ const DocsPage: React.FC = () => {
 
     meetings: `# 会議とAI議事録
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: 会議機能とAI議事録の実装参照先を統一する。
-- 結論: 会議基盤は LiveKit 系アーキテクチャ、議事録処理は Meeting AI の仕様を正本とする。
-- 次アクション: 会議体験や要約ロジック変更時は、関連specとrunbookの更新をセットで行う。
+- 会議開始から議事録確認までの流れ
+- 録画/要約が失敗したときの確認先
+- モバイル利用時の注意点
 
-## 概要
+## 5分手順
 
-- 会議、録画、要約生成は複数コンポーネントで連携するため、UI説明だけでは仕様を固定できません。
-- 運用判断や障害対応は、下記の正本ドキュメントを優先してください。
+1. 対象チャンネルで会議を開始する。
+2. カメラ/マイク権限を許可する。
+3. 必要なら録画を開始する。
+4. 会議終了後、議事録ページが生成されるまで待つ。
+5. 要約・決定事項・次アクションを確認する。
 
-## 正本ドキュメント
+## うまくいかないとき
+
+- 音声が取れない: OS/ブラウザのマイク権限を再確認する。
+- 議事録が出ない: 会議終了処理とネットワーク状態を確認する。
+- モバイル経由で不安定: モバイル接続runbookを確認する。
+
+## 詳細仕様
 
 - [LiveKit Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/LIVEKIT_ARCHITECTURE.md)
 - [Meeting AI Unified Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MEETING_AI_AGENDA_ASSISTANT_MINUTES_UNIFIED_SPEC.md)
@@ -451,38 +515,56 @@ const DocsPage: React.FC = () => {
 
     projects: `# プロジェクトの作成
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: プロジェクト運用の基本単位と仕様参照先を明確にする。
-- 結論: プロジェクト作成/権限/運用ルールは API + spec を正本として確認する。
-- 次アクション: 作成前に対象組織、メンバー権限、関連タスク運用の責任者を決める。
+- 最初のプロジェクトの作り方
+- 作成直後にやるべき初期設定
+- メンバー招待と役割分担の基本
 
-## 概要
+## 5分手順
 
-- プロジェクトは、メンバー、チャンネル、ページ、タスクを束ねる運用単位です。
-- 詳細なUI手順や項目名は変更される可能性があるため、固定文ではなく一次資料を優先します。
+1. プロジェクト作成画面を開く。
+2. プロジェクト名と目的を入力して作成する。
+3. 初期メンバーを招待する。
+4. チャンネル、ページ、タスクを最低1つずつ作る。
+5. 担当者と期限を決めて、最初の運用単位を作る。
 
-## 実行プロセス
+## 運用のコツ
 
-1. API上の動作を [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) で確認する。
-2. ボード運用方針を [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md) で確認する。
-3. 組織境界と権限は [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md) を参照する。
-4. 役割運用は [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md) を参照する。`,
+- 名前だけ作って放置せず、最初のタスク1件まで作る。
+- 権限が曖昧なまま開始しない。
+- 「誰が決めるか」「誰が実行するか」を先に決める。
+
+## 詳細仕様
+
+- [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md)
+- [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md)
+- [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md)`,
 
     tasks: `# タスクとボード
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: タスク管理仕様とAI補助仕様の参照先を明確にする。
-- 結論: ステータス遷移・ボード運用・AI提案は spec を正本として扱う。
-- 次アクション: タスク運用ルール変更時は API + spec + UI文言の3点を同時更新する。
+- タスクを作って完了まで回す基本手順
+- 日次運用で見るべきポイント
+- AI提案を安全に使うコツ
 
-## 概要
+## 5分手順
 
-- タスクはプロジェクト運用の中心で、ステータス遷移・担当割当・AI提案が連携します。
-- 表示名や補助機能は改善されるため、固定文よりも正本参照を優先してください。
+1. タスクを作成する（タイトル、担当、期限を入力）。
+2. ステータスを進行に合わせて更新する。
+3. 作業メモやチェック項目を追記する。
+4. 完了条件を満たしたら完了へ移動する。
+5. 週次で未完了タスクを見直す。
 
-## 正本ドキュメント
+## 運用のコツ
+
+- 「担当なし」「期限なし」のタスクを増やさない。
+- ステータス更新を日次で行う。
+- AI提案はそのまま確定せず、担当者が1回レビューする。
+
+## 詳細仕様
 
 - [API Overview (Tasks)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
 - [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md)
@@ -490,18 +572,26 @@ const DocsPage: React.FC = () => {
 
     task_agents: `# AIエージェント
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: タスク実行系AIの仕様参照先を統一する。
-- 結論: 実行フロー、状態遷移、API契約は task/automation spec を正本にする。
-- 次アクション: エージェント挙動変更時は API spec と実行アーキテクチャを同時更新する。
+- AIエージェントをタスク実行に使う流れ
+- 実行結果の確認方法
+- 失敗時の再実行ポイント
 
-## 概要
+## 5分手順
 
-- タスクエージェントは、タスク詳細からの実行、AIログ記録、状態遷移を組み合わせて運用される。
-- 自動化実行は backend runtime と認証プロファイル運用の影響を受ける。
+1. タスク詳細を開く。
+2. 実行指示を入力してAIエージェントを起動する。
+3. AIログとステータス遷移を確認する。
+4. 提案内容をレビューして採用/修正を決める。
+5. 必要なら追加指示で再実行する。
 
-## 正本ドキュメント
+## 注意
+
+- AIの出力は必ず人が最終確認する。
+- 実行できない場合は認証状態とランタイム状態を先に確認する。
+
+## 詳細仕様
 
 - [Task Agent Execution Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/TASK_AGENT_EXECUTION_ARCHITECTURE.md)
 - [Automation API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/AUTOMATION_API_SPEC.md)
@@ -510,18 +600,27 @@ const DocsPage: React.FC = () => {
 
     pages: `# ページと階層構造
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: ページ運用（読取/検索/公開）の参照先を明確にする。
-- 結論: ページ運用は project-document 系specと API を正本にする。
-- 次アクション: 公開運用や検索精度の変更時は page spec と runbook を同時に確認する。
+- ページを作る・整理する・共有する基本手順
+- 公開リンクを使うときの注意点
+- 検索性を上げる書き方
 
-## 概要
+## 5分手順
 
-- ページはプロジェクトとの関連、公開URL、権限制御、RAG索引の影響を受ける。
-- 表示項目やエディタ操作は変わり得るため、挙動確認は一次仕様を優先する。
+1. プロジェクト内に新規ページを作る。
+2. 見出しで構造化して本文を書く。
+3. 必要なら子ページを作って階層化する。
+4. 共有範囲（内部共有 / 公開リンク）を設定する。
+5. 更新後に検索でヒットするか確認する。
 
-## 正本ドキュメント
+## 運用のコツ
+
+- ページ名は「対象 + 目的」で命名する。
+- 先頭に結論と次アクションを書く。
+- 外部共有時は公開範囲を再確認する。
+
+## 詳細仕様
 
 - [API Overview (Pages)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
 - [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md)
@@ -530,18 +629,27 @@ const DocsPage: React.FC = () => {
 
     editor: `# ブロックエディタ
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: エディタ操作とデータ保存仕様の参照先を統一する。
-- 結論: ブロック編集、添付ファイル、抽出処理は API/spec 側を正本にする。
-- 次アクション: 仕様変更時は保存形式・抽出ジョブ・検索経路への影響を確認する。
+- エディタの基本操作
+- 読みやすいページを作る最低ルール
+- 添付ファイル利用時の確認点
 
-## 概要
+## 5分手順
 
-- エディタはページ本文管理とアセット連携（画像/ファイル）を含む。
-- 本文は検索・要約機能とも接続されるため、保存仕様の変更は横断影響がある。
+1. 本文を入力し、見出しで段落を分ける。
+2. 箇条書きとチェックリストで作業項目を整理する。
+3. 画像やファイルが必要なら添付する。
+4. 最後に「決定事項」と「次アクション」を追記する。
+5. 保存後に他メンバーの画面で表示崩れがないか確認する。
 
-## 正本ドキュメント
+## 書き方のコツ
+
+- 1段落は短く書く。
+- 見出しは目的別に分ける。
+- 長文より、表や箇条書きを優先する。
+
+## 詳細仕様
 
 - [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md)
 - [Asset Storage and Extraction Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ASSET_STORAGE_AND_EXTRACTION_SPEC.md)
@@ -549,18 +657,26 @@ const DocsPage: React.FC = () => {
 
     databases: `# データベース
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: 構造化データ運用の参照先を明確にし、実装との差分を減らす。
-- 結論: データモデル・RLS・抽出/検索の仕様は SQL/spec 文書を正本とする。
-- 次アクション: スキーマ変更時は SQL docs と API/spec の整合性を先に確認する。
+- 構造化データを扱うときの基本
+- 変更時に確認すべき影響範囲
+- 安全に運用するためのチェックポイント
 
-## 概要
+## 5分手順
 
-- 構造化データは API、SQL、RLS、検索基盤が連動して成立する。
-- UI上の見え方は変わるため、データ定義や制約は一次資料で確認する。
+1. どの情報を表形式で管理するか決める。
+2. 列の意味と入力ルールを先に決める。
+3. テストデータを数件入れて使い勝手を確認する。
+4. メンバーと運用ルールを共有する。
+5. 重要データは権限設定を見直す。
 
-## 正本ドキュメント
+## 注意
+
+- スキーマ変更は他画面やAPIに影響する可能性がある。
+- 変更前にバックアップ方針とロール設定を確認する。
+
+## 詳細仕様
 
 - [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
 - [SQL Docs Index](https://github.com/t012093/ai-note-meet/blob/main/docs/sql/README.md)
@@ -569,18 +685,27 @@ const DocsPage: React.FC = () => {
 
     ai_assistant: `# AIコンパニオン
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: AIチャット/自動化機能の参照先を統一し、運用時の切り分けを容易にする。
-- 結論: AIコンパニオンの挙動は automation API と runtime architecture を正本にする。
-- 次アクション: 反応遅延や失敗時は API と runtime runbook をセットで確認する。
+- AIコンパニオンの基本的な使い方
+- 反応が遅い/失敗する場合の確認手順
+- 業務で安全に使うためのルール
 
-## 概要
+## 5分手順
 
-- AIコンパニオンは会話系API、文脈組み立て、実行ランタイムの連携で成立する。
-- 提供モデルやfallback経路は運用環境で変わるため、固定文で断定しない。
+1. AIコンパニオン画面を開く。
+2. 目的を短く具体的に入力する。
+3. 返答をそのまま確定せず、内容を確認する。
+4. 必要なら「条件」を追加して再質問する。
+5. 決定事項はページやタスクへ反映する。
 
-## 正本ドキュメント
+## 安全に使うためのルール
+
+- 個人情報や機密情報の入力は最小限にする。
+- 重要な判断は必ず人が最終確認する。
+- 失敗が続く場合はランタイム状態を確認する。
+
+## 詳細仕様
 
 - [Automation API Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/AUTOMATION_API_SPEC.md)
 - [LLM Automation Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/architecture/LLM_AUTOMATION_ARCHITECTURE.md)
@@ -589,39 +714,57 @@ const DocsPage: React.FC = () => {
 
     mcp: `# MCP連携
 
-Nexloomは **Model Context Protocol (MCP)** に対応しており、外部のAIモデルやエージェントからNexloomの操作が可能です。
+## このページでわかること
 
-## MCPとは
-Anthropic社などが提唱する、AIモデルとアプリケーションを接続するための標準プロトコルです。
+- MCP連携で何ができるか
+- 最初の接続テストまでの流れ
+- 開発時に見るべき仕様
 
-## 提供しているツール
-Nexloom MCP Serverは以下のツールを公開しています：
+## 代表的に使うツール
 
-| ツール名 | 説明 |
+| ツール名 | できること |
 | --- | --- |
 | \`list_tasks\` | プロジェクトのタスク一覧を取得 |
 | \`create_task\` | 新しいタスクを作成 |
 | \`read_page\` | ページの内容をMarkdownとして取得 |
 | \`send_message\` | 指定チャンネルにメッセージを投稿 |
 
-## 設定方法
-\`claude_desktop_config.json\` 等にNexloomのMCPエンドポイントを設定することで、Claudeデスクトップアプリ等からNexloomを操作できるようになります。
-詳細な設定手順は [MCP Reference（ai-note-meet）](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md) を参照してください。`,
+## 5分手順（開発者向け）
+
+1. MCPクライアントの設定ファイルを開く。
+2. Nexloom MCPの接続設定を追加する。
+3. \`list_projects\` などの読み取り系ツールで接続テストする。
+4. 問題なければ \`create_task\` などの書き込み系ツールを試す。
+
+## 詳細仕様
+
+- [MCP Reference（ai-note-meet）](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md)
+- [MCP Tools Contract](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MCP_TOOLS_CONTRACT.md)
+- [MCP Docs Operation Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MCP_DOCS_OPERATION_SPEC.md)`,
 
     lineworks: `# LINE WORKS連携
 
-## 目的 / 結論 / 次アクション
+## このページでわかること
 
-- 目的: LINE WORKS連携の設定/運用の正本導線を明確にする。
-- 結論: 連携仕様は integration guide・API overview・SQL定義を正本にする。
-- 次アクション: 有効化前に webhook URL、リンク対象、DBテーブル適用状況を確認する。
+- LINE WORKS連携の開始手順
+- 接続確認の方法
+- 問題発生時の確認先
 
-## 概要
+## 5分手順
 
-- LINE WORKS連携は webhook受信、チャンネル/プロジェクト/ユーザーリンク、送信ログ管理で構成される。
-- 環境ごとに設定値（URL/認証情報）が異なるため、必ず環境別に手順を確認する。
+1. 連携に必要な認証情報を準備する。
+2. webhook URL を設定する。
+3. チャンネル/プロジェクト/ユーザーのリンク設定を行う。
+4. テストメッセージで双方向連携を確認する。
+5. 送受信ログが残っていることを確認する。
 
-## 正本ドキュメント
+## つまずきやすい点
+
+- webhook URL の環境違い（本番/検証）が混在している。
+- リンク対象ID（room_id など）が一致していない。
+- DB側の連携テーブルが未適用。
+
+## 詳細仕様
 
 - [LINE WORKS Integration](https://github.com/t012093/ai-note-meet/blob/main/docs/LINEWORKS_INTEGRATION.md)
 - [API Overview (LINE WORKS)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
@@ -794,13 +937,7 @@ Nexloom MCP Serverは以下のツールを公開しています：
 
     faq: `# よくある質問 (FAQ)
 
-## 目的 / 結論 / 次アクション
-
-- 目的: 変更されやすい質問を正本ドキュメントへ誘導し、誤情報を減らす。
-- 結論: 料金・権限・配布方式など運用依存の項目は固定文で断定しない。
-- 次アクション: 以下のFAQ導線から最新の一次情報を確認する。
-
-## よくある確認先
+## よくある質問
 
 ### Q: API仕様やエンドポイント一覧はどこですか？
 A: [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) を参照してください。
