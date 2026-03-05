@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
             <h3 className="font-semibold text-slate-900 mb-4">会社情報</h3>
             <ul className="space-y-3 text-sm text-slate-600">
               <li><a href="#" className="hover:text-primary-600">Nexloomについて</a></li>
-              <li><a href="#" className="hover:text-primary-600">利用規約</a></li>
+              <li><Link to="/terms" className="hover:text-primary-600">利用規約</Link></li>
               <li><a href="#" className="hover:text-primary-600">プライバシーポリシー</a></li>
             </ul>
           </div>

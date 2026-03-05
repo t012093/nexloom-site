@@ -7,6 +7,7 @@ import DownloadPage from './pages/Download';
 import DocsPage from './pages/Docs';
 import PricingPage from './pages/Pricing';
 import BlogPage from './pages/Blog';
+import TermsPage from './pages/Terms';
 
 // Scroll to top on route change wrapper
 const ScrollToTop = () => {
@@ -30,6 +31,7 @@ const App: React.FC = () => {
             <Route path="/docs" element={<DocsPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/blog" element={<BlogPage />} />
+            <Route path="/terms" element={<TermsPage />} />
           </Routes>
         </main>
         <Footer />
