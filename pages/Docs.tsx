@@ -986,6 +986,23 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
 - 再現手順と影響範囲`
   };
 
+  const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+  const filteredMenu = normalizedSearchQuery
+    ? menu
+        .map((group) => {
+          const groupMatches = group.title.toLowerCase().includes(normalizedSearchQuery);
+          const items = group.items.filter((item) => {
+            if (groupMatches) return true;
+            const labelMatches = item.label.toLowerCase().includes(normalizedSearchQuery);
+            const contentMatches = (docsContent[item.id] || '').toLowerCase().includes(normalizedSearchQuery);
+            return labelMatches || contentMatches;
+          });
+          return { ...group, items };
+        })
+        .filter((group) => group.items.length > 0)
+    : menu;
+
+  const firstSearchResultId = filteredMenu[0]?.items[0]?.id || null;
   const currentContent = docsContent[activeId] || "# Under Construction\n\nこのセクションのドキュメントは現在準備中です。";
 
   const flatItems = menu.flatMap(g => g.items);
@@ -1120,15 +1137,23 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
                <input 
                  type="text" 
-                 placeholder="Search docs..." 
+                 placeholder="ドキュメントを検索..." 
                  className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400"
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
+                 onKeyDown={(e) => {
+                   if (e.key === 'Enter' && firstSearchResultId) {
+                     handleSelect(firstSearchResultId);
+                   }
+                   if (e.key === 'Escape') {
+                     setSearchQuery('');
+                   }
+                 }}
                />
             </div>
 
             <nav className="space-y-12 pb-10">
-              {menu.map((group) => (
+              {filteredMenu.map((group) => (
                 <div key={group.title}>
                   <h3 className="px-3 text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
                     {group.title}
@@ -1164,6 +1189,11 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
                   </ul>
                 </div>
               ))}
+              {normalizedSearchQuery && filteredMenu.length === 0 && (
+                <div className="px-4 py-6 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-500">
+                  「{searchQuery}」に一致する項目は見つかりませんでした。
+                </div>
+              )}
             </nav>
           </div>
         </aside>
