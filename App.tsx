@@ -8,6 +8,7 @@ import DocsPage from './pages/Docs';
 import PricingPage from './pages/Pricing';
 import BlogPage from './pages/Blog';
 import TermsPage from './pages/Terms';
+import PrivacyPage from './pages/Privacy';
 
 // Scroll to top on route change wrapper
 const ScrollToTop = () => {
@@ -32,6 +33,7 @@ const App: React.FC = () => {
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
           </Routes>
         </main>
         <Footer />
