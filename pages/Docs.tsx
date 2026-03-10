@@ -336,6 +336,12 @@ const DocsPage: React.FC = () => {
 | モバイルの状況を確認したい | [モバイル版の案内](#/mobile) |
 | PCに入れて使いたい | [デスクトップ版の案内](#/download) |
 
+## 現在の公開状況
+
+- Web版は今すぐ利用開始できる正規入口です。
+- モバイル版は段階提供です。iOS は TestFlight、Android は internal build または preview 配布が前提です。
+- 公開ストア URL が未整備の期間は、まず Web 版で使い始める案内が基本です。
+
 ## どの手順を見ればよいか
 
 | あなたの環境 | 対応する手順 |
@@ -407,6 +413,13 @@ const DocsPage: React.FC = () => {
 | Web | [Webアプリ](https://ai-note-meet.vercel.app/) | 不要 |
 | モバイル | [モバイル版の案内](#/mobile) | 配布状況に応じて TestFlight / internal build |
 | デスクトップ | [デスクトップ版の案内](#/download) | GitHub Releases から取得 |
+
+## 現在の導入方針
+
+- いますぐ使うなら Web 版
+- iPhone / iPad は TestFlight 招待経由
+- Android は internal build または preview 配布経由
+- モバイルと Web は同じアカウント、同じ組織で使う
 
 ## Web版（インストール不要）
 

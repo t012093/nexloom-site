@@ -120,9 +120,9 @@ const DownloadPage: React.FC = () => {
               </div>
               <div>
                 <p className="text-sm font-bold text-indigo-300 uppercase tracking-widest">Mobile Beta</p>
-                <h2 className="text-2xl md:text-3xl font-black text-white mb-2">モバイル版の展開状況を見る</h2>
+                <h2 className="text-2xl md:text-3xl font-black text-white mb-2">モバイル版の導入方法を見る</h2>
                 <p className="text-slate-300 leading-relaxed">
-                  iOS 先行、Android preview の進行状況と、モバイル版の方向性をまとめています。
+                  Web 版を正規入口にしつつ、iOS は TestFlight、Android は internal build で導入する流れをまとめています。
                 </p>
               </div>
             </div>
@@ -132,9 +132,9 @@ const DownloadPage: React.FC = () => {
                   モバイル版を見る
                 </Button>
               </Link>
-              <div className="text-sm text-slate-400">
-                iOS beta / Android preview
-              </div>
+                <div className="text-sm text-slate-400">
+                  Web now / iOS beta / Android preview
+                </div>
             </div>
           </div>
         </motion.div>

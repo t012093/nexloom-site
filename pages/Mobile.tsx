@@ -5,6 +5,7 @@ import {
   Apple,
   ArrowRight,
   BellRing,
+  Globe,
   MessageSquareText,
   Play,
   ShieldCheck,
@@ -43,6 +44,7 @@ const MobilePage: React.FC = () => {
                 <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl mb-10">
                   Nexloomのモバイル版は、通知確認のための軽い companion ではなく、
                   チャット、プロジェクト、AI、個人の作業導線を持ち歩くための本体として設計しています。
+                  現在は Web 版がいちばん早く使え、モバイル版は配布状況に応じて順次導入できます。
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                   <a href={WEB_APP_URL} className="w-full sm:w-auto" aria-label="Nexloom Webアプリを開く">
@@ -215,6 +217,77 @@ const MobilePage: React.FC = () => {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="mobile-download" className="pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mb-10">
+            <p className="text-sm uppercase tracking-[0.2em] text-indigo-600 font-black mb-4">How To Start</p>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-5">
+              モバイル版の導入方法
+            </h2>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              現時点では Web 版が最短の利用開始手段です。モバイルは iOS を先行配布し、Android は preview を段階展開しています。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="rounded-[2rem] border border-indigo-100 bg-white p-7 shadow-[0_20px_50px_-20px_rgba(79,70,229,0.2)]">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-5">
+                <Globe size={22} />
+              </div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-indigo-600 mb-3">Recommended</p>
+              <h3 className="text-2xl font-black text-slate-900 mb-4">まずは Web 版</h3>
+              <ol className="space-y-3 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
+                <li>Web アプリを開いてサインインする</li>
+                <li>組織を選び、最初のプロジェクトを1つ作る</li>
+                <li>そのままモバイル配布案内を待つ</li>
+              </ol>
+              <div className="mt-6">
+                <a href={WEB_APP_URL} className="inline-flex">
+                  <Button size="lg" className="rounded-2xl px-6">
+                    Web アプリを開く
+                  </Button>
+                </a>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-900 flex items-center justify-center mb-5">
+                <Apple size={22} />
+              </div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 mb-3">iOS Beta</p>
+              <h3 className="text-2xl font-black text-slate-900 mb-4">TestFlight で導入</h3>
+              <ol className="space-y-3 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
+                <li>配布案内を受け取る</li>
+                <li>App Store で TestFlight を入れる</li>
+                <li>招待リンクから Nexloom beta をインストールする</li>
+                <li>Web 版と同じアカウントでログインする</li>
+              </ol>
+            </div>
+
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-900 flex items-center justify-center mb-5">
+                <Play size={22} />
+              </div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 mb-3">Android Preview</p>
+              <h3 className="text-2xl font-black text-slate-900 mb-4">Internal Build で導入</h3>
+              <ol className="space-y-3 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
+                <li>配布された Android ビルドを取得する</li>
+                <li>必要な場合のみ提供元不明アプリの許可を有効にする</li>
+                <li>APK をインストールしてログインする</li>
+                <li>互換性差分がある場合は案内ドキュメントに従う</li>
+              </ol>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-[2rem] border border-amber-200 bg-amber-50 p-6 text-sm text-amber-900">
+            <p className="font-black mb-2">現在の公開状況</p>
+            <p className="leading-relaxed">
+              公開ストア URL が未整備の期間は、Web 版を正規の入口として案内し、モバイル版は TestFlight または internal build で提供します。
+            </p>
           </div>
         </div>
       </section>
