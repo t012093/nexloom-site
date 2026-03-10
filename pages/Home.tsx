@@ -8,6 +8,7 @@ import {
   Github,
   HardDrive,
   Layout,
+  Smartphone,
   Zap,
   Bot
 } from 'lucide-react';
@@ -76,7 +77,7 @@ const HomePage: React.FC = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                 </span>
-                <span>Web版公開 + デスクトップ版リリース</span>
+                <span>Web版公開 + デスクトップ提供 + モバイルβ</span>
               </div>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight mb-8 leading-[1.1]">
                 チームのすべてを、<br/>
@@ -94,9 +95,9 @@ const HomePage: React.FC = () => {
                     Webアプリを開く
                   </Button>
                 </a>
-                <Link to="/download" className="w-full sm:w-auto">
+                <Link to="/mobile" className="w-full sm:w-auto">
                   <Button variant="secondary" size="lg" className="w-full sm:w-auto px-10 h-16 text-lg rounded-2xl border-2 border-slate-200 hover:border-slate-300 transition-all bg-white/50 backdrop-blur-sm">
-                    デスクトップ版をダウンロード
+                    モバイル版を見る
                   </Button>
                 </Link>
                 <Link to="/docs" className="w-full sm:w-auto">
@@ -258,6 +259,48 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-[2.75rem] border border-slate-200 bg-[linear-gradient(135deg,#0f172a_0%,#1e1b4b_58%,#312e81_100%)] px-8 py-10 md:px-12 md:py-12 shadow-[0_40px_100px_-36px_rgba(15,23,42,0.7)]">
+            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-indigo-400/20 blur-3xl translate-x-1/3 -translate-y-1/3" />
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-indigo-100 mb-6">
+                  <Smartphone size={16} />
+                  <span>Mobile Beta</span>
+                </div>
+                <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-5">
+                  移動中の判断まで、
+                  <br />
+                  Nexloom の文脈で。
+                </h2>
+                <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
+                  モバイル版では、通知確認だけで終わらず、チャット、AI、チームの流れをそのまま手元で引き継げます。
+                  まずは iOS 先行で整え、Android も段階的に広げます。
+                </p>
+              </div>
+              <div className="flex flex-col gap-4">
+                <Link to="/mobile" className="w-full">
+                  <Button variant="secondary" size="lg" className="w-full justify-center h-14 rounded-2xl bg-white text-slate-900 border-white">
+                    モバイル版の詳細を見る
+                  </Button>
+                </Link>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200 mb-2">iOS</p>
+                    <p className="text-sm font-semibold">先行最適化中</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200 mb-2">Android</p>
+                    <p className="text-sm font-semibold">Preview 準備中</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-32">
          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -275,9 +318,9 @@ const HomePage: React.FC = () => {
                         Webアプリを開く
                       </Button>
                     </a>
-                    <Link to="/download" className="w-full sm:w-auto">
+                    <Link to="/mobile" className="w-full sm:w-auto">
                       <Button variant="ghost" size="lg" className="w-full sm:w-auto h-16 px-10 text-lg rounded-2xl text-white border border-white/40 hover:bg-white/10">
-                        デスクトップ版を見る
+                        モバイル版を見る
                       </Button>
                     </Link>
                   </div>

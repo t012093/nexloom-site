@@ -328,6 +328,14 @@ const DocsPage: React.FC = () => {
 - 結論: 最初に端末別手順を実行し、その後に組織と権限の前提を確認すると迷いが少ない。
 - 次アクション: あなたの利用端末に対応する手順をそのまま上から実行する。
 
+## 最初に選ぶ入口
+
+| 使い方 | 入口 |
+| --- | --- |
+| いちばん早く始めたい | [Webアプリ](https://ai-note-meet.vercel.app/) |
+| モバイルの状況を確認したい | [モバイル版の案内](#/mobile) |
+| PCに入れて使いたい | [デスクトップ版の案内](#/download) |
+
 ## どの手順を見ればよいか
 
 | あなたの環境 | 対応する手順 |
@@ -335,6 +343,7 @@ const DocsPage: React.FC = () => {
 | ブラウザで使う | Webを利用する場合 |
 | iPhone / iPad で使う | iOSを利用する場合 |
 | Android で使う | Androidを利用する場合 |
+| Mac / Windows でアプリとして使う | Desktop版を利用する場合 |
 
 ## Webを利用する場合
 
@@ -346,61 +355,99 @@ const DocsPage: React.FC = () => {
 
 ## iOSを利用する場合
 
-1. チームから案内された配布方法（TestFlight または内部配布）でアプリをインストールする。
-2. アプリを起動してサインインする。
-3. 通知を使う場合は、初回起動時に通知許可を有効にする。
-4. 組織を選び、最初のプロジェクトを1つ作成する。
-5. 動作で詰まったら [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) の Troubleshooting を確認する。
+1. まず [モバイル版の案内](#/mobile) で配布状況を確認する。
+2. チームから案内された配布方法（TestFlight または内部配布）でアプリをインストールする。
+3. アプリを起動してサインインする。
+4. 通知を使う場合は、初回起動時に通知許可を有効にする。
+5. 組織を選び、最初のプロジェクトを1つ作成する。
+6. 動作で詰まったら [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) の Troubleshooting を確認する。
 
 ## Androidを利用する場合
 
-1. チームから配布されたAndroidビルド（例: internal APK）を取得する。
-2. 端末設定で必要な場合は「不明なアプリのインストール」を一時的に許可する。
-3. アプリをインストールしてサインインする。
-4. 通知を使う場合は通知許可を有効にする。
-5. 互換性確認が必要な場合は [android-compatibility-spec.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/docs/android-compatibility-spec.md) を確認する。
+1. まず [モバイル版の案内](#/mobile) で現在の提供状況を確認する。
+2. チームから配布されたAndroidビルド（例: internal APK）を取得する。
+3. 端末設定で必要な場合は「不明なアプリのインストール」を一時的に許可する。
+4. アプリをインストールしてサインインする。
+5. 通知を使う場合は通知許可を有効にする。
+6. 互換性確認が必要な場合は [android-compatibility-spec.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/docs/android-compatibility-spec.md) を確認する。
+
+## Desktop版を利用する場合
+
+1. [デスクトップ版の案内](#/download) を開く。
+2. お使いのOSに合う配布物を選ぶ。
+3. GitHub Releases からインストーラーを取得する。
+4. インストール後にサインインし、Web版と同じ組織を選ぶ。
+5. まずは通知、チャンネル投稿、タスク作成の3つだけ確認するとスムーズです。
+
+## 補足
+
+- 最初の体験は「Web版」が最も早いです。
+- モバイル版は段階的に提供しているため、配布方法は時期によって変わります。
+- デスクトップ版はローカル通知や専用ショートカットを重視する人に向いています。
 
 ## 参照先
 
 - [Docs Index](https://github.com/t012093/ai-note-meet/blob/main/docs/README.md)
 - [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
-- [Mobile Release Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md)`,
+- [Mobile Release Runbook](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md)
+- [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md)`,
 
     install: `# 利用方法とインストール
 
 ## 目的 / 結論 / 次アクション
 
 - 目的: 端末別に必要なインストール手順を明確にする。
-- 結論: Webはインストール不要、iOS/Androidはチーム配布経路でインストールする。
-- 次アクション: 端末に対応する手順を実行し、最後にログイン確認まで行う。
+- 結論: 「Webはすぐ開始」「モバイルは案内された配布経路で導入」「デスクトップは GitHub Releases から取得」が基本である。
+- 次アクション: 端末に対応する導線を選び、最後にログイン確認まで行う。
+
+## 端末別の入口
+
+| 使いたい環境 | 入口 | インストール |
+| --- | --- | --- |
+| Web | [Webアプリ](https://ai-note-meet.vercel.app/) | 不要 |
+| モバイル | [モバイル版の案内](#/mobile) | 配布状況に応じて TestFlight / internal build |
+| デスクトップ | [デスクトップ版の案内](#/download) | GitHub Releases から取得 |
 
 ## Web版（インストール不要）
 
 1. [Webアプリ](https://ai-note-meet.vercel.app/) を開く。
 2. サインインして利用開始する。
+3. 最初のチャンネル投稿かタスク作成まで進める。
 
 ## iOS版
 
-1. チーム指定の配布方法（TestFlight または内部配布）でアプリを入れる。
-2. 初回起動でログインする。
-3. 必要に応じて通知を有効にする。
-4. 詳細は [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) を確認する。
+1. [モバイル版の案内](#/mobile) で現在の提供状況を確認する。
+2. チーム指定の配布方法（TestFlight または内部配布）でアプリを入れる。
+3. 初回起動でログインする。
+4. 必要に応じて通知を有効にする。
+5. 詳細は [apps/mobile/README.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/README.md) を確認する。
 
 ## Android版
 
-1. チーム配布の Android ビルド（internal APK など）を取得する。
-2. 端末設定で必要な場合のみ「不明なアプリのインストール」を許可する。
-3. インストール後にログインする。
-4. 端末差分の確認は [android-compatibility-spec.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/docs/android-compatibility-spec.md) を参照する。
+1. [モバイル版の案内](#/mobile) で提供状況を確認する。
+2. チーム配布の Android ビルド（internal APK など）を取得する。
+3. 端末設定で必要な場合のみ「不明なアプリのインストール」を許可する。
+4. インストール後にログインする。
+5. 端末差分の確認は [android-compatibility-spec.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/docs/android-compatibility-spec.md) を参照する。
 
 ## Desktop版
 
-1. [GitHub Releases](https://github.com/t012093/ai-note-meet/releases) から配布物を取得する。
-2. [README](https://github.com/t012093/ai-note-meet/blob/main/README.md) の手順で起動する。
+1. [デスクトップ版の案内](#/download) を開く。
+2. 「macOS」または「Windows」の配布物を選ぶ。
+3. [GitHub Releases](https://github.com/t012093/ai-note-meet/releases) からインストーラーを取得する。
+4. インストール後にログインして利用開始する。
+
+## どれを選ぶとよいか
+
+- まず試すなら「Web版」
+- 通知やショートカットを重視するなら「Desktop版」
+- 外出先で会話や通知の流れを追いたいなら「モバイル版」
 
 ## 注意
 
 - 配布形式や審査要件は更新されるため、最終判断は README / Runbook の最新版に従う。
+- モバイル版の配布導線は時期によって「TestFlight」「internal build」「preview」に変わることがある。
+- 社内やクローズド配布が前提の期間は、公開ストアリンクが未整備でも正常である。
 `,
 
     ui_tour: `# 画面の見方

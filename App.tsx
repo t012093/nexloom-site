@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/Home';
 import DownloadPage from './pages/Download';
+import MobilePage from './pages/Mobile';
 import DocsPage from './pages/Docs';
 import PricingPage from './pages/Pricing';
 import BlogPage from './pages/Blog';
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/mobile" element={<MobilePage />} />
             <Route path="/download" element={<DownloadPage />} />
             <Route path="/docs" element={<DocsPage />} />
             <Route path="/pricing" element={<PricingPage />} />

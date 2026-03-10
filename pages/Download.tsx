@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Apple, Monitor, Laptop, ArrowRight, ShieldCheck, Zap, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { OSType } from '../types';
 import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
@@ -101,6 +102,39 @@ const DownloadPage: React.FC = () => {
               <a href={DESKTOP_RELEASE_URL} className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
                 デスクトップ版のリリースへ <ArrowRight size={14} className="ml-1" />
               </a>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.18 }}
+          className="bg-slate-950 rounded-[2.5rem] border border-slate-800 shadow-[0_40px_80px_-20px_rgba(15,23,42,0.65)] p-8 md:p-10 mb-12 overflow-hidden relative"
+        >
+          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-indigo-500/20 to-transparent" />
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div className="flex items-start space-x-4">
+              <div className="p-4 bg-white/10 text-white rounded-2xl border border-white/10">
+                <Apple size={32} />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-indigo-300 uppercase tracking-widest">Mobile Beta</p>
+                <h2 className="text-2xl md:text-3xl font-black text-white mb-2">モバイル版の展開状況を見る</h2>
+                <p className="text-slate-300 leading-relaxed">
+                  iOS 先行、Android preview の進行状況と、モバイル版の方向性をまとめています。
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <Link to="/mobile" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-white text-slate-900 hover:bg-slate-100">
+                  モバイル版を見る
+                </Button>
+              </Link>
+              <div className="text-sm text-slate-400">
+                iOS beta / Android preview
+              </div>
             </div>
           </div>
         </motion.div>
