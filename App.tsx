@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/Home';
 import DownloadPage from './pages/Download';
+import DesktopReleaseNotesPage from './pages/DesktopReleaseNotes';
 import MobilePage from './pages/Mobile';
 import DocsPage from './pages/Docs';
 import PricingPage from './pages/Pricing';
@@ -31,6 +32,7 @@ const App: React.FC = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/mobile" element={<MobilePage />} />
             <Route path="/download" element={<DownloadPage />} />
+            <Route path="/desktop/release-notes" element={<DesktopReleaseNotesPage />} />
             <Route path="/docs" element={<DocsPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/blog" element={<BlogPage />} />

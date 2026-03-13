@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layers, Twitter, Github, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
+import { DESKTOP_RELEASE_NOTES_PATH, WEB_APP_URL } from '../constants/links';
 
 const Footer: React.FC = () => {
   return (
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
               <li><a href={WEB_APP_URL} className="hover:text-primary-600">Webアプリ</a></li>
               <li><Link to="/mobile" className="hover:text-primary-600">モバイル版</Link></li>
               <li><Link to="/download" className="hover:text-primary-600">デスクトップ版</Link></li>
-              <li><a href={DESKTOP_RELEASE_URL} className="hover:text-primary-600">リリースノート</a></li>
+              <li><Link to={DESKTOP_RELEASE_NOTES_PATH} className="hover:text-primary-600">リリースノート</Link></li>
             </ul>
           </div>
 

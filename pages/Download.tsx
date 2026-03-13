@@ -4,7 +4,17 @@ import { Download, Apple, Monitor, Laptop, ArrowRight, ShieldCheck, Zap, Globe }
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { OSType } from '../types';
-import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
+import { DESKTOP_RELEASE_NOTES_PATH, WEB_APP_URL } from '../constants/links';
+
+type DownloadOption = {
+  os: OSType;
+  label: string;
+  sublabel: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  url: string;
+  isAvailable: boolean;
+  availabilityLabel: string;
+};
 
 const DownloadPage: React.FC = () => {
   const [os, setOs] = useState<OSType>(OSType.UNKNOWN);
@@ -20,32 +30,50 @@ const DownloadPage: React.FC = () => {
     }
   }, []);
 
-  const downloadOptions = [
+  const downloadOptions: DownloadOption[] = [
     {
       os: OSType.MAC_SILICON,
       label: 'macOS',
       sublabel: 'Apple Silicon (M1/M2/M3)',
       icon: Apple,
-      url: DESKTOP_RELEASE_URL,
-      recommended: os === OSType.MAC_SILICON
+      url: DESKTOP_RELEASE_NOTES_PATH,
+      isAvailable: true,
+      availabilityLabel: '公開中',
     },
     {
       os: OSType.WINDOWS,
       label: 'Windows',
       sublabel: '10 / 11 (64-bit)',
       icon: Monitor,
-      url: DESKTOP_RELEASE_URL,
-      recommended: os === OSType.WINDOWS
+      url: DESKTOP_RELEASE_NOTES_PATH,
+      isAvailable: false,
+      availabilityLabel: '準備中',
     },
     {
       os: OSType.MAC_INTEL,
       label: 'macOS',
       sublabel: 'Intel Processor',
       icon: Laptop,
-      url: DESKTOP_RELEASE_URL,
-      recommended: false
-    }
+      url: DESKTOP_RELEASE_NOTES_PATH,
+      isAvailable: false,
+      availabilityLabel: '準備中',
+    },
+    {
+      os: OSType.LINUX,
+      label: 'Linux',
+      sublabel: '.AppImage / .deb',
+      icon: Globe,
+      url: DESKTOP_RELEASE_NOTES_PATH,
+      isAvailable: false,
+      availabilityLabel: '準備中',
+    },
   ];
+  const availableDesktopOption =
+    downloadOptions.find((option) => option.os === os && option.isAvailable) ||
+    downloadOptions.find((option) => option.isAvailable) ||
+    null;
+  const needsCompatibilityNotice =
+    availableDesktopOption !== null && os !== OSType.UNKNOWN && os !== availableDesktopOption.os;
 
   return (
     <div className="pt-32 pb-24 min-h-screen bg-slate-50 overflow-hidden relative">
@@ -96,9 +124,9 @@ const DownloadPage: React.FC = () => {
                   Webアプリを開く
                 </Button>
               </a>
-              <a href={DESKTOP_RELEASE_URL} className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
+              <Link to={DESKTOP_RELEASE_NOTES_PATH} className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
                 デスクトップ版のリリースへ <ArrowRight size={14} className="ml-1" />
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>
@@ -147,47 +175,57 @@ const DownloadPage: React.FC = () => {
             className="lg:col-span-7 bg-white rounded-[2.5rem] shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden"
           >
             <div className="p-10 md:p-16">
-              {downloadOptions.map((option) => {
-                const isMatch = option.recommended || (os === OSType.UNKNOWN && option.os === OSType.MAC_SILICON);
-                if (!isMatch) return null;
-
-                return (
-                  <div key={option.os}>
-                    <div className="flex items-center space-x-4 mb-8">
-                       <div className="p-4 bg-indigo-600 text-white rounded-2xl shadow-xl shadow-indigo-200">
-                          <option.icon size={40} />
-                       </div>
-                       <div>
-                          <p className="text-sm font-bold text-indigo-600 uppercase tracking-widest">Desktop Installer</p>
-                          <h2 className="text-3xl font-black text-slate-900">{option.label}</h2>
-                       </div>
+              {availableDesktopOption ? (
+                <div>
+                  <div className="flex items-center space-x-4 mb-8">
+                    <div className="p-4 bg-indigo-600 text-white rounded-2xl shadow-xl shadow-indigo-200">
+                      <availableDesktopOption.icon size={40} />
                     </div>
-                    
-                    <h3 className="text-xl font-bold text-slate-800 mb-4">{option.sublabel}</h3>
-                    <p className="text-slate-500 mb-10 leading-relaxed">
-                       お使いのシステムに最適化されたインストーラーです。ダウンロードして、数分でセットアップを完了できます。
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row items-center gap-4">
-                      <a href={option.url} className="w-full sm:w-auto" aria-label={`${option.label}版のダウンロードページを開く`}>
-                        <Button size="lg" className="w-full sm:w-auto h-16 px-10 text-lg rounded-2xl shadow-2xl shadow-indigo-200" icon={<Download />}>
-                          GitHubでダウンロード
-                        </Button>
-                      </a>
-                      <span className="text-sm font-medium text-slate-400">GitHub latest release</span>
+                    <div>
+                      <p className="text-sm font-bold text-indigo-600 uppercase tracking-widest">Current Public Build</p>
+                      <h2 className="text-3xl font-black text-slate-900">{availableDesktopOption.label}</h2>
                     </div>
                   </div>
-                );
-              })}
+
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <h3 className="text-xl font-bold text-slate-800">{availableDesktopOption.sublabel}</h3>
+                    <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200">
+                      {availableDesktopOption.availabilityLabel}
+                    </span>
+                  </div>
+                  <p className="text-slate-500 mb-6 leading-relaxed">
+                    現在 public に配布しているデスクトップ版です。最新版の公開日、更新内容、インストーラーは公開リリースノートから確認できます。
+                  </p>
+                  {needsCompatibilityNotice ? (
+                    <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-6 text-amber-800">
+                      現在の公開配布は Apple Silicon Mac 向けです。お使いの OS 向けビルドはまだ公開していないため、
+                      リリースノートで最新の公開状況を確認できるようにしています。
+                    </div>
+                  ) : null}
+
+                  <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <Link
+                      to={availableDesktopOption.url}
+                      className="w-full sm:w-auto"
+                      aria-label={`${availableDesktopOption.label}版のダウンロードページを開く`}
+                    >
+                      <Button size="lg" className="w-full sm:w-auto h-16 px-10 text-lg rounded-2xl shadow-2xl shadow-indigo-200" icon={<Download />}>
+                        公開ダウンロードを見る
+                      </Button>
+                    </Link>
+                    <span className="text-sm font-medium text-slate-400">public release notes</span>
+                  </div>
+                </div>
+              ) : null}
             </div>
             <div className="bg-slate-50/80 backdrop-blur-sm p-8 border-t border-slate-100 flex items-center justify-between">
                <div className="flex items-center space-x-2 text-sm text-slate-500 font-medium">
                   <ShieldCheck size={18} className="text-emerald-500" />
                   <span>Verified & Secure Installer</span>
                </div>
-               <a href={DESKTOP_RELEASE_URL} className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
+               <Link to={DESKTOP_RELEASE_NOTES_PATH} className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center">
                   リリースノート <ArrowRight size={14} className="ml-1" />
-               </a>
+               </Link>
             </div>
           </motion.div>
 
@@ -237,22 +275,43 @@ const DownloadPage: React.FC = () => {
              <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
                 <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">その他のプラットフォーム</h4>
                 <div className="space-y-3">
-                   {downloadOptions.map(opt => (
-                      <a key={opt.os} href={opt.url} className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
+                   {downloadOptions.map((opt) => {
+                     const content = (
+                       <>
                          <div className="flex items-center space-x-3">
                             <opt.icon size={20} className="text-slate-600" />
-                            <span className="font-bold text-slate-700 text-sm">{opt.label} ({opt.sublabel})</span>
+                            <div>
+                              <div className="font-bold text-slate-700 text-sm">{opt.label} ({opt.sublabel})</div>
+                              <div className={`text-xs ${opt.isAvailable ? 'text-emerald-600' : 'text-slate-400'}`}>
+                                {opt.availabilityLabel}
+                              </div>
+                            </div>
                          </div>
-                         <Download size={16} className="text-slate-300 group-hover:text-indigo-600 transition-colors" />
-                      </a>
-                   ))}
-                   <a href={DESKTOP_RELEASE_URL} className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
-                      <div className="flex items-center space-x-3">
-                         <Globe size={20} className="text-slate-600" />
-                         <span className="font-bold text-slate-700 text-sm">Linux (.AppImage / .deb)</span>
-                      </div>
-                      <Download size={16} className="text-slate-300 group-hover:text-indigo-600 transition-colors" />
-                   </a>
+                         <Download size={16} className={`transition-colors ${opt.isAvailable ? 'text-slate-300 group-hover:text-indigo-600' : 'text-slate-200'}`} />
+                       </>
+                     );
+
+                     if (opt.isAvailable) {
+                       return (
+                         <Link
+                           key={opt.os}
+                           to={opt.url}
+                           className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group"
+                         >
+                           {content}
+                         </Link>
+                       );
+                     }
+
+                     return (
+                       <div
+                         key={opt.os}
+                         className="w-full flex items-center justify-between p-4 rounded-2xl border border-slate-100 bg-slate-50/70 opacity-80"
+                       >
+                         {content}
+                       </div>
+                     );
+                   })}
                 </div>
              </div>
           </motion.div>

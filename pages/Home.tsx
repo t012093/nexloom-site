@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/Button';
 import { FeatureItem } from '../types';
-import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
+import { DESKTOP_RELEASE_NOTES_PATH, WEB_APP_URL } from '../constants/links';
 
 const features: FeatureItem[] = [
   {
@@ -325,7 +325,7 @@ const HomePage: React.FC = () => {
                     </Link>
                   </div>
                   <div className="mt-6 text-sm text-indigo-100/80">
-                    デスクトップ版リリース: <a href={DESKTOP_RELEASE_URL} className="font-semibold underline underline-offset-4 hover:text-white">latest release</a>
+                    デスクトップ版リリース: <Link to={DESKTOP_RELEASE_NOTES_PATH} className="font-semibold underline underline-offset-4 hover:text-white">公開リリースノート</Link>
                   </div>
                </div>
                {/* Decorative blobs */}

@@ -381,7 +381,7 @@ const DocsPage: React.FC = () => {
 
 1. [デスクトップ版の案内](#/download) を開く。
 2. お使いのOSに合う配布物を選ぶ。
-3. GitHub Releases からインストーラーを取得する。
+3. [公開リリースノート](#/desktop/release-notes) からインストーラーを取得する。
 4. インストール後にサインインし、Web版と同じ組織を選ぶ。
 5. まずは通知、チャンネル投稿、タスク作成の3つだけ確認するとスムーズです。
 
@@ -403,7 +403,7 @@ const DocsPage: React.FC = () => {
 ## 目的 / 結論 / 次アクション
 
 - 目的: 端末別に必要なインストール手順を明確にする。
-- 結論: 「Webはすぐ開始」「モバイルは案内された配布経路で導入」「デスクトップは GitHub Releases から取得」が基本である。
+- 結論: 「Webはすぐ開始」「モバイルは案内された配布経路で導入」「デスクトップは公開リリースノートから取得」が基本である。
 - 次アクション: 端末に対応する導線を選び、最後にログイン確認まで行う。
 
 ## 端末別の入口
@@ -412,7 +412,7 @@ const DocsPage: React.FC = () => {
 | --- | --- | --- |
 | Web | [Webアプリ](https://ai-note-meet.vercel.app/) | 不要 |
 | モバイル | [モバイル版の案内](#/mobile) | 配布状況に応じて TestFlight / internal build |
-| デスクトップ | [デスクトップ版の案内](#/download) | GitHub Releases から取得 |
+| デスクトップ | [デスクトップ版の案内](#/download) | 公開リリースノートから取得 |
 
 ## 現在の導入方針
 
@@ -447,7 +447,7 @@ const DocsPage: React.FC = () => {
 
 1. [デスクトップ版の案内](#/download) を開く。
 2. 「macOS」または「Windows」の配布物を選ぶ。
-3. [GitHub Releases](https://github.com/t012093/ai-note-meet/releases) からインストーラーを取得する。
+3. [公開リリースノート](#/desktop/release-notes) からインストーラーを取得する。
 4. インストール後にログインして利用開始する。
 
 ## どれを選ぶとよいか
