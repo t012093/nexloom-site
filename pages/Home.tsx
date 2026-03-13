@@ -325,7 +325,7 @@ const HomePage: React.FC = () => {
                     </Link>
                   </div>
                   <div className="mt-6 text-sm text-indigo-100/80">
-                    デスクトップ版リリース: <a href={DESKTOP_RELEASE_URL} className="font-semibold underline underline-offset-4 hover:text-white">v0.1.0</a>
+                    デスクトップ版リリース: <a href={DESKTOP_RELEASE_URL} className="font-semibold underline underline-offset-4 hover:text-white">latest release</a>
                   </div>
                </div>
                {/* Decorative blobs */}

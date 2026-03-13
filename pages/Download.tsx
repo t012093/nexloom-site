@@ -26,7 +26,6 @@ const DownloadPage: React.FC = () => {
       label: 'macOS',
       sublabel: 'Apple Silicon (M1/M2/M3)',
       icon: Apple,
-      file: 'Nexloom-1.0.0-arm64.dmg',
       url: DESKTOP_RELEASE_URL,
       recommended: os === OSType.MAC_SILICON
     },
@@ -35,7 +34,6 @@ const DownloadPage: React.FC = () => {
       label: 'Windows',
       sublabel: '10 / 11 (64-bit)',
       icon: Monitor,
-      file: 'Nexloom-Setup-1.0.0.exe',
       url: DESKTOP_RELEASE_URL,
       recommended: os === OSType.WINDOWS
     },
@@ -44,7 +42,6 @@ const DownloadPage: React.FC = () => {
       label: 'macOS',
       sublabel: 'Intel Processor',
       icon: Laptop,
-      file: 'Nexloom-1.0.0-x64.dmg',
       url: DESKTOP_RELEASE_URL,
       recommended: false
     }
@@ -177,7 +174,7 @@ const DownloadPage: React.FC = () => {
                           GitHubでダウンロード
                         </Button>
                       </a>
-                      <span className="text-sm font-medium text-slate-400">Version 0.1.0</span>
+                      <span className="text-sm font-medium text-slate-400">GitHub latest release</span>
                     </div>
                   </div>
                 );
