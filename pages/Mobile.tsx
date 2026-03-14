@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import QRCode from 'react-qr-code';
 import {
   Apple,
   ArrowRight,
@@ -14,9 +15,11 @@ import {
   Wifi,
 } from 'lucide-react';
 import Button from '../components/Button';
-import { WEB_APP_URL } from '../constants/links';
+import { IOS_TESTFLIGHT_APP_URL, IOS_TESTFLIGHT_URL, WEB_APP_URL } from '../constants/links';
 
 const MobilePage: React.FC = () => {
+  const hasTestFlightInvite = Boolean(IOS_TESTFLIGHT_URL);
+
   return (
     <div className="pt-28 pb-24 min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.14),_transparent_30%),linear-gradient(180deg,#f8fafc_0%,#ffffff_48%,#eef2ff_100%)] overflow-hidden">
       <section className="relative">
@@ -266,6 +269,24 @@ const MobilePage: React.FC = () => {
                 <li>招待リンクから Nexloom beta をインストールする</li>
                 <li>Web 版と同じアカウントでログインする</li>
               </ol>
+              <div className="mt-6 space-y-3">
+                <a href={IOS_TESTFLIGHT_APP_URL} className="inline-flex w-full">
+                  <Button variant="secondary" size="lg" className="w-full rounded-2xl justify-center">
+                    TestFlight を入れる
+                  </Button>
+                </a>
+                {hasTestFlightInvite ? (
+                  <a href={IOS_TESTFLIGHT_URL} className="inline-flex w-full">
+                    <Button size="lg" className="w-full rounded-2xl justify-center">
+                      Nexloom beta を開く
+                    </Button>
+                  </a>
+                ) : (
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-500">
+                    招待リンクを設定すると、ここに直接導入ボタンを表示します。
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
@@ -288,6 +309,89 @@ const MobilePage: React.FC = () => {
             <p className="leading-relaxed">
               公開ストア URL が未整備の期間は、Web 版を正規の入口として案内し、モバイル版は TestFlight または internal build で提供します。
             </p>
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-6">
+            <div className="rounded-[2rem] border border-indigo-100 bg-[linear-gradient(145deg,#0f172a_0%,#1e1b4b_58%,#4338ca_100%)] p-7 text-white shadow-[0_32px_80px_-42px_rgba(15,23,42,0.72)]">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-indigo-200 mb-4">iOS Install</p>
+              <h3 className="text-3xl font-black tracking-tight mb-4">
+                TestFlight 導線を、
+                <br />
+                このページで完結させる。
+              </h3>
+              <p className="text-sm leading-7 text-indigo-100/85 mb-6">
+                iPhone からはそのままリンクを開き、PC からは QR を読み取って導入できます。
+                招待 URL を設定すると、Nexloom beta のインストール入口としてそのまま機能します。
+              </p>
+              <div className="space-y-3">
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white/90">
+                  1. 先に TestFlight アプリを入れる
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white/90">
+                  2. 招待リンクまたは QR から Nexloom beta を開く
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white/90">
+                  3. Web と同じアカウントでサインインする
+                </div>
+              </div>
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <a href={IOS_TESTFLIGHT_APP_URL} className="w-full sm:w-auto">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className="w-full rounded-2xl bg-white text-slate-900 border-white sm:w-auto"
+                  >
+                    TestFlight App
+                  </Button>
+                </a>
+                {hasTestFlightInvite ? (
+                  <a href={IOS_TESTFLIGHT_URL} className="w-full sm:w-auto">
+                    <Button size="lg" className="w-full rounded-2xl sm:w-auto">
+                      招待リンクを開く
+                    </Button>
+                  </a>
+                ) : null}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.24)]">
+              <div className="flex items-center justify-between gap-4 mb-5">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-2">QR Install</p>
+                  <h3 className="text-2xl font-black text-slate-900">iPhone で読み取る</h3>
+                </div>
+                <div className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] bg-slate-100 text-slate-600">
+                  {hasTestFlightInvite ? 'Ready' : 'Pending'}
+                </div>
+              </div>
+
+              {hasTestFlightInvite ? (
+                <>
+                  <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-5 flex items-center justify-center">
+                    <div className="rounded-2xl bg-white p-4 shadow-sm">
+                      <QRCode value={IOS_TESTFLIGHT_URL} size={192} />
+                    </div>
+                  </div>
+                  <p className="mt-5 text-sm leading-6 text-slate-600">
+                    PC でこのページを開き、iPhone のカメラで QR を読み取ると TestFlight 招待リンクを直接開けます。
+                  </p>
+                  <a href={IOS_TESTFLIGHT_URL} className="mt-5 inline-flex w-full">
+                    <Button size="lg" className="w-full rounded-2xl justify-center">
+                      iPhone で TestFlight 招待を開く
+                    </Button>
+                  </a>
+                </>
+              ) : (
+                <div className="rounded-[2rem] border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
+                  <div className="mx-auto mb-4 h-40 w-40 rounded-[2rem] border border-slate-200 bg-white/80" />
+                  <p className="text-sm font-semibold text-slate-700">招待 URL を設定すると QR をここに表示します。</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">
+                    `VITE_IOS_TESTFLIGHT_URL` に TestFlight 招待リンクを入れると、
+                    このページにダウンロード導線と QR が自動で出ます。
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
