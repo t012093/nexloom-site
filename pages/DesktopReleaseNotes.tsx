@@ -52,10 +52,6 @@ const DesktopReleaseNotesPage: React.FC = () => {
               <h1 className="text-5xl font-black tracking-tight text-slate-950 md:text-6xl">
                 デスクトップ版の<br />公開ページ
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
-                Nexloom.site を正本にして、最新版の公開日、更新内容、ダウンロード導線をまとめています。
-                private GitHub に入れなくても、ここから公開配布物とアップデート情報を確認できます。
-              </p>
               <div className="mt-8 flex flex-wrap gap-3 text-xs font-semibold text-slate-500">
                 <span className="rounded-full bg-white px-3 py-1.5 shadow-sm ring-1 ring-slate-200">official public page</span>
                 <span className="rounded-full bg-white px-3 py-1.5 shadow-sm ring-1 ring-slate-200">auto-update ready</span>
