@@ -32,8 +32,8 @@ const Footer: React.FC = () => {
               <li><Link to="/pricing" className="hover:text-primary-600">料金プラン</Link></li>
               <li><a href={WEB_APP_URL} className="hover:text-primary-600">Webアプリ</a></li>
               <li><Link to="/mobile" className="hover:text-primary-600">モバイル版</Link></li>
-              <li><Link to="/download" className="hover:text-primary-600">デスクトップ版</Link></li>
-              <li><Link to={DESKTOP_RELEASE_NOTES_PATH} className="hover:text-primary-600">Desktop 公開ページ</Link></li>
+              <li><Link to="/download" className="hover:text-primary-600">導入ガイド</Link></li>
+              <li><Link to={DESKTOP_RELEASE_NOTES_PATH} className="hover:text-primary-600">Desktop 最新版</Link></li>
             </ul>
           </div>
 

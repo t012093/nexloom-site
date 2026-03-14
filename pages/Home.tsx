@@ -63,32 +63,13 @@ const item = {
 };
 
 const HomePage: React.FC = () => {
-  const {
-    loading,
-    error,
-    releaseVersion,
-    publishedAt,
-    macDownloadUrl,
-    noteBullets,
-  } = useDesktopReleaseManifest();
+  const { releaseVersion, publishedAt, macDownloadUrl, error, loading } = useDesktopReleaseManifest();
 
-  const desktopHighlights = noteBullets.length
-    ? noteBullets
-    : [
-        '起動時にアップデート確認ダイアログを表示',
-        '承認後に自動ダウンロードと再起動を実行',
-        'production API を使う desktop build に統一',
-      ];
   const desktopStatus = releaseVersion
-    ? `最新公開 v${releaseVersion}`
+    ? `v${releaseVersion}${publishedAt ? ` / ${publishedAt}` : ''}`
     : loading
-      ? '最新公開を確認中'
+      ? '最新版を確認中'
       : '公開情報を取得できませんでした';
-  const desktopPublished = publishedAt
-    ? `公開: ${publishedAt}`
-    : error
-      ? 'manifest を読み込めませんでした'
-      : '公開日を確認しています';
 
   return (
     <div className="overflow-hidden bg-slate-50">
@@ -98,7 +79,7 @@ const HomePage: React.FC = () => {
         <div className="absolute right-[-120px] top-0 h-96 w-96 rounded-full bg-indigo-300/30 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl">
-          <div className="grid items-start gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)]">
+          <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(340px,0.98fr)]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -106,16 +87,16 @@ const HomePage: React.FC = () => {
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/80 bg-white/90 px-4 py-2 text-sm font-semibold text-indigo-700 shadow-sm">
                 <Sparkles size={16} />
-                Web からすぐ開始、Desktop は公開導線で導入
+                Web first, Desktop ready
               </div>
-              <h1 className="mt-8 text-5xl font-black tracking-tight text-slate-950 md:text-7xl lg:text-[5.5rem] lg:leading-[0.98]">
+              <h1 className="mt-8 text-5xl font-black tracking-tight text-slate-950 md:text-7xl lg:text-[5.4rem] lg:leading-[0.98]">
                 会話と実行を、
                 <br />
                 一つのワークスペースへ。
               </h1>
               <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-600 md:text-xl">
                 Nexloom は、チャット、ドキュメント、AI 議事録、タスクを分断せずに扱うチーム向け workspace です。
-                まずは Web で入り、通知や常用導線が必要な人はそのまま Desktop へ移れます。
+                まずは Web で始め、通知や常用導線が必要なタイミングで Desktop を追加できます。
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
@@ -135,76 +116,113 @@ const HomePage: React.FC = () => {
                     className="h-16 w-full rounded-2xl border-2 border-slate-200 bg-white/80 px-10 text-lg sm:w-auto"
                     icon={<Download size={18} />}
                   >
-                    Desktop 導入を見る
+                    導入ガイドを見る
                   </Button>
                 </Link>
-                <Link to={DESKTOP_RELEASE_NOTES_PATH} className="inline-flex items-center text-sm font-bold text-indigo-700 transition-colors hover:text-indigo-800">
-                  Desktop 公開ページ
-                  <ArrowRight size={16} className="ml-1" />
-                </Link>
-              </div>
-
-              <div className="mt-12 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-[1.75rem] border border-white/80 bg-white/80 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
-                  <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Start</div>
-                  <div className="mt-3 text-xl font-black text-slate-950">Web First</div>
-                  <div className="mt-2 text-sm leading-6 text-slate-600">インストール不要。URL だけで workspace に入れます。</div>
-                </div>
-                <div className="rounded-[1.75rem] border border-white/80 bg-white/80 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
-                  <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Desktop</div>
-                  <div className="mt-3 text-xl font-black text-slate-950">{releaseVersion ? `v${releaseVersion}` : 'Release Ready'}</div>
-                  <div className="mt-2 text-sm leading-6 text-slate-600">通知、ショートカット、起動時アップデート確認まで含めて提供します。</div>
-                </div>
-                <div className="rounded-[1.75rem] border border-white/80 bg-white/80 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
-                  <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Mobile</div>
-                  <div className="mt-3 text-xl font-black text-slate-950">Beta Track</div>
-                  <div className="mt-2 text-sm leading-6 text-slate-600">iOS 先行、Android は preview 段階で横展開しています。</div>
-                </div>
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 32 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12 }}
-              className="space-y-6"
+              className="space-y-5"
             >
-              <div className="overflow-hidden rounded-[2.25rem] border border-slate-200 bg-[linear-gradient(145deg,#0f172a_0%,#1e1b4b_56%,#4338ca_100%)] p-7 text-white shadow-[0_40px_90px_-42px_rgba(15,23,42,0.72)]">
-                <div className="flex items-start justify-between gap-4">
+              <div className="rounded-[2.5rem] border border-slate-200 bg-white/92 p-7 shadow-[0_34px_90px_-48px_rgba(15,23,42,0.4)] backdrop-blur">
+                <div className="flex items-center justify-between gap-4">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Desktop Public Page</div>
-                    <div className="mt-3 text-4xl font-black tracking-tight">
-                      {releaseVersion ? `v${releaseVersion}` : loading ? 'loading…' : 'latest'}
+                    <div className="text-xs font-black uppercase tracking-[0.22em] text-slate-400">Launch Modes</div>
+                    <div className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                      チームの入り方を一本化
                     </div>
-                    <div className="mt-2 text-sm text-indigo-100/80">{desktopStatus}</div>
-                    <div className="mt-1 text-sm text-indigo-100/70">{desktopPublished}</div>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
-                    <Download size={28} />
+                  <div className="rounded-2xl bg-[linear-gradient(135deg,#0f172a_0%,#312e81_58%,#4338ca_100%)] p-4 text-white shadow-[0_22px_48px_-26px_rgba(67,56,202,0.7)]">
+                    <Layout size={24} />
                   </div>
                 </div>
 
-                <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
-                  <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Update Highlights</div>
-                  <div className="mt-4 space-y-3">
-                    {desktopHighlights.map((highlight) => (
-                      <div key={highlight} className="flex items-start gap-3 text-sm leading-6 text-white/90">
-                        <span className="mt-2 h-2 w-2 rounded-full bg-cyan-300" />
-                        <span>{highlight}</span>
+                <div className="mt-8 space-y-4">
+                  <a
+                    href={WEB_APP_URL}
+                    className="block rounded-[1.6rem] border border-slate-200 bg-slate-50 px-5 py-5 transition hover:border-slate-300 hover:bg-white"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="rounded-2xl bg-slate-950 p-3 text-white">
+                          <Globe size={20} />
+                        </div>
+                        <div>
+                          <div className="text-sm font-black text-slate-950">Web</div>
+                          <div className="mt-1 text-sm leading-6 text-slate-600">
+                            招待リンクからそのまま入り、最初の運用を最短で始めます。
+                          </div>
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
+                      <div className="text-sm font-bold text-indigo-700">Primary</div>
+                    </div>
+                  </a>
 
+                  <Link
+                    to={DESKTOP_RELEASE_NOTES_PATH}
+                    className="block rounded-[1.6rem] border border-indigo-200 bg-[linear-gradient(145deg,#eef2ff_0%,#ffffff_100%)] px-5 py-5 shadow-[0_24px_60px_-42px_rgba(67,56,202,0.32)] transition hover:-translate-y-0.5"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="rounded-2xl bg-indigo-600 p-3 text-white shadow-[0_16px_34px_-18px_rgba(79,70,229,0.75)]">
+                          <Download size={20} />
+                        </div>
+                        <div>
+                          <div className="text-sm font-black text-slate-950">Desktop</div>
+                          <div className="mt-1 text-sm leading-6 text-slate-600">
+                            通知、ショートカット、起動時アップデート確認を OS 側の導線に寄せます。
+                          </div>
+                        </div>
+                      </div>
+                      <div className="rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-indigo-700 ring-1 ring-indigo-100">
+                        {releaseVersion ? `v${releaseVersion}` : 'Public'}
+                      </div>
+                    </div>
+                    <div className="mt-4 text-sm font-semibold text-slate-500">{desktopStatus}</div>
+                  </Link>
+
+                  <Link
+                    to="/mobile"
+                    className="block rounded-[1.6rem] border border-slate-200 bg-slate-50 px-5 py-5 transition hover:border-slate-300 hover:bg-white"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="rounded-2xl bg-slate-900 p-3 text-white">
+                          <Smartphone size={20} />
+                        </div>
+                        <div>
+                          <div className="text-sm font-black text-slate-950">Mobile</div>
+                          <div className="mt-1 text-sm leading-6 text-slate-600">
+                            iOS を先行導線にして、外出先での確認と返信を引き継ぎます。
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-sm font-bold text-slate-500">Beta</div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(145deg,#0f172a_0%,#1e1b4b_56%,#4338ca_100%)] p-6 text-white shadow-[0_30px_80px_-44px_rgba(15,23,42,0.68)]">
+                <div className="text-xs font-black uppercase tracking-[0.22em] text-indigo-200">Current Desktop</div>
+                <div className="mt-3 text-3xl font-black tracking-tight">
+                  {releaseVersion ? `v${releaseVersion}` : loading ? 'loading…' : 'unavailable'}
+                </div>
+                <div className="mt-2 text-sm text-indigo-100/80">
+                  {publishedAt ? `公開: ${publishedAt}` : error ? 'manifest を取得できませんでした。' : '公開日を確認しています。'}
+                </div>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Link to={DESKTOP_RELEASE_NOTES_PATH} className="w-full sm:w-auto">
                     <Button
                       variant="secondary"
                       size="lg"
-                      className="h-14 w-full rounded-2xl border-white bg-white text-slate-950 hover:bg-slate-100 sm:w-auto"
-                      icon={<Download size={18} />}
+                      className="h-12 w-full rounded-2xl border-white bg-white text-slate-950 hover:bg-slate-100 sm:w-auto"
                     >
-                      Desktop 公開ページ
+                      Desktop 最新版
                     </Button>
                   </Link>
                   {macDownloadUrl ? (
@@ -212,47 +230,12 @@ const HomePage: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="lg"
-                        className="h-14 w-full rounded-2xl border border-white/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto"
-                        icon={<ArrowRight size={18} />}
+                        className="h-12 w-full rounded-2xl border border-white/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto"
                       >
                         macOS 版を取得
                       </Button>
                     </a>
                   ) : null}
-                </div>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr]">
-                <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_24px_55px_-36px_rgba(15,23,42,0.35)]">
-                  <div className="text-xs font-bold uppercase tracking-[0.22em] text-slate-400">Entry Flow</div>
-                  <div className="mt-4 space-y-4">
-                    {[
-                      '1. まずは Web で workspace に入る',
-                      '2. Desktop 公開ページから Desktop を導入',
-                      '3. 同じアカウントでサインインして継続',
-                    ].map((step) => (
-                      <div key={step} className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">
-                        {step}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_24px_55px_-36px_rgba(15,23,42,0.35)]">
-                  <div className="text-xs font-bold uppercase tracking-[0.22em] text-slate-400">Why Desktop</div>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-slate-200 p-4">
-                      <div className="text-sm font-black text-slate-950">通知導線</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-600">常駐しながらチームの更新を追えます。</div>
-                    </div>
-                    <div className="rounded-2xl border border-slate-200 p-4">
-                      <div className="text-sm font-black text-slate-950">起動時アップデート</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-600">新しい版が出れば起動時に案内します。</div>
-                    </div>
-                    <div className="rounded-2xl border border-slate-200 p-4 sm:col-span-2">
-                      <div className="text-sm font-black text-slate-950">同じ workspace 文脈</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-600">Web と Desktop で同じ workspace をそのまま扱えます。</div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </motion.div>
@@ -263,78 +246,47 @@ const HomePage: React.FC = () => {
       <section id="entry-points" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
-            <div className="text-sm font-bold uppercase tracking-[0.22em] text-indigo-600">Entry Points</div>
+            <div className="text-sm font-bold uppercase tracking-[0.22em] text-indigo-600">Adoption Flow</div>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-5xl">
-              チームの入り方を、最初から迷わせない。
+              導入の流れを、最初から迷わせない。
             </h2>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Web を正規入口にしつつ、Desktop と Mobile を役割別に並べています。導線を分けず、必要なときに拡張できます。
+              同じ workspace を起点にして、Web から始め、Desktop や Mobile を必要なタイミングで足していく設計です。
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-[1.05fr_0.95fr_0.95fr]">
-            <a
-              href={WEB_APP_URL}
-              className="group rounded-[2.25rem] border border-slate-200 bg-[linear-gradient(160deg,#0f172a_0%,#1e293b_100%)] p-7 text-white shadow-[0_32px_80px_-46px_rgba(15,23,42,0.8)]"
-            >
-              <div className="flex items-center justify-between">
-                <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
-                  <Globe size={26} />
-                </div>
-                <div className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-200">Recommended</div>
+          <div className="mt-14 grid gap-5 lg:grid-cols-4">
+            {[
+              {
+                step: '01',
+                title: 'Web で入る',
+                body: 'URL だけでサインインし、最初の会話やページ作成を始めます。',
+              },
+              {
+                step: '02',
+                title: 'チームを揃える',
+                body: '同じ workspace にメンバーを招待し、会話と記録の場所を合わせます。',
+              },
+              {
+                step: '03',
+                title: 'Desktop を追加',
+                body: '通知や日常導線が必要な人だけ、最新版ページから Desktop を導入します。',
+              },
+              {
+                step: '04',
+                title: '運用を深くする',
+                body: '会議、タスク、外部連携を足しながら、同じ文脈で運用密度を上げていきます。',
+              },
+            ].map((card) => (
+              <div
+                key={card.step}
+                className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-[0_24px_60px_-42px_rgba(15,23,42,0.24)]"
+              >
+                <div className="text-xs font-black uppercase tracking-[0.24em] text-indigo-600">{card.step}</div>
+                <div className="mt-5 text-2xl font-black tracking-tight text-slate-950">{card.title}</div>
+                <div className="mt-4 text-base leading-7 text-slate-600">{card.body}</div>
               </div>
-              <div className="mt-8 text-3xl font-black tracking-tight">Web App</div>
-              <div className="mt-3 text-base leading-7 text-slate-300">
-                インストール不要。チーム招待、workspace 選択、初回導入が最短です。
-              </div>
-              <div className="mt-8 flex items-center text-sm font-bold text-cyan-200 transition-transform group-hover:translate-x-1">
-                今すぐ開始
-                <ArrowRight size={16} className="ml-1" />
-              </div>
-            </a>
-
-            <Link
-              to="/download"
-              className="group rounded-[2.25rem] border border-indigo-100 bg-[linear-gradient(180deg,#eef2ff_0%,#ffffff_100%)] p-7 shadow-[0_26px_70px_-42px_rgba(67,56,202,0.42)]"
-            >
-              <div className="flex items-center justify-between">
-                <div className="rounded-2xl bg-indigo-600 p-4 text-white shadow-[0_22px_45px_-24px_rgba(79,70,229,0.75)]">
-                  <Download size={26} />
-                </div>
-                <div className="rounded-full bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-indigo-700 ring-1 ring-indigo-100">
-                  {releaseVersion ? `v${releaseVersion}` : 'Desktop'}
-                </div>
-              </div>
-              <div className="mt-8 text-3xl font-black tracking-tight text-slate-950">Desktop</div>
-              <div className="mt-3 text-base leading-7 text-slate-600">
-                通知と日常導線を OS 側に寄せたいチーム向け。Desktop 公開ページからそのまま導入できます。
-              </div>
-              <div className="mt-6 text-sm font-semibold text-slate-500">{desktopPublished}</div>
-              <div className="mt-8 flex items-center text-sm font-bold text-indigo-700 transition-transform group-hover:translate-x-1">
-                導入ステップを見る
-                <ArrowRight size={16} className="ml-1" />
-              </div>
-            </Link>
-
-            <Link
-              to="/mobile"
-              className="group rounded-[2.25rem] border border-slate-200 bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_100%)] p-7 shadow-[0_26px_70px_-46px_rgba(15,23,42,0.24)]"
-            >
-              <div className="flex items-center justify-between">
-                <div className="rounded-2xl bg-slate-950 p-4 text-white">
-                  <Smartphone size={26} />
-                </div>
-                <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Beta Track</div>
-              </div>
-              <div className="mt-8 text-3xl font-black tracking-tight text-slate-950">Mobile</div>
-              <div className="mt-3 text-base leading-7 text-slate-600">
-                出先で会話と確認を引き継ぐための導線です。iOS 先行、Android は preview 段階です。
-              </div>
-              <div className="mt-8 flex items-center text-sm font-bold text-slate-700 transition-transform group-hover:translate-x-1">
-                現在の提供状況を見る
-                <ArrowRight size={16} className="ml-1" />
-              </div>
-            </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -374,10 +326,6 @@ const HomePage: React.FC = () => {
                     <h3 className="mt-7 text-2xl font-black text-slate-950">{feature.title}</h3>
                     <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">{feature.description}</p>
                   </div>
-                  <div className="mt-10 flex items-center text-sm font-bold text-indigo-700 transition-transform group-hover:translate-x-1">
-                    workspace の流れを見る
-                    <ArrowRight size={16} className="ml-1" />
-                  </div>
                 </div>
                 <div className="absolute -bottom-14 -right-12 text-slate-100 transition-colors group-hover:text-slate-200">
                   <feature.icon size={220} />
@@ -390,22 +338,19 @@ const HomePage: React.FC = () => {
 
       <section className="bg-white px-4 py-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="rounded-[2.75rem] border border-slate-200 bg-[linear-gradient(145deg,#0f172a_0%,#1e1b4b_58%,#312e81_100%)] p-8 text-white shadow-[0_36px_90px_-46px_rgba(15,23,42,0.72)] md:p-10">
-              <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Desktop Path</div>
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-[2.6rem] border border-slate-200 bg-[linear-gradient(145deg,#0f172a_0%,#1e1b4b_56%,#312e81_100%)] p-8 text-white shadow-[0_36px_90px_-46px_rgba(15,23,42,0.72)] md:p-10">
+              <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">When Desktop Fits</div>
               <h2 className="mt-5 text-3xl font-black tracking-tight md:text-4xl">
-                Desktop までの導線を、
+                毎日開く人には、
                 <br />
-                迷わず一本に。
+                Desktop が効きます。
               </h2>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-                Nexloom.site の Desktop 公開ページを hub にして、最新版確認、ダウンロード、更新方式の理解までを一続きで見せます。
-              </p>
               <div className="mt-8 grid gap-3">
                 {[
-                  '最新版の公開情報を Nexloom サイト上で表示',
-                  'DMG と updater package を同じページで案内',
-                  '起動時アップデート確認の流れまで説明',
+                  '通知をブラウザタブではなく OS の導線で受け取りたい',
+                  '起動時に最新版を案内し、そのまま更新まで進めたい',
+                  'Web と同じ workspace を、常用クライアントとして持ちたい',
                 ].map((point) => (
                   <div key={point} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white/90">
                     {point}
@@ -417,10 +362,10 @@ const HomePage: React.FC = () => {
                   <Button
                     variant="secondary"
                     size="lg"
-                    className="h-14 w-full rounded-2xl bg-white text-slate-950 border-white sm:w-auto"
+                    className="h-14 w-full rounded-2xl border-white bg-white text-slate-950 hover:bg-slate-100 sm:w-auto"
                     icon={<Download size={18} />}
                   >
-                    Desktop 導入ページへ
+                    導入ガイドを見る
                   </Button>
                 </Link>
                 <Link to={DESKTOP_RELEASE_NOTES_PATH} className="w-full sm:w-auto">
@@ -430,14 +375,14 @@ const HomePage: React.FC = () => {
                     className="h-14 w-full rounded-2xl border border-white/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto"
                     icon={<ArrowRight size={18} />}
                   >
-                    Desktop 公開ページ
+                    Desktop 最新版
                   </Button>
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-[2.75rem] border border-slate-200 bg-slate-50 p-8 shadow-[0_28px_70px_-48px_rgba(15,23,42,0.28)] md:p-10">
-              <div className="text-xs font-bold uppercase tracking-[0.22em] text-slate-400">Integrations</div>
+            <div className="rounded-[2.6rem] border border-slate-200 bg-slate-50 p-8 shadow-[0_28px_70px_-48px_rgba(15,23,42,0.28)] md:p-10">
+              <div className="text-xs font-bold uppercase tracking-[0.22em] text-slate-400">Connected Stack</div>
               <h3 className="mt-4 text-2xl font-black tracking-tight text-slate-950">
                 既存のフローを壊さずに、
                 <br />
@@ -448,15 +393,20 @@ const HomePage: React.FC = () => {
               </p>
               <div className="mt-8 grid gap-3">
                 {[
-                  { icon: HardDrive, label: 'Google Drive' },
-                  { icon: Github, label: 'GitHub' },
-                  { icon: Slack, label: 'Slack' },
+                  { icon: HardDrive, label: 'Google Drive', body: 'ドキュメント導線をそのまま接続' },
+                  { icon: Github, label: 'GitHub', body: '開発の流れと会話を同じ文脈に置く' },
+                  { icon: Slack, label: 'Slack', body: '既存のチーム連絡と移行計画を両立' },
                 ].map((integration) => (
-                  <div key={integration.label} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-4">
-                    <div className="rounded-xl bg-slate-950 p-3 text-white">
-                      <integration.icon size={18} />
+                  <div key={integration.label} className="rounded-2xl border border-slate-200 bg-white px-5 py-5">
+                    <div className="flex items-center gap-4">
+                      <div className="rounded-xl bg-slate-950 p-3 text-white">
+                        <integration.icon size={18} />
+                      </div>
+                      <div>
+                        <div className="text-sm font-black text-slate-900">{integration.label}</div>
+                        <div className="mt-1 text-sm leading-6 text-slate-500">{integration.body}</div>
+                      </div>
                     </div>
-                    <div className="text-sm font-black text-slate-900">{integration.label}</div>
                   </div>
                 ))}
               </div>
@@ -473,12 +423,12 @@ const HomePage: React.FC = () => {
             <div className="relative z-10">
               <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-100">Start Here</div>
               <h2 className="mt-5 text-4xl font-black tracking-tight text-white md:text-6xl">
-                Web で始めて、
+                まずは Web で始めて、
                 <br />
-                必要なら Desktop へ。
+                必要な surface だけ足す。
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-indigo-100/88">
-                最初の入口は常にシンプルに保ちつつ、通知や常用導線が必要になった時点で Desktop を追加できます。
+                最初の入口は軽く、運用はあとから深く。Nexloom はその順序を崩さないように設計しています。
               </p>
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a href={WEB_APP_URL} className="w-full sm:w-auto" aria-label="Nexloom Webアプリを開く">
@@ -498,7 +448,7 @@ const HomePage: React.FC = () => {
                     className="h-16 w-full rounded-2xl border border-white/35 bg-white/10 px-10 text-lg text-white hover:bg-white/15 sm:w-auto"
                     icon={<Download size={18} />}
                   >
-                    Desktop 導入を見る
+                    導入ガイドを見る
                   </Button>
                 </Link>
               </div>

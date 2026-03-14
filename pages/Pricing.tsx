@@ -3,8 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Check, Crown, Download, ShieldCheck, Sparkles, Users, Zap } from 'lucide-react';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
-import { DESKTOP_RELEASE_NOTES_PATH, WEB_APP_URL } from '../constants/links';
-import { useDesktopReleaseManifest } from '../hooks/useDesktopReleaseManifest';
+import { WEB_APP_URL } from '../constants/links';
 
 const plans = [
   {
@@ -64,7 +63,26 @@ const plans = [
 ];
 
 const PricingPage: React.FC = () => {
-  const { releaseVersion, publishedAt } = useDesktopReleaseManifest();
+  const upgradeSignals = [
+    {
+      title: 'Free から Pro へ',
+      body: '会議の記録、AI 要約、チーム内の会話が日常業務の中心になってきたら、Pro が基準です。',
+    },
+    {
+      title: 'Pro のまま伸ばす',
+      body: 'Desktop や Mobile は、必要なメンバーにだけ足しながら、同じ workspace のまま運用できます。',
+    },
+    {
+      title: 'Enterprise を検討する時',
+      body: '権限統制、監査、組織横断運用を要件として持ち始めた時点が切り替えの目安です。',
+    },
+  ];
+
+  const faqItems = [
+    'どこから始めるべきか: まずは Web から入り、チームの会話と記録の置き場を一つにします。',
+    'Desktop はいつ追加するか: 通知やショートカットを日常導線に入れたいメンバーから順に追加します。',
+    'Enterprise の相談先: セキュリティ要件や運用条件を含めて個別に整理します。',
+  ];
 
   return (
     <div className="min-h-screen overflow-hidden bg-slate-50 px-4 pb-24 pt-32 sm:px-6 lg:px-8">
@@ -84,13 +102,13 @@ const PricingPage: React.FC = () => {
               Pricing And Rollout
             </div>
             <h1 className="mt-8 text-5xl font-black tracking-tight text-slate-950 md:text-6xl lg:text-7xl">
-              チームの拡大に合わせて、
+              チームの密度に合わせて、
               <br />
-              運用を崩さない。
+              運用を広げる。
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-600">
-              Nexloom は、まず Web から入り、必要に応じて Desktop や高度な管理機能へ広げる設計です。
-              料金もその順序に合わせ、導入ハードルを下げつつ運用密度を上げられる構成にしています。
+              Nexloom は、Web から導入し、会議、AI、Desktop、ガバナンスを必要な順序で足していく設計です。
+              料金もその運用段階に合わせて選びやすくしています。
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
@@ -103,14 +121,14 @@ const PricingPage: React.FC = () => {
                   Webアプリを開く
                 </Button>
               </a>
-              <Link to={DESKTOP_RELEASE_NOTES_PATH} className="w-full sm:w-auto">
+              <Link to="/download" className="w-full sm:w-auto">
                 <Button
                   variant="secondary"
                   size="lg"
                   className="h-16 w-full rounded-2xl border-2 border-slate-200 bg-white/80 px-10 text-lg sm:w-auto"
                   icon={<Download size={18} />}
                 >
-                  Desktop の公開導線
+                  導入ガイドを見る
                 </Button>
               </Link>
             </div>
@@ -119,19 +137,17 @@ const PricingPage: React.FC = () => {
               <div className="rounded-[1.75rem] border border-white/80 bg-white/85 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
                 <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Start</div>
                 <div className="mt-3 text-xl font-black text-slate-950">Web First</div>
-                <div className="mt-2 text-sm leading-6 text-slate-600">導入は URL から最短で開始できます。</div>
+                <div className="mt-2 text-sm leading-6 text-slate-600">導入の正規入口は Web です。最初の運用を URL だけで始められます。</div>
               </div>
               <div className="rounded-[1.75rem] border border-white/80 bg-white/85 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
-                <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Desktop</div>
-                <div className="mt-3 text-xl font-black text-slate-950">{releaseVersion ? `v${releaseVersion}` : 'Release Ready'}</div>
-                <div className="mt-2 text-sm leading-6 text-slate-600">
-                  {publishedAt ? `公開: ${publishedAt}` : '公開版を配布中です。'}
-                </div>
+                <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Standard</div>
+                <div className="mt-3 text-xl font-black text-slate-950">Pro</div>
+                <div className="mt-2 text-sm leading-6 text-slate-600">会議、AI、連携を日常的に回すチームの基準プランです。</div>
               </div>
               <div className="rounded-[1.75rem] border border-white/80 bg-white/85 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
                 <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Governance</div>
-                <div className="mt-3 text-xl font-black text-slate-950">Scale Safely</div>
-                <div className="mt-2 text-sm leading-6 text-slate-600">監査や権限管理が必要になったら上位プランへ拡張できます。</div>
+                <div className="mt-3 text-xl font-black text-slate-950">Enterprise</div>
+                <div className="mt-2 text-sm leading-6 text-slate-600">監査、権限、組織運用が必要になったら上位構成へ拡張します。</div>
               </div>
             </div>
           </div>
@@ -139,14 +155,14 @@ const PricingPage: React.FC = () => {
           <div className="rounded-[2.5rem] border border-slate-200 bg-[linear-gradient(150deg,#0f172a_0%,#1e1b4b_55%,#4338ca_100%)] p-8 text-white shadow-[0_40px_90px_-46px_rgba(15,23,42,0.72)]">
             <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Rollout Principle</div>
             <h2 className="mt-5 text-3xl font-black tracking-tight">
-              入口はシンプルに、
+              入口は軽く、
               <br />
-              運用は後から深く。
+              運用は段階的に深く。
             </h2>
             <div className="mt-6 space-y-4">
               {[
-                'まずは Free / Web でチームの流れを作る',
-                '会議や自動化が日常化したら Pro へ進める',
+                '最初は Web で workspace を揃える',
+                '会議や連携が日常化したら Pro を基準にする',
                 '統制や監査が必要になった時点で Enterprise を検討する',
               ].map((point) => (
                 <div key={point} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-white/90">
@@ -155,24 +171,18 @@ const PricingPage: React.FC = () => {
               ))}
             </div>
             <div className="mt-8 rounded-[1.8rem] border border-white/10 bg-white/10 p-5">
-              <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Desktop Availability</div>
-              <div className="mt-3 text-2xl font-black">
-                {releaseVersion ? `Desktop v${releaseVersion}` : 'Desktop Public Release'}
-              </div>
-              <div className="mt-2 text-sm leading-6 text-indigo-100/80">
-                Desktop の公開配布は Nexloom.site 上の Desktop 公開ページから案内しています。private GitHub を前提にしません。
-              </div>
-              <div className="mt-5">
-                <Link to={DESKTOP_RELEASE_NOTES_PATH}>
-                  <Button
-                    variant="secondary"
-                    size="lg"
-                    className="h-14 rounded-2xl border-white bg-white text-slate-950 hover:bg-slate-100"
-                    icon={<Download size={18} />}
-                  >
-                    Desktop 公開ページ
-                  </Button>
-                </Link>
+              <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Workspace Surfaces</div>
+              <div className="mt-4 space-y-3">
+                {[
+                  { label: 'Web', body: '最初の導入と日常利用の基準入口。' },
+                  { label: 'Desktop', body: '通知やショートカットを重視する人向けの導線。' },
+                  { label: 'Mobile', body: '外出先での確認と返信を補完する導線。' },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3">
+                    <div className="text-sm font-black text-white">{item.label}</div>
+                    <div className="mt-1 text-sm leading-6 text-indigo-100/80">{item.body}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -254,59 +264,28 @@ const PricingPage: React.FC = () => {
           ))}
         </section>
 
-        <section className="mt-20 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+        <section className="mt-20 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-[2.4rem] border border-slate-200 bg-white p-8 shadow-[0_28px_70px_-44px_rgba(15,23,42,0.28)]">
-            <div className="text-sm font-bold uppercase tracking-[0.22em] text-indigo-600">Included Direction</div>
-            <h2 className="mt-4 text-3xl font-black tracking-tight text-slate-950">
-              料金の考え方も、
+            <div className="text-sm font-bold uppercase tracking-[0.22em] text-indigo-600">Upgrade Signals</div>
+            <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950">
+              プランを見直すタイミングを、
               <br />
-              導入順序に合わせる。
+              曖昧にしない。
             </h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 p-5">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-xl bg-slate-950 p-3 text-white">
-                    <Zap size={18} />
-                  </div>
-                  <div className="text-sm font-black text-slate-950">Web</div>
+            <div className="mt-8 space-y-4">
+              {upgradeSignals.map((signal) => (
+                <div key={signal.title} className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-5">
+                  <div className="text-sm font-black text-slate-950">{signal.title}</div>
+                  <div className="mt-2 text-sm leading-6 text-slate-600">{signal.body}</div>
                 </div>
-                <div className="mt-4 text-sm leading-6 text-slate-600">
-                  最初の導入と日常利用の正規入口です。URL ベースで最短に入れます。
-                </div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 p-5">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-xl bg-indigo-600 p-3 text-white">
-                    <Download size={18} />
-                  </div>
-                  <div className="text-sm font-black text-slate-950">Desktop</div>
-                </div>
-                <div className="mt-4 text-sm leading-6 text-slate-600">
-                  通知やショートカットを重視する人向けの実行導線です。Desktop 公開ページから導入できます。
-                </div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 p-5 sm:col-span-2">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-xl bg-emerald-600 p-3 text-white">
-                    <ShieldCheck size={18} />
-                  </div>
-                  <div className="text-sm font-black text-slate-950">Governance</div>
-                </div>
-                <div className="mt-4 text-sm leading-6 text-slate-600">
-                  管理や監査が必要になった時点で Enterprise の検討に進む構成です。最初から重くしません。
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
           <div className="rounded-[2.4rem] border border-slate-200 bg-[linear-gradient(145deg,#ffffff_0%,#eef2ff_100%)] p-8 shadow-[0_28px_70px_-44px_rgba(67,56,202,0.28)]">
             <div className="text-sm font-bold uppercase tracking-[0.22em] text-indigo-600">FAQ</div>
             <div className="mt-6 space-y-4">
-              {[
-                'まずはどのプランから始めるべきか: Free か Web 導入から始めて、日常運用が固まったら Pro へ進むのが基準です。',
-                'Desktop は別料金か: 導入導線は Desktop 公開ページで分けていますが、利用判断は workspace 運用の中で行う前提です。',
-                'Enterprise の相談先: セキュリティや運用条件を含めて個別に整理します。',
-              ].map((item) => (
+              {faqItems.map((item) => (
                 <div key={item} className="rounded-2xl border border-white bg-white/90 p-5 text-sm leading-6 text-slate-600">
                   {item}
                 </div>
@@ -320,7 +299,7 @@ const PricingPage: React.FC = () => {
                 </Button>
               </a>
               <Link to="/docs">
-                <Button variant="secondary" size="lg" className="h-14 w-full justify-center rounded-2xl" icon={<Users size={18} />}>
+                <Button variant="secondary" size="lg" className="h-14 w-full justify-center rounded-2xl" icon={<ShieldCheck size={18} />}>
                   導入ドキュメントを見る
                 </Button>
               </Link>
