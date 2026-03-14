@@ -3,6 +3,7 @@ import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import mermaid from 'mermaid';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link as RouterLink } from 'react-router-dom';
 import { 
   ChevronRight, 
   Book, 
@@ -33,8 +34,14 @@ import {
   Copy,
   Check,
   Lightbulb,
-  Info
+  Info,
+  Download,
+  Globe,
+  Smartphone,
+  Sparkles
 } from 'lucide-react';
+import { DESKTOP_RELEASE_NOTES_PATH, WEB_APP_URL } from '../constants/links';
+import { useDesktopReleaseManifest } from '../hooks/useDesktopReleaseManifest';
 
 // --- Mermaid Configuration ---
 mermaid.initialize({
@@ -189,6 +196,7 @@ const DocsPage: React.FC = () => {
   const [activeId, setActiveId] = useState('intro');
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { releaseVersion, publishedAt } = useDesktopReleaseManifest();
 
   const menu = [
     {
@@ -1069,6 +1077,31 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
   const currentIndex = flatItems.findIndex(i => i.id === activeId);
   const prevDoc = flatItems[currentIndex - 1];
   const nextDoc = flatItems[currentIndex + 1];
+  const docsQuickLinks = [
+    {
+      title: 'Web から始める',
+      body: 'いちばん早い正規入口です。まず workspace に入るならここから。',
+      href: WEB_APP_URL,
+      external: true,
+      icon: Globe,
+    },
+    {
+      title: 'Desktop 導線',
+      body: releaseVersion
+        ? `公開版 v${releaseVersion}${publishedAt ? ` / ${publishedAt}` : ''}`
+        : '公開リリースノートと導入手順を確認できます。',
+      href: DESKTOP_RELEASE_NOTES_PATH,
+      external: false,
+      icon: Download,
+    },
+    {
+      title: 'モバイル案内',
+      body: 'iOS 先行、Android preview の提供状況を確認します。',
+      href: '/mobile',
+      external: false,
+      icon: Smartphone,
+    },
+  ];
 
   const handleSelect = (id: string) => {
     setActiveId(id);
@@ -1275,6 +1308,84 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
           </div>
 
           <div className="max-w-[960px] mx-auto px-6 lg:px-16 py-12 lg:py-20">
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-12 overflow-hidden rounded-[2.6rem] border border-slate-200 bg-[linear-gradient(145deg,#0f172a_0%,#1e1b4b_58%,#4338ca_100%)] p-8 text-white shadow-[0_32px_90px_-52px_rgba(15,23,42,0.72)] lg:p-10"
+            >
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+                <div className="max-w-2xl">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-indigo-100">
+                    <Sparkles size={16} />
+                    Documentation Gateway
+                  </div>
+                  <h1 className="mt-6 text-4xl font-black tracking-tight md:text-5xl">
+                    何を見ればよいかを、
+                    <br />
+                    最初に迷わせない。
+                  </h1>
+                  <p className="mt-5 max-w-2xl text-base leading-8 text-indigo-100/88 md:text-lg">
+                    この Docs は、実装仕様そのものではなく「正本ドキュメントへの入口」です。
+                    Web の使い始め、Desktop の公開導線、Mobile の提供状況、運用仕様への接続をここからまとめて辿れます。
+                  </p>
+                </div>
+                <div className="grid gap-3 sm:min-w-[280px]">
+                  <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-4">
+                    <div className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200">Current Desktop</div>
+                    <div className="mt-2 text-2xl font-black">{releaseVersion ? `v${releaseVersion}` : 'Release Ready'}</div>
+                    <div className="mt-1 text-sm text-indigo-100/75">
+                      {publishedAt ? `公開: ${publishedAt}` : '公開リリースを案内中'}
+                    </div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-4">
+                    <div className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200">Docs Policy</div>
+                    <div className="mt-2 text-sm leading-6 text-indigo-100/82">
+                      サイト Docs は入口、実装と運用の正本は `ai-note-meet/docs` を見る方針です。
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
+                {docsQuickLinks.map((item) => {
+                  const content = (
+                    <>
+                      <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+                        <item.icon size={22} />
+                      </div>
+                      <div className="mt-6 text-xl font-black">{item.title}</div>
+                      <div className="mt-3 text-sm leading-7 text-indigo-100/82">{item.body}</div>
+                      <div className="mt-6 flex items-center text-sm font-bold text-cyan-200">
+                        開く
+                        <ArrowRight size={16} className="ml-1" />
+                      </div>
+                    </>
+                  );
+
+                  if (item.external) {
+                    return (
+                      <a
+                        key={item.title}
+                        href={item.href}
+                        className="group rounded-[2rem] border border-white/10 bg-white/5 p-6 transition-transform hover:-translate-y-1 hover:bg-white/10"
+                      >
+                        {content}
+                      </a>
+                    );
+                  }
+
+                  return (
+                    <RouterLink
+                      key={item.title}
+                      to={item.href}
+                      className="group rounded-[2rem] border border-white/10 bg-white/5 p-6 transition-transform hover:-translate-y-1 hover:bg-white/10"
+                    >
+                      {content}
+                    </RouterLink>
+                  );
+                })}
+              </div>
+            </motion.section>
             
             {/* Breadcrumbs */}
             <nav className="mb-8 flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
