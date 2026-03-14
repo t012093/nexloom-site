@@ -100,7 +100,7 @@ const DownloadPage: React.FC = () => {
     : [
         '起動時に新しい版を確認して案内',
         '承認後は自動ダウンロードと再起動',
-        '公開リリースノートを hub にして配布',
+        'Nexloom.site の公開ページを hub にして配布',
       ];
 
   return (
@@ -127,7 +127,7 @@ const DownloadPage: React.FC = () => {
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-600">
               Nexloom は Web を正規入口にしつつ、通知や OS 常駐が必要な人向けに Desktop を公開しています。
-              公開リリースノートを起点に、最新版確認、ダウンロード、更新方式の理解までを一続きで辿れます。
+              Nexloom.site の Desktop 公開ページを起点に、最新版確認、ダウンロード、更新方式の理解までを一続きで辿れます。
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
@@ -137,7 +137,7 @@ const DownloadPage: React.FC = () => {
                   className="h-16 w-full rounded-2xl px-10 text-lg shadow-[0_24px_45px_-24px_rgba(79,70,229,0.75)] sm:w-auto"
                   icon={<Download size={18} />}
                 >
-                  公開リリースノート
+                  Desktop 公開ページ
                 </Button>
               </Link>
               {macDownloadUrl ? (
@@ -166,8 +166,8 @@ const DownloadPage: React.FC = () => {
               </div>
               <div className="rounded-[1.75rem] border border-white/80 bg-white/80 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
                 <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">配布導線</div>
-                <div className="mt-3 text-xl font-black text-slate-950">Public Notes</div>
-                <div className="mt-2 text-sm leading-6 text-slate-600">GitHub private を見せず、Nexloom サイト上で導線を完結させます。</div>
+                <div className="mt-3 text-xl font-black text-slate-950">Site Canonical</div>
+                <div className="mt-2 text-sm leading-6 text-slate-600">GitHub private を見せず、Nexloom.site 上で導線を完結させます。</div>
               </div>
               <div className="rounded-[1.75rem] border border-white/80 bg-white/80 p-5 shadow-[0_24px_50px_-34px_rgba(15,23,42,0.35)] backdrop-blur">
                 <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">アップデート</div>
@@ -224,7 +224,7 @@ const DownloadPage: React.FC = () => {
             {needsCompatibilityNotice ? (
               <div className="mt-6 rounded-[1.75rem] border border-amber-300/20 bg-amber-400/10 px-5 py-4 text-sm leading-6 text-amber-100">
                 現在の公開配布は Apple Silicon Mac 向けです。お使いの OS 向け build はまだ公開していないため、
-                リリースノートで最新状況を確認できる形にしています。
+                Desktop 公開ページで最新状況を確認できる形にしています。
               </div>
             ) : null}
 
@@ -248,7 +248,7 @@ const DownloadPage: React.FC = () => {
                   className="h-14 w-full rounded-2xl border border-white/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto"
                   icon={<ArrowRight size={18} />}
                 >
-                  詳しいリリース情報
+                  Desktop 公開ページ
                 </Button>
               </Link>
             </div>
@@ -267,7 +267,7 @@ const DownloadPage: React.FC = () => {
             {[
               {
                 step: '01',
-                title: '公開リリースを確認',
+                title: 'Desktop 公開ページを確認',
                 body: '最新版の version、公開日、更新内容を確認してから導入できます。',
               },
               {
@@ -378,7 +378,7 @@ const DownloadPage: React.FC = () => {
                   className="h-14 w-full rounded-2xl sm:w-auto"
                   icon={<RefreshCw size={18} />}
                 >
-                  公開リリースノート
+                  Desktop 公開ページ
                 </Button>
               </Link>
             </div>

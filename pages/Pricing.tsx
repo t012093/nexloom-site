@@ -160,7 +160,7 @@ const PricingPage: React.FC = () => {
                 {releaseVersion ? `Desktop v${releaseVersion}` : 'Desktop Public Release'}
               </div>
               <div className="mt-2 text-sm leading-6 text-indigo-100/80">
-                Desktop の公開配布は Nexloom サイト上の公開リリースノートから案内しています。private GitHub を前提にしません。
+                Desktop の公開配布は Nexloom.site 上の Desktop 公開ページから案内しています。private GitHub を前提にしません。
               </div>
               <div className="mt-5">
                 <Link to={DESKTOP_RELEASE_NOTES_PATH}>
@@ -170,7 +170,7 @@ const PricingPage: React.FC = () => {
                     className="h-14 rounded-2xl border-white bg-white text-slate-950 hover:bg-slate-100"
                     icon={<Download size={18} />}
                   >
-                    公開リリースノート
+                    Desktop 公開ページ
                   </Button>
                 </Link>
               </div>
@@ -282,7 +282,7 @@ const PricingPage: React.FC = () => {
                   <div className="text-sm font-black text-slate-950">Desktop</div>
                 </div>
                 <div className="mt-4 text-sm leading-6 text-slate-600">
-                  通知やショートカットを重視する人向けの実行導線です。公開リリースから導入できます。
+                  通知やショートカットを重視する人向けの実行導線です。Desktop 公開ページから導入できます。
                 </div>
               </div>
               <div className="rounded-2xl border border-slate-200 p-5 sm:col-span-2">
@@ -304,7 +304,7 @@ const PricingPage: React.FC = () => {
             <div className="mt-6 space-y-4">
               {[
                 'まずはどのプランから始めるべきか: Free か Web 導入から始めて、日常運用が固まったら Pro へ進むのが基準です。',
-                'Desktop は別料金か: 導入導線は公開リリースで分けていますが、利用判断は workspace 運用の中で行う前提です。',
+                'Desktop は別料金か: 導入導線は Desktop 公開ページで分けていますが、利用判断は workspace 運用の中で行う前提です。',
                 'Enterprise の相談先: セキュリティや運用条件を含めて個別に整理します。',
               ].map((item) => (
                 <div key={item} className="rounded-2xl border border-white bg-white/90 p-5 text-sm leading-6 text-slate-600">

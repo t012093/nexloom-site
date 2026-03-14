@@ -45,19 +45,19 @@ const DesktopReleaseNotesPage: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-white/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700 shadow-sm">
             <Sparkles size={14} />
-            Public Release Notes
+            Nexloom.site Official
           </div>
           <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-end">
             <div>
               <h1 className="text-5xl font-black tracking-tight text-slate-950 md:text-6xl">
-                デスクトップ版の<br />最新リリースを公開
+                デスクトップ版の<br />公開ページ
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
-                Nexloom サイト上で最新版の公開日、更新内容、ダウンロード導線をまとめています。
-                private GitHub リポジトリに入れなくても、ここから公開配布物へ進めます。
+                Nexloom.site を正本にして、最新版の公開日、更新内容、ダウンロード導線をまとめています。
+                private GitHub に入れなくても、ここから公開配布物とアップデート情報を確認できます。
               </p>
               <div className="mt-8 flex flex-wrap gap-3 text-xs font-semibold text-slate-500">
-                <span className="rounded-full bg-white px-3 py-1.5 shadow-sm ring-1 ring-slate-200">public notes</span>
+                <span className="rounded-full bg-white px-3 py-1.5 shadow-sm ring-1 ring-slate-200">official public page</span>
                 <span className="rounded-full bg-white px-3 py-1.5 shadow-sm ring-1 ring-slate-200">auto-update ready</span>
                 <span className="rounded-full bg-white px-3 py-1.5 shadow-sm ring-1 ring-slate-200">manual install available</span>
               </div>
@@ -115,8 +115,8 @@ const DesktopReleaseNotesPage: React.FC = () => {
           >
             <div className="flex items-center justify-between gap-4">
               <div>
-                <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">Release Notes</div>
-                <h2 className="mt-2 text-2xl font-black text-slate-950">更新内容</h2>
+                <div className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">Update Summary</div>
+                <h2 className="mt-2 text-2xl font-black text-slate-950">今回の更新</h2>
               </div>
               {releaseVersion ? (
                 <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
@@ -134,12 +134,12 @@ const DesktopReleaseNotesPage: React.FC = () => {
               </div>
             ) : error ? (
               <div className="mt-8 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700">
-                最新リリースを読み込めませんでした。時間をおいて再度お試しください。
+                最新の公開情報を読み込めませんでした。時間をおいて再度お試しください。
                 <div className="mt-2 font-medium text-red-600">{error}</div>
               </div>
             ) : (
               <div className="mt-8 whitespace-pre-wrap rounded-[1.75rem] bg-slate-950 px-6 py-6 text-sm leading-7 text-slate-100 shadow-inner">
-                {notes || '今回のリリースノートはまだ登録されていません。'}
+                {notes || '今回の更新情報はまだ登録されていません。'}
               </div>
             )}
           </motion.section>
@@ -204,10 +204,11 @@ const DesktopReleaseNotesPage: React.FC = () => {
             <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-[0_24px_80px_-34px_rgba(15,23,42,0.4)]">
               <h3 className="flex items-center gap-2 text-lg font-black text-slate-950">
                 <FileCode2 size={20} className="text-slate-700" />
-                公開 API
+                配信 API
               </h3>
               <p className="mt-4 text-sm leading-6 text-slate-600">
-                リリースノートページ自体も updater manifest を読んでいるため、GitHub が private のままでも公開ページとして維持できます。
+                この公開ページ自体が updater manifest を読んでいるため、GitHub が private のままでも
+                Nexloom.site を正本の配布ページとして維持できます。
               </p>
               <a
                 href={DESKTOP_UPDATER_MANIFEST_URL}

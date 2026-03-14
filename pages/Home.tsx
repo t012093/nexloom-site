@@ -139,7 +139,7 @@ const HomePage: React.FC = () => {
                   </Button>
                 </Link>
                 <Link to={DESKTOP_RELEASE_NOTES_PATH} className="inline-flex items-center text-sm font-bold text-indigo-700 transition-colors hover:text-indigo-800">
-                  公開リリースノート
+                  Desktop 公開ページ
                   <ArrowRight size={16} className="ml-1" />
                 </Link>
               </div>
@@ -172,7 +172,7 @@ const HomePage: React.FC = () => {
               <div className="overflow-hidden rounded-[2.25rem] border border-slate-200 bg-[linear-gradient(145deg,#0f172a_0%,#1e1b4b_56%,#4338ca_100%)] p-7 text-white shadow-[0_40px_90px_-42px_rgba(15,23,42,0.72)]">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Desktop Release</div>
+                    <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Desktop Public Page</div>
                     <div className="mt-3 text-4xl font-black tracking-tight">
                       {releaseVersion ? `v${releaseVersion}` : loading ? 'loading…' : 'latest'}
                     </div>
@@ -185,7 +185,7 @@ const HomePage: React.FC = () => {
                 </div>
 
                 <div className="mt-8 rounded-[1.75rem] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
-                  <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Release Highlights</div>
+                  <div className="text-xs font-bold uppercase tracking-[0.22em] text-indigo-200">Update Highlights</div>
                   <div className="mt-4 space-y-3">
                     {desktopHighlights.map((highlight) => (
                       <div key={highlight} className="flex items-start gap-3 text-sm leading-6 text-white/90">
@@ -204,7 +204,7 @@ const HomePage: React.FC = () => {
                       className="h-14 w-full rounded-2xl border-white bg-white text-slate-950 hover:bg-slate-100 sm:w-auto"
                       icon={<Download size={18} />}
                     >
-                      公開リリースを見る
+                      Desktop 公開ページ
                     </Button>
                   </Link>
                   {macDownloadUrl ? (
@@ -228,7 +228,7 @@ const HomePage: React.FC = () => {
                   <div className="mt-4 space-y-4">
                     {[
                       '1. まずは Web で workspace に入る',
-                      '2. 公開リリースから Desktop を導入',
+                      '2. Desktop 公開ページから Desktop を導入',
                       '3. 同じアカウントでサインインして継続',
                     ].map((step) => (
                       <div key={step} className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">
@@ -307,7 +307,7 @@ const HomePage: React.FC = () => {
               </div>
               <div className="mt-8 text-3xl font-black tracking-tight text-slate-950">Desktop</div>
               <div className="mt-3 text-base leading-7 text-slate-600">
-                通知と日常導線を OS 側に寄せたいチーム向け。公開リリースからそのまま導入できます。
+                通知と日常導線を OS 側に寄せたいチーム向け。Desktop 公開ページからそのまま導入できます。
               </div>
               <div className="mt-6 text-sm font-semibold text-slate-500">{desktopPublished}</div>
               <div className="mt-8 flex items-center text-sm font-bold text-indigo-700 transition-transform group-hover:translate-x-1">
@@ -399,7 +399,7 @@ const HomePage: React.FC = () => {
                 迷わず一本に。
               </h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-                公開リリースページを hub にして、最新版確認、ダウンロード、更新方式の理解までを一続きで見せます。
+                Nexloom.site の Desktop 公開ページを hub にして、最新版確認、ダウンロード、更新方式の理解までを一続きで見せます。
               </p>
               <div className="mt-8 grid gap-3">
                 {[
@@ -430,7 +430,7 @@ const HomePage: React.FC = () => {
                     className="h-14 w-full rounded-2xl border border-white/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto"
                     icon={<ArrowRight size={18} />}
                   >
-                    公開リリースノート
+                    Desktop 公開ページ
                   </Button>
                 </Link>
               </div>

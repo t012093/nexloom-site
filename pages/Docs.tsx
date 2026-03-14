@@ -395,7 +395,7 @@ const DocsPage: React.FC = () => {
 
 1. [デスクトップ版の案内](#/download) を開く。
 2. お使いのOSに合う配布物を選ぶ。
-3. [公開リリースノート](#/desktop/release-notes) からインストーラーを取得する。
+3. [Desktop 公開ページ](#/desktop) からインストーラーを取得する。
 4. インストール後にサインインし、Web版と同じ組織を選ぶ。
 5. まずは通知、チャンネル投稿、タスク作成の3つだけ確認するとスムーズです。
 
@@ -417,7 +417,7 @@ const DocsPage: React.FC = () => {
 ## 目的 / 結論 / 次アクション
 
 - 目的: 端末別に必要なインストール手順を明確にする。
-- 結論: 「Webはすぐ開始」「モバイルは案内された配布経路で導入」「デスクトップは公開リリースノートから取得」が基本である。
+- 結論: 「Webはすぐ開始」「モバイルは案内された配布経路で導入」「デスクトップは Desktop 公開ページから取得」が基本である。
 - 次アクション: 端末に対応する導線を選び、最後にログイン確認まで行う。
 
 ## 端末別の入口
@@ -426,7 +426,7 @@ const DocsPage: React.FC = () => {
 | --- | --- | --- |
 | Web | [Webアプリ](https://ai-note-meet.vercel.app/) | 不要 |
 | モバイル | [モバイル版の案内](#/mobile) | 配布状況に応じて TestFlight / internal build |
-| デスクトップ | [デスクトップ版の案内](#/download) | 公開リリースノートから取得 |
+| デスクトップ | [デスクトップ版の案内](#/download) | Desktop 公開ページから取得 |
 
 ## 現在の導入方針
 
@@ -461,7 +461,7 @@ const DocsPage: React.FC = () => {
 
 1. [デスクトップ版の案内](#/download) を開く。
 2. 「macOS」または「Windows」の配布物を選ぶ。
-3. [公開リリースノート](#/desktop/release-notes) からインストーラーを取得する。
+3. [Desktop 公開ページ](#/desktop) からインストーラーを取得する。
 4. インストール後にログインして利用開始する。
 
 ## どれを選ぶとよいか
@@ -1261,7 +1261,7 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
       title: 'Desktop 導線',
       body: releaseVersion
         ? `公開版 v${releaseVersion}${publishedAt ? ` / ${publishedAt}` : ''}`
-        : '公開リリースノートと導入手順を確認できます。',
+        : 'Desktop 公開ページと導入手順を確認できます。',
       href: DESKTOP_RELEASE_NOTES_PATH,
       external: false,
       icon: Download,
@@ -1506,7 +1506,7 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
                     <div className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200">Current Desktop</div>
                     <div className="mt-2 text-2xl font-black">{releaseVersion ? `v${releaseVersion}` : 'Release Ready'}</div>
                     <div className="mt-1 text-sm text-indigo-100/75">
-                      {publishedAt ? `公開: ${publishedAt}` : '公開リリースを案内中'}
+                      {publishedAt ? `公開: ${publishedAt}` : 'Desktop 公開ページを案内中'}
                     </div>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/10 px-4 py-4">

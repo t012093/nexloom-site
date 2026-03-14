@@ -72,7 +72,7 @@ const Header: React.FC = () => {
           <div className="flex items-center gap-3">
             <Link to={DESKTOP_RELEASE_NOTES_PATH} className="hidden md:block">
               <Button variant="secondary" size="sm" className="rounded-xl px-4" icon={<Download size={15} />}>
-                公開リリース
+                Desktop 公開
               </Button>
             </Link>
             <a href={WEB_APP_URL} className="hidden md:block" aria-label="Nexloom Webアプリを開く">
@@ -100,7 +100,7 @@ const Header: React.FC = () => {
           <div className="rounded-[1.75rem] border border-slate-200 bg-white/95 px-4 pb-6 pt-4 shadow-[0_32px_70px_-38px_rgba(15,23,42,0.45)] backdrop-blur-xl">
             <div className="mb-4 rounded-2xl bg-[linear-gradient(135deg,#0f172a_0%,#312e81_58%,#4338ca_100%)] p-4 text-white">
               <div className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200">Nexloom Entry</div>
-              <div className="mt-2 text-lg font-black">Web からすぐ開始、Desktop は公開リリースから導入</div>
+              <div className="mt-2 text-lg font-black">Web からすぐ開始、Desktop は公開ページから導入</div>
             </div>
             <div className="space-y-2">
             {navItems.map((item) => (
@@ -116,7 +116,7 @@ const Header: React.FC = () => {
             <div className="pt-5">
               <Link to={DESKTOP_RELEASE_NOTES_PATH} className="block w-full">
                 <Button variant="secondary" className="w-full justify-center rounded-2xl" icon={<Download size={16} />}>
-                  公開リリースを見る
+                  Desktop 公開ページ
                 </Button>
               </Link>
               <a href={WEB_APP_URL} className="block w-full" aria-label="Nexloom Webアプリを開く">
