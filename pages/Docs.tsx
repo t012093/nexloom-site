@@ -1140,6 +1140,15 @@ A: [Role Management API Spec](https://github.com/t012093/ai-note-meet/blob/main/
 ### Q: モバイル配布やリリース運用はどこですか？
 A: [MOBILE_RELEASE_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/MOBILE_RELEASE_RUNBOOK.md) を参照してください。
 
+### Q: 通知が届かないときは何を見ればいいですか？
+A: まず通知設定で \`OSプッシュ通知\`、\`デスクトップ通知\`、\`（Web）通知音\`、\`未読バッジ\` の状態を確認してください。スマホ通知は端末側の通知許可と Push Token 登録、ブラウザ通知は OS / ブラウザ権限も確認対象です。詳細は [Notifications Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md) と [Notifications Test Procedure](https://github.com/t012093/ai-note-meet/blob/main/docs/tests/TEST_PROCEDURE_NOTIFICATIONS.md) を参照してください。
+
+### Q: 外部公開したページのリンクを止めたいですか？
+A: ページ設定で \`Publish to Web\` を OFF にすると公開リンクを無効化できます。公開前提でないメモは \`プライベート\` かワークスペース共有のまま運用してください。仕様は [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md) を参照してください。
+
+### Q: 外部カレンダー購読URLは再発行できますか？
+A: できます。管理画面の \`外部カレンダー同期 (β)\` から購読URLを発行し、必要に応じて再発行または失効できます。仕様は [Calendar External Sync Phase1 Plan](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/CALENDAR_EXTERNAL_SYNC_PHASE1_PLAN.md) を参照してください。
+
 ### Q: 現在の文書体系全体はどこで確認できますか？
 A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/README.md) を参照してください。`,
 
@@ -1158,6 +1167,9 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
 | 画面起動が遅い / \`403\`が連続する | [ORG_CONTEXT_403_RECOVERY_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/ORG_CONTEXT_403_RECOVERY_RUNBOOK.md) |
 | \`ERR_CONNECTION_TIMED_OUT\` / Backend到達不可 | [PRODUCTION_API_SYNC_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/PRODUCTION_API_SYNC_RUNBOOK.md) |
 | AI/自動化の応答失敗 | [AUTH_RUNTIME_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/AUTH_RUNTIME_RUNBOOK.md) |
+| 通知が届かない / デスクトップ通知が出ない | [Notifications Test Procedure](https://github.com/t012093/ai-note-meet/blob/main/docs/tests/TEST_PROCEDURE_NOTIFICATIONS.md) |
+| 公開リンクを止めたい / 外部共有を見直したい | [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md) |
+| 外部カレンダー購読URLを再発行・失効したい | [Calendar External Sync Phase1 Plan](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/CALENDAR_EXTERNAL_SYNC_PHASE1_PLAN.md) |
 | モバイル接続/ゲートウェイ経路の問題 | [OPENCLAW_MOBILE_GATEWAY_RUNBOOK.md](https://github.com/t012093/ai-note-meet/blob/main/docs/ops/runbooks/OPENCLAW_MOBILE_GATEWAY_RUNBOOK.md) |
 
 ## 初動チェック（共通）
@@ -1166,6 +1178,12 @@ A: [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/READM
 2. Networkタブで失敗したAPIのHTTPステータスとURLを控える。
 3. \`Console\` ログの先頭エラーと発生時刻を記録する。
 4. 再現条件（ユーザー、組織、画面、操作順）をまとめる。
+
+## 症状別の短い切り分け
+
+- 通知が届かない: メンション対象、通知設定、OS/ブラウザ通知権限、Push Token 登録を順に確認する。
+- 公開リンクを止めたい: ページ設定で \`Publish to Web\` を OFF にし、必要ならページ自体の共有範囲も見直す。
+- カレンダー購読URLを差し替えたい: 管理画面で URL を再発行し、旧URLは失効させる。
 
 ## 問い合わせ時に添える情報
 
