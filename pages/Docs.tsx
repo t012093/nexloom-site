@@ -6,9 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link as RouterLink } from 'react-router-dom';
 import { 
   ChevronRight, 
+  Bell,
   Book, 
   Search, 
   MessageSquare, 
+  Calendar,
   Cpu, 
   Zap, 
   Shield, 
@@ -219,6 +221,7 @@ const DocsPage: React.FC = () => {
       title: 'コミュニケーション',
       items: [
         { id: 'channels', label: 'チャンネルとチャット', icon: MessageSquare },
+        { id: 'notifications', label: '通知と通知設定', icon: Bell },
         { id: 'meetings', label: '会議とAI議事録', icon: Video },
       ]
     },
@@ -226,6 +229,7 @@ const DocsPage: React.FC = () => {
       title: 'プロジェクト管理',
       items: [
         { id: 'projects', label: 'プロジェクトの作成', icon: Briefcase },
+        { id: 'calendar', label: 'カレンダーと外部購読', icon: Calendar },
         { id: 'tasks', label: 'タスクとボード', icon: CheckSquare },
         { id: 'task_agents', label: 'AIエージェント', icon: Bot },
       ]
@@ -234,6 +238,7 @@ const DocsPage: React.FC = () => {
       title: 'ナレッジベース',
       items: [
         { id: 'pages', label: 'ページと階層構造', icon: FileText },
+        { id: 'sharing', label: '共有と公開リンク', icon: Globe },
         { id: 'editor', label: 'ブロックエディタ', icon: Book },
         { id: 'databases', label: 'データベース', icon: Database },
       ]
@@ -553,6 +558,43 @@ const DocsPage: React.FC = () => {
 - [Notifications Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md)
 - [Notifications Test Procedure](https://github.com/t012093/ai-note-meet/blob/main/docs/tests/TEST_PROCEDURE_NOTIFICATIONS.md)`,
 
+    notifications: `# 通知と通知設定
+
+## このページでわかること
+
+- 通知ベルと未読管理の基本
+- Web / Desktop / Mobile で切り替えられる通知設定
+- 通知が来ないときの最短確認ポイント
+
+## 5分手順
+
+1. 右上の通知ベルで未読一覧を開く。
+2. メンションやDMを1件受け取り、一覧に反映されることを確認する。
+3. 設定画面の「通知設定」を開く。
+4. \`OSプッシュ通知\`、\`デスクトップ通知\`、\`（Web）通知音\`、\`未読バッジ\` を必要に応じて切り替える。
+5. アプリを非アクティブにした状態でも通知が届くかをテストする。
+
+## 設定できる項目
+
+- \`OSプッシュ通知\`: 登録済みのスマホなどへ通知を送る。
+- \`OSプッシュ通知の音\`: プッシュをサイレント送信にするかを切り替える。
+- \`デスクトップ通知\`: Web/desktop 利用時にシステム通知を出す。
+- \`（Web）通知音\`: 新着通知時のビープ音を切り替える。
+- \`未読バッジ\`: 通知ベルの赤い未読インジケータを表示する。
+- \`メールダイジェスト\`: 現在は準備中で、設定保存のみ先行している。
+
+## つまずきやすい点
+
+- 通知が来ない: メンション対象、ブラウザ/OS権限、Pushトークン登録を確認する。
+- デスクトップ通知が出ない: 通知権限が \`granted\` になっているか確認する。
+- モバイル通知が出ない: 端末側の通知許可とログイン中の組織コンテキストを確認する。
+
+## 詳細仕様
+
+- [API Overview (Channels / Messages / Notifications)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Notifications Architecture](https://github.com/t012093/ai-note-meet/blob/main/docs/ARCHITECTURE_NOTIFICATIONS.md)
+- [Notifications Test Procedure](https://github.com/t012093/ai-note-meet/blob/main/docs/tests/TEST_PROCEDURE_NOTIFICATIONS.md)`,
+
     meetings: `# 会議とAI議事録
 
 ## このページでわかること
@@ -609,6 +651,42 @@ const DocsPage: React.FC = () => {
 - [Project Ops Board Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_OPS_BOARD_SPEC.md)
 - [Multi-tenant Organization Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MULTI_TENANT_ORGANIZATION_SPEC.md)
 - [Role Management User Guide](https://github.com/t012093/ai-note-meet/blob/main/docs/guides/ROLE_MANAGEMENT_USER_GUIDE.md)`,
+
+    calendar: `# カレンダーと外部購読
+
+## このページでわかること
+
+- Nexloom 内の予定確認と手動イベント追加の流れ
+- タスク・ページ・会議・イベントを同じカレンダーで見る考え方
+- Google / Outlook / Apple Calendar へ購読URLを渡す方法
+
+## 5分手順
+
+1. 左サイドバーの \`カレンダー\` を開く。
+2. Day / Week / Month を切り替えて、自分の予定と締切を確認する。
+3. 必要ならイベントを新規作成し、タイトル・時間・タグ・担当を設定する。
+4. プロジェクト、担当者、公開範囲でフィルタして見たい予定だけに絞る。
+5. 外部カレンダー連携が必要な場合は管理画面から購読URLを発行する。
+
+## この画面に集約されるもの
+
+- タスクの期限
+- ページ系の締切
+- 会議予定
+- 手動で作成したイベント
+
+## 外部購読の注意
+
+- 外部同期は \`ICS購読\` の片方向同期である。
+- Google / Outlook / Apple Calendar に購読URLを登録できる。
+- プライベート予定は同期対象に含まれない。
+- 購読URLは必要に応じて再発行・失効できる。
+
+## 詳細仕様
+
+- [API Overview](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Calendar Sales/Marketing UI UX Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/CALENDAR_SALES_MARKETING_UI_UX_SPEC.md)
+- [Calendar External Sync Phase1 Plan](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/CALENDAR_EXTERNAL_SYNC_PHASE1_PLAN.md)`,
 
     tasks: `# タスクとボード
 
@@ -694,6 +772,49 @@ const DocsPage: React.FC = () => {
 - [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md)
 - [Page Body RAG Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PAGE_BODY_RAG_PHASE2_SPEC.md)
 - [MCP Docs Operation Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/MCP_DOCS_OPERATION_SPEC.md)`,
+
+    sharing: `# 共有と公開リンク
+
+## このページでわかること
+
+- ワークスペース共有、プライベート、公開リンクの違い
+- ページを外部共有するときの基本手順
+- 公開リンク運用で事故を減らす確認ポイント
+
+## 共有モードの考え方
+
+| モード | 用途 | 目安 |
+| --- | --- | --- |
+| ワークスペース共有 | 同じ組織/チーム内で広く読む | 通常のページ共有 |
+| プライベートノート | 所有者中心で一時的に閉じる | 下書き、個人メモ |
+| 公開リンク | 外部へ閲覧URLを渡す | read-onlyで共有したいとき |
+
+## 5分手順
+
+1. 対象ページを開き、ページ設定を開く。
+2. まず \`ワークスペース共有\` か \`プライベート\` かを決める。
+3. 外部共有が必要なときだけ \`Publish to Web\` を有効にする。
+4. 発行された公開URLをコピーし、意図した相手だけへ渡す。
+5. 不要になったら公開を停止し、リンクを無効化する。
+
+## 実装上の前提
+
+- 公開ページは閲覧用リンクとして配布される。
+- URL形式は \`https://ai-note-meet.vercel.app/share/{share_id}\` で扱う。
+- 外部公開の前に、ページ内に機密情報や途中メモが残っていないか確認する。
+- プライベートノートは公開リンクを前提にしない。
+
+## 運用のコツ
+
+- 公開前にタイトル、先頭要約、更新日時を整える。
+- 会議メモや下書きは、要点整理後に公開へ切り替える。
+- 共有範囲が曖昧なら、まず内部共有でレビューしてから公開する。
+
+## 詳細仕様
+
+- [API Overview (Pages)](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md)
+- [Project Document Operability Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PROJECT_DOCUMENT_OPERABILITY_PHASE2_SPEC.md)
+- [Page Body RAG Phase2 Spec](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/PAGE_BODY_RAG_PHASE2_SPEC.md)`,
 
     editor: `# ブロックエディタ
 
