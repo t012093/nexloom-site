@@ -7,6 +7,7 @@ import DownloadPage from './pages/Download';
 import DesktopReleaseNotesPage from './pages/DesktopReleaseNotes';
 import MobilePage from './pages/Mobile';
 import DocsPage from './pages/Docs';
+import DeveloperMcpPage from './pages/DeveloperMcp';
 import PricingPage from './pages/Pricing';
 import BlogPage from './pages/Blog';
 import TermsPage from './pages/Terms';
@@ -34,6 +35,7 @@ const App: React.FC = () => {
             <Route path="/download" element={<DownloadPage />} />
             <Route path="/desktop/release-notes" element={<DesktopReleaseNotesPage />} />
             <Route path="/docs" element={<DocsPage />} />
+            <Route path="/developers/mcp" element={<DeveloperMcpPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/terms" element={<TermsPage />} />

@@ -42,7 +42,7 @@ import {
   Smartphone,
   Sparkles
 } from 'lucide-react';
-import { DESKTOP_RELEASE_NOTES_PATH, WEB_APP_URL } from '../constants/links';
+import { DESKTOP_RELEASE_NOTES_PATH, MCP_DEVELOPER_PATH, WEB_APP_URL } from '../constants/links';
 import { useDesktopReleaseManifest } from '../hooks/useDesktopReleaseManifest';
 
 // --- Mermaid Configuration ---
@@ -1042,6 +1042,7 @@ const DocsPage: React.FC = () => {
 | 全体インデックス | [docs/README.md](https://github.com/t012093/ai-note-meet/blob/main/docs/README.md) |
 | API概要 | [docs/API_OVERVIEW.md](https://github.com/t012093/ai-note-meet/blob/main/docs/API_OVERVIEW.md) |
 | MCPリファレンス | [docs/MCP_REFERENCE.md](https://github.com/t012093/ai-note-meet/blob/main/docs/MCP_REFERENCE.md) |
+| MCPクライアント設定 | [site 専用ガイド](${MCP_DEVELOPER_PATH}) |
 | 役割管理API | [docs/spec/ROLE_MANAGEMENT_API_SPEC.md](https://github.com/t012093/ai-note-meet/blob/main/docs/spec/ROLE_MANAGEMENT_API_SPEC.md) |
 | 運用Runbook | [docs/ops/runbooks/](https://github.com/t012093/ai-note-meet/tree/main/docs/ops/runbooks) |
 | リリーステンプレ | [docs/ops/templates/](https://github.com/t012093/ai-note-meet/tree/main/docs/ops/templates) |`,
@@ -1092,7 +1093,7 @@ const DocsPage: React.FC = () => {
 
 - 目的: ChatGPT、Claude Code などのクライアントから、Nexloom の remote MCP server へ最短で接続できるようにする。
 - 結論: 接続先は \`https://api.coral-network.com/mcp\`、認証は \`OAuth\` を基本にし、まず browser-based OAuth と dynamic client registration を優先する。
-- 次アクション: 利用クライアントを1つ選び、\`list_projects\` または初回の \`tools/list\` 相当まで通す。
+- 次アクション: 専用ページ [MCP Client Setup](${MCP_DEVELOPER_PATH}) を開き、利用クライアント別の手順に従って接続確認する。
 
 ## 共通設定
 
@@ -1105,46 +1106,10 @@ const DocsPage: React.FC = () => {
 - 2026-03-02 より前に作成した connector / app で \`Token exchange failed\` が出る場合は、一度削除して作り直す。
 - static client ID / secret は fallback であり、公開ドキュメントには secret を書かない。
 
-## ChatGPT
+## 専用ガイド
 
-- 確認日: 2026-03-14
-- OpenAI の一次情報では、custom MCP は remote server のみ対応で、local MCP server は使えない。
-- ChatGPT web では developer mode が必要で、full MCP は Business / Enterprise / Edu 向け、Pro は developer mode 上で read/fetch 制限付きで案内されている。
-- Nexloom の write 系ツールまで使う前提なら、Business / Enterprise / Edu 側で確認するのが安全である。
-
-### 推奨手順
-
-1. ChatGPT web で developer mode を有効化する。
-2. App / MCP app の作成画面を開く。
-3. server URL に \`https://api.coral-network.com/mcp\` を入れる。
-4. authentication は \`OAuth\` を選び、client ID / secret はまず空欄で試す。
-5. ブラウザで OAuth sign-in を完了し、読み取り系ツールで接続確認する。
-
-## Claude Code
-
-- 確認日: 2026-03-14
-- Anthropic の一次情報では remote HTTP transport が推奨で、\`claude mcp add --transport http <name> <url>\` で追加する。
-- OAuth が必要な remote server は、追加後に \`/mcp\` から認証する。
-
-### 推奨コマンド
-
-    claude mcp add --transport http nexloom https://api.coral-network.com/mcp
-
-### 認証確認
-
-    /mcp
-
-### 補足
-
-- ブラウザが開いたら OAuth sign-in を完了する。
-- 認証をやり直すときも \`/mcp\` が最短である。
-- callback port や static client が必要な特殊運用だけ、サーバー管理者の指示に合わせて追加設定する。
-
-## ほかのクライアント
-
-- Claude Desktop / Claude: remote connector 追加画面で same URL + OAuth を使う。
-- Gemini CLI: \`.gemini/settings.json\` に remote MCP server を追加し、必要なら \`/mcp auth nexloom\` を使う。
-- Codex: \`codex mcp add nexloom --url https://api.coral-network.com/mcp\` で追加する。
+- ChatGPT、Claude Code、Claude Desktop、Gemini CLI、Codex の専用導線を [MCP Client Setup](${MCP_DEVELOPER_PATH}) にまとめている。
+- この Docs ページでは入口と正本リンクだけを保持し、具体手順は専用ページへ寄せる。
 
 ## 正本と一次情報
 
