@@ -7,6 +7,13 @@ const normalizeOptionalUrl = (value: string | undefined): string | null => {
   return normalized.length > 0 ? normalized : null;
 };
 
+export const IOS_DOWNLOAD_URL = normalizeOptionalUrl(
+  import.meta.env.VITE_IOS_DOWNLOAD_URL
+);
+
+export const IOS_DOWNLOAD_LABEL =
+  String(import.meta.env.VITE_IOS_DOWNLOAD_LABEL ?? '').trim() || 'iOS TestFlight';
+
 export const ANDROID_DOWNLOAD_URL = normalizeOptionalUrl(
   import.meta.env.VITE_ANDROID_DOWNLOAD_URL
 );

@@ -16,10 +16,14 @@ View your app in AI Studio: https://ai.studio/apps/drive/1hOJYUlSEZuUzYwpnLSIUlO
 1. Install dependencies:
    `npm install`
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Optional: set Android distribution URL in `.env.local`
+3. Optional: set iOS distribution URL in `.env.local`
+   `VITE_IOS_DOWNLOAD_URL=https://testflight.apple.com/join/your-link`
+4. Optional: set iOS label shown on the site
+   `VITE_IOS_DOWNLOAD_LABEL=iOS TestFlight`
+5. Optional: set Android distribution URL in `.env.local`
    `VITE_ANDROID_DOWNLOAD_URL=https://your-public-host/path/app.apk`
-4. Optional: set Android label shown on the site
+6. Optional: set Android label shown on the site
    `VITE_ANDROID_DOWNLOAD_LABEL=Android preview APK v1.0.0`
-5. Prefer a stable public APK URL rather than a short-lived artifact URL
-6. Run the app:
+7. Prefer a stable public install URL rather than a short-lived artifact URL
+8. Run the app:
    `npm run dev`
