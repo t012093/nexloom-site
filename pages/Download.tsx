@@ -4,7 +4,7 @@ import { Download, Apple, Monitor, Laptop, ArrowRight, ShieldCheck, Zap, Globe }
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { OSType } from '../types';
-import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
+import { ANDROID_DOWNLOAD_URL, DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
 
 const DownloadPage: React.FC = () => {
   const [os, setOs] = useState<OSType>(OSType.UNKNOWN);
@@ -129,9 +129,15 @@ const DownloadPage: React.FC = () => {
                   モバイル版を見る
                 </Button>
               </Link>
+              {ANDROID_DOWNLOAD_URL ? (
+                <a href={ANDROID_DOWNLOAD_URL} className="text-sm font-bold text-indigo-300 hover:text-white flex items-center">
+                  Android APK を直接ダウンロード <ArrowRight size={14} className="ml-1" />
+                </a>
+              ) : (
                 <div className="text-sm text-slate-400">
                   Web now / iOS beta / Android preview
                 </div>
+              )}
             </div>
           </div>
         </motion.div>

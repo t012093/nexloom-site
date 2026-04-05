@@ -3,6 +3,7 @@ import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import mermaid from 'mermaid';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ANDROID_DOWNLOAD_URL } from '../constants/links';
 import { 
   ChevronRight, 
   Book, 
@@ -189,6 +190,7 @@ const DocsPage: React.FC = () => {
   const [activeId, setActiveId] = useState('intro');
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isAndroidDownloadAvailable = Boolean(ANDROID_DOWNLOAD_URL);
 
   const menu = [
     {
@@ -339,7 +341,7 @@ const DocsPage: React.FC = () => {
 ## 現在の公開状況
 
 - Web版は今すぐ利用開始できる正規入口です。
-- モバイル版は段階提供です。iOS は TestFlight、Android は internal build または preview 配布が前提です。
+- モバイル版は段階提供です。iOS は TestFlight、Android は ${isAndroidDownloadAvailable ? 'サイト上の直接ダウンロード' : 'internal build または preview 配布'} が前提です。
 - 公開ストア URL が未整備の期間は、まず Web 版で使い始める案内が基本です。
 
 ## どの手順を見ればよいか
@@ -371,7 +373,7 @@ const DocsPage: React.FC = () => {
 ## Androidを利用する場合
 
 1. まず [モバイル版の案内](#/mobile) で現在の提供状況を確認する。
-2. チームから配布されたAndroidビルド（例: internal APK）を取得する。
+2. ${isAndroidDownloadAvailable ? '[モバイル版の案内](#/mobile) から Android APK を直接取得する。' : 'チームから配布されたAndroidビルド（例: internal APK）を取得する。'}
 3. 端末設定で必要な場合は「不明なアプリのインストール」を一時的に許可する。
 4. アプリをインストールしてサインインする。
 5. 通知を使う場合は通知許可を有効にする。
@@ -411,14 +413,14 @@ const DocsPage: React.FC = () => {
 | 使いたい環境 | 入口 | インストール |
 | --- | --- | --- |
 | Web | [Webアプリ](https://ai-note-meet.vercel.app/) | 不要 |
-| モバイル | [モバイル版の案内](#/mobile) | 配布状況に応じて TestFlight / internal build |
+| モバイル | [モバイル版の案内](#/mobile) | 配布状況に応じて TestFlight / ${isAndroidDownloadAvailable ? 'site download' : 'internal build'} |
 | デスクトップ | [デスクトップ版の案内](#/download) | GitHub Releases から取得 |
 
 ## 現在の導入方針
 
 - いますぐ使うなら Web 版
 - iPhone / iPad は TestFlight 招待経由
-- Android は internal build または preview 配布経由
+- Android は ${isAndroidDownloadAvailable ? 'モバイル版ページから APK を直接取得' : 'internal build または preview 配布経由'}
 - モバイルと Web は同じアカウント、同じ組織で使う
 
 ## Web版（インストール不要）
@@ -438,7 +440,7 @@ const DocsPage: React.FC = () => {
 ## Android版
 
 1. [モバイル版の案内](#/mobile) で提供状況を確認する。
-2. チーム配布の Android ビルド（internal APK など）を取得する。
+2. ${isAndroidDownloadAvailable ? '[モバイル版の案内](#/mobile) から Android APK をダウンロードする。' : 'チーム配布の Android ビルド（internal APK など）を取得する。'}
 3. 端末設定で必要な場合のみ「不明なアプリのインストール」を許可する。
 4. インストール後にログインする。
 5. 端末差分の確認は [android-compatibility-spec.md](https://github.com/t012093/ai-note-meet/blob/main/apps/mobile/docs/android-compatibility-spec.md) を参照する。

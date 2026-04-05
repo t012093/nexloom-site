@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Button from '../components/Button';
 import { FeatureItem } from '../types';
-import { DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
+import { ANDROID_DOWNLOAD_URL, DESKTOP_RELEASE_URL, WEB_APP_URL } from '../constants/links';
 
 const features: FeatureItem[] = [
   {
@@ -59,6 +59,8 @@ const item = {
 };
 
 const HomePage: React.FC = () => {
+  const isAndroidDownloadAvailable = Boolean(ANDROID_DOWNLOAD_URL);
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
@@ -77,7 +79,11 @@ const HomePage: React.FC = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                 </span>
-                <span>Web版公開 + デスクトップ提供 + モバイルβ</span>
+                <span>
+                  {isAndroidDownloadAvailable
+                    ? 'Web版公開 + デスクトップ提供 + Android直ダウンロード'
+                    : 'Web版公開 + デスクトップ提供 + モバイルβ'}
+                </span>
               </div>
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight mb-8 leading-[1.1]">
                 チームのすべてを、<br/>
@@ -268,6 +274,9 @@ const HomePage: React.FC = () => {
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-indigo-100 mb-6">
                   <Smartphone size={16} />
                   <span>Mobile Beta</span>
+                  <span className="text-indigo-200/80">
+                    {isAndroidDownloadAvailable ? 'Android direct download' : 'iOS / Android preview'}
+                  </span>
                 </div>
                 <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-5">
                   移動中の判断まで、
@@ -276,7 +285,9 @@ const HomePage: React.FC = () => {
                 </h2>
                 <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
                   モバイル版では、通知確認だけで終わらず、チャット、AI、チームの流れをそのまま手元で引き継げます。
-                  まずは iOS 先行で整え、Android も段階的に広げます。
+                  {isAndroidDownloadAvailable
+                    ? ' Android はこのサイトから APK を直接取得できます。'
+                    : ' まずは iOS 先行で整え、Android も段階的に広げます。'}
                 </p>
               </div>
               <div className="flex flex-col gap-4">
@@ -285,6 +296,13 @@ const HomePage: React.FC = () => {
                     モバイル版の詳細を見る
                   </Button>
                 </Link>
+                {isAndroidDownloadAvailable && ANDROID_DOWNLOAD_URL && (
+                  <a href={ANDROID_DOWNLOAD_URL} className="w-full">
+                    <Button variant="ghost" size="lg" className="w-full justify-center h-14 rounded-2xl border border-emerald-300 text-white hover:bg-white/10">
+                      Android APK をダウンロード
+                    </Button>
+                  </a>
+                )}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200 mb-2">iOS</p>
@@ -292,7 +310,9 @@ const HomePage: React.FC = () => {
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-white">
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200 mb-2">Android</p>
-                    <p className="text-sm font-semibold">Preview 準備中</p>
+                    <p className="text-sm font-semibold">
+                      {isAndroidDownloadAvailable ? 'APK 配布中' : 'Preview 準備中'}
+                    </p>
                   </div>
                 </div>
               </div>

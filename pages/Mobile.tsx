@@ -13,10 +13,13 @@ import {
   Sparkles,
   Wifi,
 } from 'lucide-react';
+import AndroidDownloadCard from '../components/AndroidDownloadCard';
 import Button from '../components/Button';
-import { WEB_APP_URL } from '../constants/links';
+import { ANDROID_DOWNLOAD_LABEL, ANDROID_DOWNLOAD_URL, WEB_APP_URL } from '../constants/links';
 
 const MobilePage: React.FC = () => {
+  const isAndroidDownloadAvailable = Boolean(ANDROID_DOWNLOAD_URL);
+
   return (
     <div className="pt-28 pb-24 min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.14),_transparent_30%),linear-gradient(180deg,#f8fafc_0%,#ffffff_48%,#eef2ff_100%)] overflow-hidden">
       <section className="relative">
@@ -32,7 +35,9 @@ const MobilePage: React.FC = () => {
                 <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/80 backdrop-blur px-4 py-2 text-sm font-semibold text-indigo-700 shadow-sm mb-8">
                   <Smartphone size={16} />
                   <span>Mobile Beta</span>
-                  <span className="text-slate-400">iOS先行 / Android preview</span>
+                  <span className="text-slate-400">
+                    {isAndroidDownloadAvailable ? 'iOS beta / Android direct download' : 'iOS先行 / Android preview'}
+                  </span>
                 </div>
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.05] mb-8">
                   机の前だけで終わらない、
@@ -170,10 +175,14 @@ const MobilePage: React.FC = () => {
                       <Play className="text-slate-700" size={20} />
                       <span className="font-black text-slate-900">Android Preview</span>
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-slate-500">In progress</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                      {isAndroidDownloadAvailable ? 'Available now' : 'In progress'}
+                    </span>
                   </div>
                   <p className="text-sm text-slate-600 leading-relaxed">
-                    Android は互換性確認と接続設定 UX を詰めながら、段階的に広げます。
+                    {isAndroidDownloadAvailable
+                      ? 'Android 端末向けに、このサイトから直接 APK を取得できる状態です。'
+                      : 'Android は互換性確認と接続設定 UX を詰めながら、段階的に広げます。'}
                   </p>
                 </div>
               </div>
@@ -275,18 +284,40 @@ const MobilePage: React.FC = () => {
               <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 mb-3">Android Preview</p>
               <h3 className="text-2xl font-black text-slate-900 mb-4">Internal Build で導入</h3>
               <ol className="space-y-3 text-sm text-slate-600 leading-relaxed list-decimal pl-5">
-                <li>配布された Android ビルドを取得する</li>
+                <li>{isAndroidDownloadAvailable ? 'このページのボタンまたは QR から Android ビルドを取得する' : '配布された Android ビルドを取得する'}</li>
                 <li>必要な場合のみ提供元不明アプリの許可を有効にする</li>
                 <li>APK をインストールしてログインする</li>
                 <li>互換性差分がある場合は案内ドキュメントに従う</li>
               </ol>
+              {isAndroidDownloadAvailable && ANDROID_DOWNLOAD_URL && (
+                <div className="mt-6">
+                  <a href={ANDROID_DOWNLOAD_URL} className="inline-flex" aria-label="Android APK をダウンロード">
+                    <Button size="lg" className="rounded-2xl px-6">
+                      Android APK をダウンロード
+                    </Button>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
+
+          {isAndroidDownloadAvailable && ANDROID_DOWNLOAD_URL && (
+            <div className="mt-8">
+              <AndroidDownloadCard
+                url={ANDROID_DOWNLOAD_URL}
+                label={ANDROID_DOWNLOAD_LABEL}
+                title="Android はこのサイトから直接インストール"
+                description="Pixel を含む Android 端末向けに、サイト上で APK 配布と QR 共有をまとめました。配布URLが更新された場合も、このページの案内を使えば迷いません。"
+              />
+            </div>
+          )}
 
           <div className="mt-8 rounded-[2rem] border border-amber-200 bg-amber-50 p-6 text-sm text-amber-900">
             <p className="font-black mb-2">現在の公開状況</p>
             <p className="leading-relaxed">
-              公開ストア URL が未整備の期間は、Web 版を正規の入口として案内し、モバイル版は TestFlight または internal build で提供します。
+              {isAndroidDownloadAvailable
+                ? '公開ストア URL が未整備の期間でも、Android はこのページから APK を直接配布できます。iOS は引き続き TestFlight を正規導線とします。'
+                : '公開ストア URL が未整備の期間は、Web 版を正規の入口として案内し、モバイル版は TestFlight または internal build で提供します。'}
             </p>
           </div>
         </div>
