@@ -23,6 +23,14 @@ import {
 const MobilePage: React.FC = () => {
   const isAndroidDownloadAvailable = Boolean(ANDROID_DOWNLOAD_URL);
   const isIosDownloadAvailable = Boolean(IOS_DOWNLOAD_URL);
+  const installOptionsRef = React.useRef<HTMLElement | null>(null);
+
+  const scrollToInstallOptions = () => {
+    installOptionsRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
 
   return (
     <div className="min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.18),transparent_28%),radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_30%),linear-gradient(180deg,#f8fafc_0%,#ffffff_42%,#ecfeff_100%)] pb-24 pt-28">
@@ -54,11 +62,13 @@ const MobilePage: React.FC = () => {
             </p>
 
             <div className="mb-8 flex flex-col gap-4 sm:flex-row">
-              <a href="#install-options" className="w-full sm:w-auto">
-                <Button size="lg" className="h-14 w-full rounded-2xl px-8 shadow-xl shadow-cyan-200 sm:w-auto">
-                  インストール方法を見る
-                </Button>
-              </a>
+              <Button
+                size="lg"
+                className="h-14 w-full rounded-2xl px-8 shadow-xl shadow-cyan-200 sm:w-auto"
+                onClick={scrollToInstallOptions}
+              >
+                インストール方法を見る
+              </Button>
               <a href={WEB_APP_URL} className="w-full sm:w-auto" aria-label="Nexloom Webアプリを開く">
                 <Button
                   variant="secondary"
@@ -160,7 +170,11 @@ const MobilePage: React.FC = () => {
         </div>
       </section>
 
-      <section id="install-options" className="py-20">
+      <section
+        id="install-options"
+        ref={installOptionsRef}
+        className="scroll-mt-28 py-20"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 max-w-3xl">
             <p className="mb-4 text-sm font-black uppercase tracking-[0.2em] text-cyan-700">Install Options</p>
